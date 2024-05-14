@@ -1,0 +1,169 @@
+<%- locals.flash %>
+<section class="content">
+  <%
+  let item = {}
+  if (data) {
+       item = data
+  }
+%>
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Form 1: General Information -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">General</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select name='status' id="status" class="form-control custom-select">
+                <option selected disabled="">Select one</option>
+                <option value="active" <%= (item.status == "active") ? 'selected="selected"' : '' %> >Active</option>
+                <option value="inactive" value="inactive" <%= (item.status == "inactive") ? 'selected="selected"' : '' %>>Inactive</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="Model">Model</label>
+              <input name="Model" type="text" id="Model" class="form-control" value="<%= item.name %>" readonly>
+              <input style="display: none" name="id" type="text" id="id" class="form-control" value="<%= item._id  %>" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="Rental">Rental</label>
+              <input name="Rental" type="string" id="Rental" class="form-control" value="<%= saler.userinformation[0].name  %>" readonly>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                  <label for="Brand">Brand</label>
+                  <input name="Brand" type="text" id="Brand" class="form-control" value="<%= item.productinformation[0].brand%>" readonly>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="YearManufacture">Year Manufacture</label>
+                <input name="YearManufacture" type="text" id="YearManufacture" class="form-control" value="<%= item.productinformation[0].year%>" readonly>
+            </div>
+            </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="CurentOdo">Curent Odo</label>
+                  <input name="CurentOdo" type="text" id="CurentOdo" class="form-control" value="<%= item.productinformation[0].odo%>" readonly>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="LicensePlate">License plate</label>
+                <input name="LicensePlate" type="text" id="LicensePlate" class="form-control" value="<%= item.productinformation[0].license%>" readonly>
+              </div>
+                </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="VIN">VIN</label>
+                      <input name="VIN" type="text" id="VIN" class="form-control" value="<%= item.productinformation[0].frame%>" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="EngineNumber">Engine mumber</label>
+                        <input name="EngineNumber" type="text" id="EngineNumber" class="form-control" value="<%= item.productinformation[0].machine%>" readonly>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="description">Description</label>
+                    <div class="form-group">
+                      <input name="description" type="text" id="description" class="form-control" value="<%= item.description%>" readonly>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="CurrentCondition">Current condition</label>
+                      <input name="CurrentCondition" type="text" id="CurrentCondition" class="form-control" value="<%= item.productinformation[0].state%>" readonly>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Price">Price per day</label>
+                        <input name="Price" type="text" id="Price" class="form-control" value="<%= item.price%> VND" readonly>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="Location">Location</label>
+                    <div class="form-group">
+                      <input name="Location" type="text" id="Location" class="form-control" value="<%= item.address[0].street%> <%= item.address[0].ward%> <%= item.address[0].district%> <%= item.address[0].city%>" readonly>
+                    </div>
+                  </div>
+          </div>
+          </div>
+          <a href="/admin/product/all"> <button type="button" class="btn btn-primary float-right">Back to Manage</button></a>
+        </div>
+      <div class="col-md-6">
+        <!-- Form 2: Image Display -->
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Images</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Display uploaded images here -->
+                <label>Thumnail</label>
+                <div class="image-container">
+                    <img src="<%= item.image%>" class="img-fluid">
+                </div><hr>
+  
+                <label>Vehicle images</label>
+                <div class="image-container">
+                    <img src="<%= item.List[0].Image%>" alt="Uploaded Image" class="img-fluid">
+                </div>
+                <div class="image-container">
+                    <img src="<%= item.List[1].Image%>" alt="Uploaded Image" class="img-fluid">
+                </div>
+                <div class="image-container">
+                    <img src="<%= item.List[2].Image%>" alt="Uploaded Image" class="img-fluid">
+                </div><hr>
+  
+                <label>Vehicle registration</label>
+                <div class="image-container">
+                    <img src="<%= item.vrcertificateFront%>" alt="Uploaded Image" class="img-fluid">
+                </div>
+                <div class="image-container">
+                    <img src="<%= item.vrcertificateRear%>" alt="Uploaded Image" class="img-fluid">
+                </div><hr>
+  
+                <label>Vehicle insurance</label>
+                <div class="image-container">
+                    <img src="<%= item.minsurance%>" alt="Uploaded Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <style>
+      .image-container img {
+          width: 100%;  /* Scale according to the width of the form */
+          height: auto; /* Adjust automatically to maintain aspect ratio */
+          object-fit: cover; /* This will ensure that images are scaled correctly */
+      }
+      </style>
+
+   
+
+    
+
+  </div>
+
+  
+
+  
+
+</div>
+</section>

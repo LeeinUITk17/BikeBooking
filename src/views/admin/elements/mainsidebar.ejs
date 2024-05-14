@@ -1,0 +1,111 @@
+<%
+    let arrMenu = [
+        {parent: false, name: 'Dashboard', icon: 'ion-ios-keypad-outline', link: `admin`},
+        {parent: false, name: 'Contact', icon: 'ion-ios-keypad-outline', link: `admin/contact`},
+        {parent: false, name: 'User manager', icon: 'ion-ios-keypad-outline', link: `admin/user/all`},
+        {parent: false, name: 'Contract manager', icon: 'ion-ios-keypad-outline', link: `admin/contract`},
+        {parent: true, child: [
+                                { name: ' News', icon: 'ion-clipboard', link: `admin/news/all`},
+                                { name: ' Category', icon: 'ion-clipboard', link: `admin/category/all`},
+                                { name: ' Setting', icon: 'ion-clipboard', link: `admin/setting`},
+                                
+                               
+                              ],
+        name: 'News', icon: 'fas fa-list', link: `admin/news`},
+        {parent: true, child: [
+                                { name: 'Product', icon: 'ion-clipboard', link: `admin/product/all`},
+                                { name: 'Product.category', icon: 'ion-clipboard', link: `admin/product/category/all`},
+                               
+                              ],
+        name: 'Product', icon: 'fas fa-list', link: `#`},
+    ];
+    
+
+    
+    let xhtmlMenu = '';
+    arrMenu.forEach(menu => {
+      if(menu.parent == false){
+        xhtmlMenu += `<li class="nav-item">
+                          <a href="/${menu.link}" class="nav-link">
+                            <i class="${menu.icon}" style="margin-right: 10px;"></i>
+                            <p>
+                              ${menu.name}
+                            </p>
+                          </a>
+                     </li>`;
+      } else if(menu.parent == true){
+        let childHtml = ''
+        menu.child.forEach(function(childrenEntry){
+          childHtml+= `
+                      <li class="nav-item">
+                        <a href="/${childrenEntry.link}" class="nav-link">
+                          <i class="${childrenEntry.icon}"></i>
+                          <p>${childrenEntry.name}</p>
+                        </a>
+                      </li>
+                      `
+        })
+        xhtmlMenu+=`
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon ${menu.icon}"></i>
+                        <p>
+                          ${menu.name}
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview" style="display: none;">
+                            ${childHtml}
+                      </ul>
+                    </li>
+                `
+      }
+    });
+
+%>
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/admin/" class="brand-link">
+      <img src="/admin/dist/img/pepe5.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">NoFtee</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="/admin/dist/img/BEER.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">NOF-ThTai</a>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+               <%- xhtmlMenu %>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+ 
+  

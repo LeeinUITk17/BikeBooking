@@ -1,0 +1,28 @@
+
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("myPrice");
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function () {
+        if (slider.value >= 1000) {
+            output.innerHTML = "Từ: " + (slider.value / 1000) + " triệu ₫";
+        } else {
+            output.innerHTML = "Từ: " + slider.value + ".000₫";
+        }
+    }
+
+    document.querySelector('.filter').addEventListener('click', function () {
+        var elements = document.querySelectorAll('.advance-search > *:not(.filter)');
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].style.display === 'none') {
+                elements[i].style.display = 'block';
+                if (elements[i].classList.contains('apply')) {
+                    elements[i].style.display = 'flex';
+                }
+            }  else {
+                elements[i].style.display = 'none';
+            }
+        }
+    });
+</script>

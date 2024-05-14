@@ -1,0 +1,251 @@
+<div class="receipt-content">
+    <div class="container bootstrap snippets bootdey">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="invoice-wrapper">
+            <div class="intro">
+              <strong>Hợp đồng cho thuê</strong>
+              <br>
+              Được bảo đảm bởi <strong>luật pháp</strong> và <strong>EzBooking</strong>
+            </div>
+
+            <div class="payment-info">
+              <div class="row">
+                <div class="col-sm-6">
+                  <span>Mã số hợp đồng</span>
+                  <strong><%= contract._id%></strong>
+                </div>
+
+                <div class="col-sm-6 text-right">
+                  <span>Ngày tạo hợp đồng</span>
+                  <strong><%= contract.createdAt.toISOString().split('T')[0]%></strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="payment-details">
+              <div class="row">
+                <div class="col-sm-6">
+                  <span>Bên thuê</span>
+
+                  <strong>
+                    <%= user.userinformation[0].name%>
+                  </strong>
+
+                  <p>
+                    <%= user.address[0].street%><br> 
+                    <%= user.address[0].ward%><br>
+                    <%= user.address[0].district%><br>
+                    <%= user.address[0].city%><br>
+                    <%= user.userinformation[0].phone%><br>
+
+                    <a href="https://mail.google.com/mail/u/0/#inbox">
+                      <span class="__cf_email__" data-cfemail="b1dbdedfdfc8d5d4d7d7f1d6dcd0d8dd9fd2dedc">[<%= user.userinformation[0].email%>]</span>
+                    </a>
+                  </p>
+                </div>
+
+                <div class="col-sm-6 text-right">
+                  <span>Bên cho thuê</span>
+                  <strong>
+                    <%= saler.userinformation[0].name%>
+                  </strong>
+
+                  <p>
+                    <%= saler.address[0].street%><br> 
+                    <%= saler.address[0].ward%><br>
+                    <%= saler.address[0].district%><br>
+                    <%= saler.address[0].city%><br>
+                    <%= saler.userinformation[0].phone%><br>
+
+                    <a href="https://mail.google.com/mail/u/0/#inbox">
+                      <span class="__cf_email__" data-cfemail="b6dcc3d7d8d0d3c4f6d1dbd7dfda98d5d9db">[<%= saler.userinformation[0].email%>]</span>
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+              
+            <div class="line-items">
+              <div class="headers clearfix">
+                <strong>Thông tin xe</strong>
+
+                <div class="row">
+                  <div class="col-xs-4"></div>
+                  <div class="col-xs-3"></div>
+                  <div class="col-xs-5 text-right"></div>
+                </div>
+              </div>
+
+              <div class="items">
+                <div class="row item">
+                  <div class="col-xs-4 desc">
+                    Hãng xe:
+                  </div>
+              
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                    <%= product.productinformation[0].brand%>
+                  </div>
+                </div>
+                                
+                <div class="row item">
+                  <div class="col-xs-4 desc">
+                  Tên xe
+                  </div>
+
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                  <%= product.name%>
+                  </div>
+                </div>
+
+                <div class="row item">
+                  <div class="col-xs-4 desc">
+                    Năm sản xuất:
+                  </div>
+            
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                    <%= product.productinformation[0].year%>
+                  </div>
+                </div>
+
+                <div class="row item">
+                  <div class="col-xs-4 desc" >
+                    Odo hiện tại:
+                  </div>
+            
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                    <%= product.productinformation[0].odo%> km
+                  </div>
+                </div>
+
+                <div class="row item">
+                  <div class="col-xs-4 desc">
+                    Biển số:
+                  </div>
+          
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                    <%= product.productinformation[0].license%>
+                  </div>
+                </div>
+
+                <div class="row item">
+                  <div class="col-xs-4 desc">
+                    Số khung:
+                  </div>
+        
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                    <%= product.productinformation[0].frame%>
+                  </div>
+                </div>
+
+                <div class="row item">
+                  <div class="col-xs-4 desc">
+                    Số máy:
+                  </div>
+        
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                    <%= product.productinformation[0].machine%>
+                  </div>
+                </div>
+
+                <div class="row item">
+                   <div class="col-xs-4 desc">
+                    Tình trạng xe
+                  </div>
+          
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                    <%= product.productinformation[0].state%>
+                  </div>
+                </div>
+
+                <div class="row item">
+                  <div class="col-xs-4 desc">
+                  Giá thuê /ngày:
+                 </div>
+         
+                 <div class="col-xs-5 amount text-right" style="text-align: right;">
+                   <%= contract.price%>
+                 </div>
+               </div>
+
+               <div class="row item">
+                <div class="col-xs-4 desc">
+                 Vị trí cho thuê:
+               </div>
+       
+               <div class="col-xs-5 amount text-right" style="text-align: right;">
+                <p><strong><%= saler.address[0].street%> <%= saler.address[0].ward%> <%= saler.address[0].district%> <%= saler.address[0].city%></strong></p>
+               </div>
+             </div>
+
+                <div class="row item">
+                  <div class="col-xs-4 desc">
+                    Từ ngày
+                  </div>
+    
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                    <%= contract.createdAt.toISOString().split('T')[0]%>
+                  </div>
+                </div>
+
+                 <div class="row item">
+                  <div class="col-xs-4 desc">
+                    Đến ngày
+                  </div>
+        
+                  <div class="col-xs-5 amount text-right" style="text-align: right;">
+                    <%= contract.expiresAt.toISOString().split('T')[0]%>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="total text-right">
+                <p class="extra-notes">
+                  <strong>Ghi chú</strong>
+                  Bên thuê cọc trước 50% giá trị hợp đồng cho bên cho thuê.
+                  Phần còn lại sẽ được thanh toán sau khi kết thúc hợp đồng.
+                </p>
+
+                <div class="field" style="text-align: right;">
+                  Giá thuê <span><%= contract.charging%></span>
+                </div>
+
+                <div class="field" style="text-align: right;">
+                  Phí hợp đồng <span>300.000</span>
+                </div>
+
+                <div class="field grand-total" style="text-align: right;">
+                  Tổng <span><%= contract.charging +300000%></span>
+                </div>
+              </div>
+              
+              <div class="print">
+                <a href="#" onclick="printContract()">
+                  <i class="fa fa-print"></i>
+                  In hợp đồng
+                </a>
+              </div>
+              <script>
+                function printContract() {
+                  var printWindow = window.open('', '_blank');
+                  var contractContent = document.querySelector('.invoice-wrapper').outerHTML;
+
+                  printWindow.document.write('<html><head><title>In hợp đồng</title>');
+                  printWindow.document.write('<link rel="stylesheet" href="path_to_your_css_file" type="text/css" />');
+                  printWindow.document.write('</head><body >');
+                  printWindow.document.write(contractContent);
+                  printWindow.document.write('</body></html>');
+                  printWindow.document.close();
+                  printWindow.print();
+                }
+              </script>
+            </div>
+          </div>
+
+          <div class="footer">
+            Copyright © 2024. EzBooking
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

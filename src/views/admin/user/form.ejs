@@ -1,0 +1,89 @@
+<%- locals.flash %>
+<section class="content">
+  <%
+  let item = {}
+  if (data) {
+       item = data
+  }
+%>
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Form 1: General Information -->
+      <form method="POST" action="/admin/user/form" autocapitalize="true" >
+        <input type="hidden" value="<%= item.username%>" name="username">
+        <input type="hidden" value="<%= item.password%>" name="password">
+        <input type="hidden" value="<%= item._id%>" name="id">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">General</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select name='status' id="status" class="form-control custom-select">
+                <option selected disabled="">Select one</option>
+                <option value="active" <%= (item.status == "active") ? 'selected="selected"' : '' %> >Active</option>
+                <option value="inactive" value="inactive" <%= (item.status == "inactive") ? 'selected="selected"' : '' %>>Inactive</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label for="role">role</label>
+                <select name='role' id="role" class="form-control custom-select">
+                  <option selected disabled="">Select one</option>
+                  <option value="admin" <%= (item.role == "admin") ? 'selected="selected"' : '' %> >admin</option>
+                  <option value="user" value="user" <%= (item.role == "user") ? 'selected="selected"' : '' %>>user</option>
+                </select>
+              </div>
+            <div class="form-group">
+              <label for="userinformation[name]">Name</label>
+              <input name="userinformation[name]" type="text" id="userinformation[name]" class="form-control" value="<%= item.userinformation[0].name  %>">
+            </div>    
+            <div class="form-group">
+                <label for="userinformation[phone]">Phone</label>
+                <input name="userinformation[phone]" type="number" id="userinformation[phone]" class="form-control" value="<%= item.userinformation[0].phone  %>">
+              </div> 
+              <div class="form-group">
+                <label for="userinformation[address]">Address</label>
+                <input name="userinformation[address]" type="text" id="userinformation[address]" class="form-control" value="<%= item.userinformation[0].address  %>">
+              </div> 
+              <div class="form-group">
+                <label for="userinformation[email]">email</label>
+                <input name="userinformation[email]" type="text" id="userinformation[email]" class="form-control" value="<%= item.userinformation[0].email  %>">
+              </div> 
+            <button type="submit" class="btn btn-primary float-right">Submit General Info</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <!-- Form 2: Image Upload (Show only if id exists) -->
+      <% if (item._id) { %>
+        <form method="POST" action="/admin/user/upload/<%= item._id %>" enctype="multipart/form-data">
+          <input style="display: none" name="id" type="text" id="id" class="form-control" value="<%= item._id  %>">
+          <div class="card card-warning">
+            <div class="card-header">
+              <h3 class="card-title">Image upload</h3>
+            </div>
+            <div class="card-body">
+              <!-- Remove the unnecessary inner form tag -->
+              <div class="form-group">
+                <label for="avatar">Avatar</label>
+                <input type="file" class="form-control" name="avatar" onchange="previewImage(this)">
+                <img id="avatarPreview" src="<%= item.avatar  %>" alt="Avatar Preview" style="max-width: 500px; margin-top: 10px;">
+              </div>
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Upload Image</button>
+            </div>
+          </div>
+        </form>
+        
+      <% } %>
+    </div>
+  </div>
+</section>

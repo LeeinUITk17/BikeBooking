@@ -1,0 +1,316 @@
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<!-- Start Product Detail -->
+	<div class="container pt-4">
+		<div class="mb-4">
+			<h1><%= data.name%></h1>
+			<span><%= data.productinformation[0].brand%></span>
+		</div>
+
+		<div class="container mb-4">
+			<div class="row">
+				<div class="imagemain col-12 col-md-10">
+                    <img src="<%= data.image%>" alt="test" class="img-thumbnail" id="mainImage">
+				</div>
+				<div class="imagelist col-12 col-md-2">
+                    <% if(data && data.List && data.List.length > 0) { %>
+                        <% for(let i = 0; i < data.List.length; i++) { %>
+                                 <img src="<%= data.List[i].Image %>" alt="test" class="img-thumbnail" onclick="changeImage(this)">
+                            <% } %>
+                   <% } %>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="d-flex gap-2 align-items-center">
+                        <img src="<%= saler.avatar%>" class="mt-1" alt="avatar"
+							style="width: 40px; height: 40px; border-radius: 50%;">
+                            <div>
+                                <b><span><%= saler.userinformation[0].name%></span></b> <br>
+                                <span><%= data.createdAt.toISOString().split('T')[0]%></span>
+                            </div>
+					</div>
+					<div class="flex text-primary">
+						<div class="d-flex mt-3 mb-3 gap-5">
+							<div class="px-2">
+								<i class="fa fa-solid fa-credit-card text-primary mr-1"></i>
+								<span>Mua từ năm <%= data.productinformation[0].year%></span>
+							</div>
+
+							<div class="px-2">
+								<i class="fa fa-motorcycle text-primary mr-1"></i>
+								<span>Dòng xe <%= data.category%></span>
+							</div>
+
+							<div class="px-2">
+								<i class="fa fa-road text-primary mr-1"></i>
+								<span>Đã đi được <%= data.productinformation[0].odo%></span>
+							</div>
+						</div>
+
+						<div class="px-2 mb-3">
+							<i class="fa-solid fa-location-dot text-primary mr-1"></i>
+							<span><%= data.address[0].street%>,<%= data.address[0].ward%>,<%= data.address[0].district%>,<%= data.address[0].city%></span>
+						</div>
+					</div>
+					<hr>
+
+					<div>
+						<h2>Chi tiết sản phẩm</h2>
+						<div>
+							<div class="px-2">
+								<i class="fa fa-solid fa-brush text-primary mr-1"></i>
+								<span><%= data.description%></span>
+							</div>
+
+							<div class="px-2">
+								<i class="fa fa-shield-virus text-primary mr-1"></i>
+								<span>Có vài vết móp</span>
+							</div>
+
+							<div class="px-2">
+								<i class="fa fa-cogs text-primary mr-1"></i>
+								<span>Vận hành tốt</span>
+							</div>
+
+						</div>
+					</div>
+					<hr>
+
+					<div id="map"></div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="calendar" style="background-color: #f3f8fe;">
+						<div class="flex flex-row items-center gap-1 b" style="color: orange;">
+							<h4><%= data.price%>₫/ 1 ngày</h4>
+						</div>
+						<hr>
+
+						<div class="calendar-frame">
+							<div class="calendar-header">
+								<span class="month-picker" id="month-picker">February</span>
+								<div class="year-picker">
+									<span class="year-change" id="prev-year">
+										<pre><</pre>
+									</span>
+									<span id="year">2021</span>
+									<span class="year-change" id="next-year">
+										<pre>></pre>
+									</span>
+								</div>
+							</div>
+
+							<div class="mt-3">
+								<div class="calendar-week-day">
+									<div>Sun</div>
+									<div>Mon</div>
+									<div>Tue</div>
+									<div>Wed</div>
+									<div>Thu</div>
+									<div>Fri</div>
+									<div>Sat</div>
+								</div>
+
+								<div class="calendar-days"></div>
+							</div>
+
+							<div class="month-list"></div>
+						</div>
+
+						<hr>
+						
+						<div class="p-4">
+							<div id="myBtn" class="btn btn-block">Đặt xe ngay</div>
+						  </div>
+						<div>
+							<!-- The Modal -->
+							<form action="/shop/addcontract" method="post">
+								<input type="hidden" name="productID" value="<%= data._id%>">
+								<input type="hidden" name="userID" value="<%= user._id%>">
+								<input type="hidden" name="salerID" value="<%= saler._id%>">
+								<input type="hidden" name="price" value="<%= data.price%>">
+								<input type="hidden" name="charging" value="<%= data.price*7%>">
+								<div class="modal" id="myModal">
+									<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+								
+										<!-- Modal Header -->
+										<div class="modal-header">
+										<h4 class="modal-title">Hợp đồng thuê</h4>
+										<button type="button" class="close btn btn-primary" data-dismiss="modal" style="width: 20%;">Hủy</button>
+										</div>
+								
+										<!-- Modal body -->
+										<div class="modal-body">
+										<div class="row">
+											<div class="col-sm-12">
+											<p id="gdate"><strong>Ngày tạo hợp đồng:</strong> </p>
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-sm-6">
+											<h5>Bên cho thuê:</h5>
+											<hr>
+											<p><strong>Tên:</strong> <%= saler.userinformation[0].name%></p>
+											<p><strong>Địa chỉ:</strong> <%= saler.address[0].street%> <%= saler.address[0].ward%> <%= saler.address[0].district%> <%= saler.address[0].city%></p>
+											<p><strong>Số điện thoại:</strong> <%= saler.userinformation[0].phone%></p>
+											<p><strong>Email:</strong> <%= saler.userinformation[0].email%></p>
+											</div>
+								
+											<div class="col-sm-6">
+											<h5>Bên thuê:</h5>
+											<hr>
+											<p><strong>Tên:</strong> <%= user.userinformation[0].name%></p>
+											<p><strong>Địa chỉ:</strong> <%= user.address[0].street%> <%= user.address[0].ward%> <%= user.address[0].district%> <%= user.address[0].city%></p>
+											<p><strong>Số điện thoại:</strong> <%= user.userinformation[0].phone%></p>
+											<p><strong>Email:</strong> <%= user.userinformation[0].email%></p>
+											</div>
+										</div><hr>
+										
+										<div class="row">
+											<div class="col-sm-12"><h5>Thông tin phương tiện:</h5></div>
+											<hr>
+											<div class="col-sm-6"><p><strong>Hãng xe:</strong> <%= data.productinformation[0].brand%></p></div>
+											<div class="col-sm-6"><p><strong>Tên xe:</strong> <%= data.name%></p></div>
+											<div class="col-sm-6"><p><strong>Năm sản xuất:</strong> <%= data.productinformation[0].year%></p></div>
+											<div class="col-sm-6"><p><strong>Odo hiện tại:</strong> <%= data.productinformation[0].odo%> km</p></div>
+											<div class="col-sm-6"><p><strong>Biển số:</strong> <%= data.productinformation[0].license%></p></div>            
+											<div class="col-sm-6"><p><strong>Số khung:</strong> <%= data.productinformation[0].frame%></p></div>
+											<div class="col-sm-6"><p><strong>Số máy:</strong> <%= data.productinformation[0].machine%></p></div>
+											<div class="col-sm-6"><p><strong>Tình trạng xe:</strong> <%= data.productinformation[0].state%></p></div>
+											<div class="col-sm-6"><p><strong>Giá thuê / ngày:</strong> <%= data.price%></p></div>
+											<div class="col-sm-6"><p><strong>Vị trí cho thuê:</strong> <%= data.address[0].street%> <%= data.address[0].ward%> <%= data.address[0].district%> <%= data.address[0].city%></p></div>
+										</div><hr>
+										
+										<div class="row">
+											<div class="col-sm-12"><h5>Ngày thuê:</h5></div>
+											<hr>
+											<div class="col-sm-6"><p><strong>Từ:</strong> 1/1/2025</p></div>
+											<div class="col-sm-6"><p><strong>Đến:</strong> 1/2/2025</p></div>
+											<div class="col-sm-6"><p><strong>Giá:</strong> <%= data.price%></p></div>
+											<div class="col-sm-6"><p><strong>Phí hợp đồng:</strong> <%= data.price%></p></div>
+											<div class="col-sm-6"><p><strong>Tổng cộng:</strong> <%= data.price%></p></div>
+										</div>
+										</div>
+															<!-- Modal footer -->
+															<div class="modal-footer">
+																<button type="submit" class="btn btn-primary" >Xác nhận thuê</button> <!-- Redirect button -->
+															  </div>
+	
+	
+													<script>
+														// Get the modal
+														var modal = document.getElementById("myModal");
+														
+														// Get the button that opens the modal
+														var btn = document.getElementById("myBtn");
+														
+														// Get the <span> element that closes the modal
+														var span = document.getElementsByClassName("close")[0];
+														
+														// When the user clicks the button, open the modal 
+														btn.onclick = function() {
+														modal.style.display = "block";
+														}
+														
+														// When the user clicks on <span> (x), close the modal
+														span.onclick = function() {
+														modal.style.display = "none";
+														}
+														
+														// When the user clicks anywhere outside of the modal, close it
+														window.onclick = function(event) {
+														if (event.target == modal) {
+															modal.style.display = "none";
+														}
+														}
+														const gdate = new Date();
+														 document.getElementById("gdate").innerHTML = gdate;
+														</script>
+														</div>
+														</div>
+							</div>
+							</form>
+					</div>
+					<hr>
+
+					<div class="mt-4">
+						<h2>Đánh giá từ người dùng</h2>
+
+						<div class="star">
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+
+							<span> / 150 tr lượt đánh giá</span>
+						</div>
+					</div>
+					<hr>
+
+					<div class="mt-4">
+						<h2>Một số bình luận: </h2>
+
+						<div>
+							<p>Tuyệt vời</p>
+							<p>Rất tuyệt vời</p>
+							<p>Chắc là tuyệt vời</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Product Detail -->
+	
+
+	<!-- Start Product Related -->
+	<div class="product-section">
+		<div class="container">
+			<div class="row" style="display: flex; align-items: center; justify-content: center;">
+				<h2 class="mb-4 section-title" style="text-align: center;">Các sản phẩm liên quan</h2>
+				<!-- Start Column 2 -->
+				<% 
+// Function to shuffle an array
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Shuffle the listProducts array
+const shuffledProducts = shuffle([...listProducts]);
+
+// Slice the first 3 items from the shuffled array
+const randomProducts = shuffledProducts.slice(0, 3);
+%>
+
+<% randomProducts.forEach((item) => { %>
+<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+    <a class="product-item" href="/shop/detail/<%= item._id%>/<%= item.salerID%>%>">
+        <img src="<%= item.image %>" class="img-fluid product-thumbnail">
+        <h3 class="product-title"><%= item.name %></h3>
+        <strong class="product-price"><%= item.price %>₫/ 1 ngày</strong>
+        <span class="icon-cross">
+            <img src="images/cross.svg" class="img-fluid">
+        </span>
+    </a>
+</div>
+<% }); %>
+
+				<!-- End Column 2 -->
+
+
+			</div>
+		</div>
+	</div>
+	<!-- End Product Related -->
+	
+	

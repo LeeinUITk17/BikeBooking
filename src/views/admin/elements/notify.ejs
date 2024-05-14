@@ -1,0 +1,22 @@
+<div class="alert alert-<%= type %> alert-dismissible" id="myAlert">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+	<h5><i class="icon fas fa-cube"></i> Alert!</h5>
+	<% if (Array.isArray(message)) { %>
+	  <ul>
+		<% message.forEach(msg => { %>
+		  <li><%= msg %></li>
+		<% }); %>
+	  </ul>
+	<% } else { %>
+	  <%= message %>
+	<% } %>
+  </div>
+  
+  <script>
+	// Set a timeout to hide the alert after 10000 milliseconds (10 seconds)
+	setTimeout(function() {
+	  document.getElementById('myAlert').style.display = 'none';
+	}, 5000);
+
+	
+  </script>

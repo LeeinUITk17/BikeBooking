@@ -1,0 +1,559 @@
+<%- locals.flash %>
+<div class="container">
+    <div class="row">
+       <form action="/least" method="post" enctype="multipart/form-data" >
+        <input type="hidden" id="salerID" name="salerID" value="<%= user._id%>">
+        <input type="hidden" id="status" name="status" value="inactive">
+        <div class="col-xl-8">
+            <div class="card">
+                <div class="card-body">
+                    <ol class="activity-checkout mb-0 px-4 mt-3">
+                        <li class="checkout-item">
+                            <div class="avatar checkout-icon p-1">
+                                <div class="avatar-title rounded-circle bg-primary">
+                                    <i class="bx bx-image text-white font-size-20"></i>
+                                </div>
+                            </div>
+
+                            <div class="feed-item-list">
+                                <div>
+                                    <h5 class="font-size-16 mb-1">Cập nhật hình ảnh xe</h5>
+                                    <p class="text-muted text-truncate mb-4">Tối đa 3 tấm</p>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                            <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                <input type="file" id="fileUploadimage" name="filepond"  style="display: none;" multiple data-allow-reorder="true" data-max-file-size="10MB" data-max-files="3" onchange="previewArrayimg(this, 'preview')" required>
+                                                <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                    <span class="card-radio py-3 text-center text-truncate" onclick="event.stopPropagation(); document.getElementById('fileUploadimage').click();">
+                                                        <i class="bx bx-image-add d-block h2 mb-3"></i>
+                                                        Thêm hình ảnh
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                            <div data-bs-toggle="collapse" style="height: 100%; width: 100%;" >
+                                                <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                    <div id="preview1" alt="Avatar Preview" style="background-image: url('/product/images/bycicle.png'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>       
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                            <div data-bs-toggle="collapse" style="height: 100%; width: 100%;" >
+                                                <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                    <div id="preview2" alt="Avatar Preview" style="background-image: url('/product/images/bycicle.png'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>       
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                            <div data-bs-toggle="collapse" style="height: 100%; width: 100%;" >
+                                                <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                    <div id="preview3" alt="Avatar Preview" style="background-image: url('/product/images/bycicle.png'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>       
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <script>
+                                        var currentPreview = 1;
+                                        
+                                        function previewArrayimg(input) {
+                                            if (input.files) {
+                                                var filesAmount = input.files.length;
+                                                for (let i = 0; i < filesAmount; i++) {
+                                                    var reader = new FileReader();
+                                                    reader.onload = function(event) {
+                                                        document.getElementById(`preview${currentPreview}`).style.backgroundImage = `url(${event.target.result})`;
+                                                        currentPreview++;
+                                                    }
+                                                    reader.readAsDataURL(input.files[i]);
+                                                }
+                                            }
+                                        }
+                                        </script>
+                                </div>
+
+                                <div>
+                                    <p class="text-muted text-truncate">Hình đại diện cho sản phẩm</p>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                            <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                <input type="file" id="fileUploadimagee" name="image" style="display: none;" onchange="previewImage(this, 'imagePreview')" required>
+                                                <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                    <span class="card-radio py-3 text-center text-truncate" onclick="event.stopPropagation(); document.getElementById('fileUploadimagee').click();">
+                                                        <i class="bx bx-image-add d-block h2 mb-3"></i>
+                                                        Thêm hình ảnh
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                            <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                    <img id="imagePreview" style="background-image: url('/product/images/bycicle.png'); background-size: cover; background-position: center; width: 100%; height: 100%;">
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            function previewImage(input, previewId) {
+                                                if (input.files && input.files[0]) {
+                                                    var reader = new FileReader();
+                                                    reader.onload = function(e) {
+                                                        document.getElementById(previewId + 'Preview').style.backgroundImage = `url(${e.target.result})`;
+                                                    }
+                                                    reader.readAsDataURL(input.files[0]);
+                                                }
+                                            }
+                                            </script>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </li>
+                        <li class="checkout-item">
+                            <div class="avatar checkout-icon p-1">
+                                <div class="avatar-title rounded-circle bg-primary">
+                                    <i class="bx bxs-receipt text-white font-size-20"></i>
+                                </div>
+                            </div>
+
+                            <div class="feed-item-list">
+                                <div>
+                                    <h5 class="font-size-16 mb-1">Thông tin xe</h5>
+                                    <p class="text-muted text-truncate mb-4">Cung cấp các thông tin chính xác với
+                                        giấy đăng ký xe</p>
+
+                                    <div class="mb-3">
+                                       
+                                            <div>
+                                                <div>
+                                                    <label class="form-label">Loại xe</label>
+                                                
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-sm-6">
+                                                            <div data-bs-toggle="collapse">
+                                                                <label class="card-radio-label">
+                                                                    <input type="radio" name="loaixe" id="loaixe1" class="card-radio-input" required>
+                                                                    <div>
+                                                                        <span class="card-radio py-3 text-center text-truncate">
+                                                                            <i id="loaixe" class="fa-solid fa-bicycle d-block h2 mb-3"></i>
+                                                                            Xe số
+                                                                        </span>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                
+                                                        <div class="col-lg-3 col-sm-6">
+                                                            <div>
+                                                                <label class="card-radio-label">
+                                                                    <input type="radio" name="loaixe" id="loaixe2" class="card-radio-input">
+                                                                    <div>
+                                                                        <span class="card-radio py-3 text-center text-truncate">
+                                                                            <i id="loaixe" class="fa-solid fa-motorcycle d-block h2 mb-3"></i>
+                                                                            Tay ga
+                                                                        </span>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                
+                                                        <div class="col-lg-3 col-sm-6">
+                                                            <div>
+                                                                <label class="card-radio-label">
+                                                                    <input type="radio" name="loaixe" id="loaixe3" class="card-radio-input" checked>
+                                                                    <div>
+                                                                        <span class="card-radio py-3 text-center text-truncate">
+                                                                            <i id="loaixe" class="fa-solid fa-person-biking d-block h2 mb-3"></i>
+                                                                            <span>Côn tay</span>
+                                                                        </span>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                
+                                                        <div class="col-lg-3 col-sm-6">
+                                                            <div>
+                                                                <label class="card-radio-label">
+                                                                    <input type="radio" name="loaixe" id="loaixe4" class="card-radio-input">
+                                                                    <div>
+                                                                        <span class="card-radio py-3 text-center text-truncate">
+                                                                            <i id="loaixe" class="fa-solid fa-bolt d-block h2 mb-3"></i>
+                                                                            <span>Xe điện</span>
+                                                                        </span>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" id="category" name="category" value="Xe số">
+                                                </div>
+                                                
+
+                                                <div class="row" style="margin-top: 20px;">
+                                                    <div class="col-lg-4">
+                                                        <div class="mb-4 mb-lg-0">
+                                                            <label class="form-label">Hãng sản xuất</label>
+                                                            <select class="form-control form-select" title="HangXe"
+                                                                id="Hang" required>
+                                                                <option value="0">Chọn hãng xe</option>
+                                                                <option value="Honda">Honda</option>
+                                                                <option value="Yamaha">Yamaha</option>
+                                                                <option value="Suzuki">Suzuki</option>
+                                                                <option value="Vinfast">Vinfast</option>
+                                                                <option value="DatBike">DatBike</option>
+                                                                <option value="SYM">SYM</option>
+                                                                <option value="Khác">Khác</option>
+                                                            </select>
+                                                        </div>
+                                                        <input type="hidden" id="productinformation[brand]" name="productinformation[brand]">
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+                                                        <div class="mb-4 mb-lg-0">
+                                                            <label class="form-label" for="MauXe">Mẫu xe</label>
+                                                            <input type="text" class="form-control" id="name" name="name"
+                                                                placeholder="Nhập tên mẫu xe"  required>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" style="margin-top: 20px;">
+                                                    <div class="col-lg-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Odo">Năm sản xuất</label>
+                                                            <input type="number" class="form-control" id="productinformation[year]" name="productinformation[year]"
+                                                                placeholder="Nhập năm sản xuất" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Odo">Odo hiện tại</label>
+                                                            <input type="number" class="form-control" id="productinformation[odo]" name="productinformation[odo]"
+                                                                placeholder="Nhập số Km đã đi" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="card">Biển số xe</label>
+                                                        <input type="text" class="form-control" id="productinformation[license]" name="productinformation[license]"
+                                                            placeholder="Nhập biển số xe" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="Khung">Số
+                                                                    khung</label>
+                                                                <input type="text" class="form-control" id="productinformation[frame]" name="productinformation[frame]"
+                                                                    placeholder="Nhập số khung" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="May">Số máy</label>
+                                                                <input type="text" class="form-control" id="productinformation[machine]" name="productinformation[machine]"
+                                                                    placeholder="Nhập số máy" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+
+                                                    <div>
+                                                        <script>
+                                                            function previewImage(input, previewId) {
+                                                                if (input.files && input.files[0]) {
+                                                                    var reader = new FileReader();
+                                                                    
+                                                                    reader.onload = function(e) {
+                                                                        document.getElementById(previewId).src = e.target.result;
+                                                                    }
+                                                                    
+                                                                    reader.readAsDataURL(input.files[0]); // convert to base64 string
+                                                                }
+                                                            }
+                                                        </script>
+
+                                                        <p class="text-muted text-truncate">Chứng nhận đăng ký xe</p>
+                                                        <div class="row">
+                                                            <!-- Input and preview for first image -->
+                                                            <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                                                <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                                    <input type="file" id="fileUploadCertificate1" name="vrcertificateFront" style="display: none;" onchange="previewImage(this, 'certificatePreview1')" required>
+                                                                    <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                                        <span class="card-radio py-3 text-center text-truncate" onclick="event.stopPropagation(); document.getElementById('fileUploadCertificate1').click();">
+                                                                            <i class="bx bx-image-add d-block h2 mb-3"></i>
+                                                                            Mặt trước
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                                                <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                                    <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                                        <img id="certificatePreview1" style="background-image: url('/product/images/bycicle.png'); background-size: cover; background-position: center; width: 100%; height: 100%;">
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                    
+                                                            <!-- Input and preview for second image -->
+                                                            <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                                                <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                                    <input type="file" id="fileUploadCertificate2" name="vrcertificateRear" style="display: none;" onchange="previewImage(this, 'certificatePreview2')" required>
+                                                                    <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                                        <span class="card-radio py-3 text-center text-truncate" onclick="event.stopPropagation(); document.getElementById('fileUploadCertificate2').click();">
+                                                                            <i class="bx bx-image-add d-block h2 mb-3"></i>
+                                                                            Mặt sau
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                                                <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                                    <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                                        <img id="certificatePreview2" style="background-image: url('/product/images/bycicle.png'); background-size: cover; background-position: center; width: 100%; height: 100%;">
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div>
+                                                        <p class="text-muted text-truncate mt-3">Bảo hiểm xe</p>
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                                                <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                                    <input type="file" id="fileUploadInsurance" name="minsurance" style="display: none;" onchange="previewImage(this, 'insurance')" required>
+                                                                    <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                                        <span class="card-radio py-3 text-center text-truncate" onclick="event.stopPropagation(); document.getElementById('fileUploadInsurance').click();">
+                                                                            <i class="bx bx-image-add d-block h2 mb-3"></i>
+                                                                            Thêm hình ảnh
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                                                <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                                    <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                                        <img id="insurance"  style="background-image: url('/product/images/bycicle.png'); background-size: cover; background-position: center; width: 100%; height: 100%;">
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                
+
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="Info">Thông tin mô tả</label>
+                                                    <textarea class="form-control" id="description" rows="3" name="description"
+                                                        placeholder="Nhập thông tin mô tả chi tiết về xe của bạn" required></textarea>
+                                                </div>
+
+                                            </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                       
+
+                        <li class="checkout-item">
+                            <div class="avatar checkout-icon p-1">
+                                <div class="avatar-title rounded-circle bg-primary">
+                                    <i class="bx bx-signal-5 text-white font-size-20"></i>
+                                </div>
+                            </div>
+
+                            <div class="feed-item-list">
+                                <div>
+                                    <h5 class="font-size-16 mb-1">Tình trạng xe hiện tại</h5>
+                                    <p class="text-muted text-truncate mb-4">Đánh giá theo mức độ % theo các mô tả
+                                    </p>
+
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div data-bs-toggle="collapse">
+                                                    <label class="card-radio-label mb-0">
+                                                        <input type="radio" name="state" id="status1"
+                                                            class="card-radio-input" checked>
+
+                                                        <div class="card-radio text-truncate p-3">
+                                                            <span class="fs-14 mb-4 d-block"><strong id="state">90 -
+                                                                    100%</strong></span>
+                                                            <span class="fs-14 mb-2 d-block">Odo &le; 5000km</span>
+                                                            <span
+                                                                class="text-muted fw-normal text-wrap mb-1 d-block">Màu
+                                                                sơn còn mới, không có vết trầy</span>
+                                                            <span class="text-muted fw-normal d-block">Máy êm, vận
+                                                                hành tốt</span>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div data-bs-toggle="collapse">
+                                                    <label class="card-radio-label mb-0">
+                                                        <input type="radio" name="state" id="status2"
+                                                            class="card-radio-input" checked>
+
+                                                        <div class="card-radio text-truncate p-3">
+                                                            <span class="fs-14 mb-4 d-block"><strong id="state">75 -
+                                                                    90%</strong></span>
+                                                            <span class="fs-14 mb-2 d-block">Odo &le;
+                                                                13.000km</span>
+                                                            <span
+                                                                class="text-muted fw-normal text-wrap mb-1 d-block">Màu
+                                                                sơn còn đẹp, có vài vết xướt</span>
+                                                            <span class="text-muted fw-normal d-block">Vẫn hành
+                                                                tốt</span>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div data-bs-toggle="collapse">
+                                                    <label class="card-radio-label mb-0">
+                                                        <input type="radio" name="state" id="status3"
+                                                            class="card-radio-input" checked>
+
+                                                        <div class="card-radio text-truncate p-3">
+                                                            <span class="fs-14 mb-4 d-block"><strong id="state">60 -
+                                                                    75%</strong></span>
+                                                            <span class="fs-14 mb-2 d-block">Odo &le;
+                                                                30.000km</span>
+                                                            <span
+                                                                class="text-muted fw-normal text-wrap mb-1 d-block">Màu
+                                                                sơn tạm, có vài vết móp, trầy ít</span>
+                                                            <span class="text-muted fw-normal d-block">Vận hành
+                                                                tốt</span>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div>
+                                                    <label class="card-radio-label mb-0">
+                                                        <input type="radio" name="state" id="status4"
+                                                            class="card-radio-input">
+
+                                                        <div class="card-radio text-truncate p-3">
+                                                            <span
+                                                                class="fs-14 mb-4 d-block"><strong id="state">>50%</strong></span>
+                                                            <span class="fs-14 mb-2 d-block">Odo &gt;
+                                                                30.000km</span>
+                                                            <span
+                                                                class="text-muted fw-normal text-wrap mb-1 d-block">Màu
+                                                                sơn cũ, có nhiều vết trầy, móp, hư hỏng bên
+                                                                ngoài</span>
+                                                            <span class="text-muted fw-normal d-block">Vận hành ổn
+                                                                định</span>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="productinformation[state]" name="productinformation[state]">
+                                </div>
+                            </div>
+                        </li>
+
+                       
+
+                        <li class="checkout-item">
+                            <div class="avatar checkout-icon p-1">
+                                <div class="avatar-title rounded-circle bg-primary">
+                                    <i class="bx bx-money text-white font-size-20"></i>
+                                </div>
+
+                            </div>
+
+                            <div class="feed-item-list">
+                                <div>
+                                    <h5 class="font-size-16 mb-1">Giá cho thuê</h5>
+                                    <p class="text-muted text-truncate mb-4">Giá theo VNĐ / ngày</p>
+                                    <input type="range" min="10000" max="1000000" value="10000" class="slider"
+                                        id="price" name="price" >
+                                    <div class="slider-value" id="sliderValue">10.000 / ngày</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="checkout-item">
+                            <div class="avatar checkout-icon p-1">
+                                <div class="avatar-title rounded-circle bg-primary">
+                                    <i class="bx bx-target-lock text-white font-size-20"></i>
+                                </div>
+                            </div>
+
+                            <div class="feed-item-list">
+                                <div>
+                                    <h5 class="font-size-16 mb-1">Vị trí cho thuê</h5>
+                                    <p class="text-muted text-truncate mb-4">Người thuê và người cho thuê sẽ đến đây
+                                        nhận xe</p>
+
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Tinh">Tỉnh / Thành phố</label>
+                                                <input type="text" class="form-control" id="address[city]" name="address[city]"
+                                                    placeholder="Nhập tỉnh/ thành phố" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Quan">Quận / Huyện</label>
+                                                <input type="text" class="form-control" id="address[district]" name="address[district]"
+                                                    placeholder="Nhập quận/ huyện" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Phuong">Phường / Xã</label>
+                                                <input type="text" class="form-control" id="address[ward]" name="address[ward]"
+                                                    placeholder="Nhập phường/ xã" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label" for="ViTri">Vị trí chính xác</label>
+                                            <textarea class="form-control" id="address[street]" name="address[street]" rows="3"
+                                                placeholder="Nhập số nhà, tên đường" required></textarea>
+                                        </div>
+                                        <div id="map"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row my-4">
+                <div class="col">
+                    <div class="text-end mt-2 mt-sm-0">
+                            <button class="btn bx bx-receipt me-1" style="font-family: Inter, sans-serif !important;">  Đăng bài cho thuê</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </form>
+    </div>
+</div>

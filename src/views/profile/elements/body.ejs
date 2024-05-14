@@ -1,0 +1,235 @@
+
+
+<div class="container light-style flex-grow-1 container-p-y">
+  <h4 class="font-weight-bold py-3 mb-4">
+      Quản lí tài khoản
+  </h4>
+ 
+  <div class="card overflow-hidden">
+      <div class="row no-gutters row-bordered row-border-light">
+          <div class="col-md-3 pt-0">
+              <div class="list-group list-group-flush account-settings-links">
+                  <a class="list-group-item list-group-item-action active" data-toggle="list"
+                      href="#account-general">Thông tin chung</a>
+                  <a class="list-group-item list-group-item-action" data-toggle="list"
+                      href="#account-change-password">Đổi mật khẩu</a>
+                  <a class="list-group-item list-group-item-action" data-toggle="list"
+                      href="#account-info">Thông tin cá nhân</a>
+                  <a class="list-group-item list-group-item-action" data-toggle="list"
+                      href="#account-social-links">Liên kết mạng xã hội</a>
+              </div>
+          </div>
+          <div class="col-md-9">
+              <div class="tab-content">
+                  <div class="tab-pane fade active show" id="account-general">
+                      <div class="card-body media align-items-center">
+                          <form action="/profile/upload/<%= account._id%>" method="post" enctype="multipart/form-data">
+                              <img id="avatarPreview" src="<%= account.avatar  %>" alt="Avatar Preview" style="max-width: 500px; margin-top: 10px;">
+                          <div class="media-body ml-4">
+                              <label class="btn btn-outline-primary">
+                                  Thêm ảnh
+                                  <input type="file" class="form-control" name="avatar" onchange="previewImage(this,'avatar')">
+                              </label>   
+                              <button  type="submit" class="btn btn-primary"> Save Image</button>
+                          </div>
+                               </form>
+                      </div>
+                      <form action="/profile/update/<%= account._id%>" method="post">
+                      <hr class="border-light m-0">
+                      <div class="card-body">
+                          <div class="form-group">
+                              <label class="form-label">Tài khoản: </label>
+                              <input type="text" class="form-control mb-1" name="username" value="<%=account.username%>" readonly>
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Họ và tên: </label>
+                              <input type="text" class="form-control" name="userinformation[name]" value="<%=account.userinformation[0].name%>">
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Email: </label>
+                              <input type="text" class="form-control mb-1" name="userinformation[email]" readonly value="<%=account.userinformation[0].email%>">
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="account-change-password">
+                      <div class="card-body pb-2">
+                          <div class="form-group">
+                              <label class="form-label">Mật khẩu hiện tại: </label>
+                              <input type="password" class="form-control"  placeholder="chưa cung cấp tính năng này" readonly>
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Mật khẩu mới: </label>
+                              <input type="password" class="form-control" placeholder="chưa cung cấp tính năng này" readonly>
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Nhập lại mật khẩu mới: </label>
+                              <input type="password" class="form-control" placeholder="chưa cung cấp tính năng này" readonly>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="account-info">
+                      <hr class="border-light m-0">
+                      <div class="card-body pb-2">
+                          <h6 class="mb-4" style="font-size: 20px;"><strong>Thông tin cá nhân: </strong></h6>
+                          
+                          <!-- <div class="form-group">
+                              <label for="birthdate">Ngày sinh:</label>
+                              <input type="date" id="userinformation[birthday]" name="userinformation[birthday]" value="<%user.userinformation[0].birthday%> >">
+                          </div> -->
+
+                          <div class="form-group">
+                              <label class="form-label">Số CCCD: </label>
+                              <input type="text" class="form-control"  placeholder="Nhập cccd" id="userinformation[cccd]" name="userinformation[cccd]" value="<%=user.userinformation[0].cccd%>">
+                          </div>
+
+                          <!-- <div class="form-group">
+                              <label class="form-label">Ngày cấp: </label>
+                              <input type="date" id="userinformation[date]" name="userinformation[date]"value="<% user.userinformation[0].date%>">
+                          </div> -->
+
+                          <div class="form-group">
+                              <label class="form-label">Nơi cấp: </label>
+                              <input type="text" class="form-control"  placeholder="Nhập nơi cấp CCCD" id="userinformation[place]" name="userinformation[place]" value="<%= user.userinformation[0].place%>">
+                          </div>
+
+                          <!-- <div class="form-group">
+                              <label class="form-label">Thêm hình ảnh CCCD: </label>
+                              <div class="row">
+                                  <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                      <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                          <input type="file" id="fileUploadimage" name="imagecccd"  style="display: none;" multiple data-allow-reorder="true" data-max-file-size="10MB" data-max-files="2" onchange="previewArrayimg(this, 'preview')">
+                                          <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                              <span class="card-radio py-3 text-center text-truncate"
+                                                  onclick="event.stopPropagation(); document.getElementById('fileUploadimage').click();">
+                                                  <i class="bx bx-image-add d-block h2 mb-3"></i>
+                                                  Thêm hình ảnh
+                                              </span>
+                                          </label>
+                                      </div>
+                                  </div>
+
+                                  <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                      <div data-bs-toggle="collapse" style="height: 100%; width: 100%;" >
+                                          <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                              <div id="preview1" alt="Avatar Preview" style="background-image: url('/product/images/default-image.png'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>       
+                                          </label>
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                      <div data-bs-toggle="collapse" style="height: 100%; width: 100%;" >
+                                          <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                              <div id="preview2" alt="Avatar Preview" style="background-image: url('/product/images/default-image.png'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>       
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Thêm hình ảnh giấy phép lái xe: </label>
+                              <div class="row">
+                                  <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                      <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                          <input type="file" id="fileUploadcertificate" name="certificate"  style="display: none;" multiple data-allow-reorder="true" data-max-file-size="10MB" data-max-files="2" onchange="previewArrayimg(this, 'review')">
+                                          <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                              <span class="card-radio py-3 text-center text-truncate"
+                                                  onclick="event.stopPropagation(); document.getElementById('fileUploadcertificate').click();">
+                                                  <i class="bx bx-image-add d-block h2 mb-3"></i>
+                                                  Thêm hình ảnh
+                                              </span>
+                                          </label>
+                                      </div>
+                                  </div>
+
+                                  <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                      <div data-bs-toggle="collapse" style="height: 100%; width: 100%;" >
+                                          <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                              <div id="review1" alt="Avatar Preview" style="background-image: url('/product/images/default-image.png'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>       
+                                          </label>
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                      <div data-bs-toggle="collapse" style="height: 100%; width: 100%;" >
+                                          <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                              <div id="review2" alt="Avatar Preview" style="background-image: url('/product/images/default-image.png'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>       
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div> -->
+                      </div>
+
+                      <hr class="border-light m-0">
+                      <div class="card-body pb-2">
+                          <h6 class="mb-4" style="font-size: 20px;"><strong>Địa chỉ thường trú: </strong></h6>
+                          
+                          <div class="form-group">
+                              <label class="form-label">Tỉnh/ Thành Phố: </label>
+                              <input type="text" class="form-control" value="<%= account.address[0].city%>" placeholder="Nhập tỉnh/ thành phố theo CCCD" id="address[city]" name="address[city]">
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Quận/ Huyện: </label>
+                              <input type="text" class="form-control" value="<%= account.address[0].district%>" placeholder="Nhập quận/huyện theo CCCD" id="address[district]" name="address[district]">
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Phường/ Xã: </label >
+                              <input type="text" class="form-control" value="<%= account.address[0].ward%>" placeholder="Nhập xã/ phường theo CCCD" id="address[ward]" name="address[ward]">
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Địa chỉ cụ thể: </label>
+                              <input type="text" class="form-control" value="<%= account.address[0].street%>" placeholder="Nhập số nhà/ tòa, tên đường" id="address[street]" name="address[street]">
+                          </div>
+                      </div>
+
+                      <hr class="border-light m-0">
+                      <div class="card-body pb-2">
+                          <h6 class="mb-4" style="font-size: 20px;"><strong>Thông tin liên lạc: </strong></h6>
+                          <div class="form-group">
+                              <label class="form-label">Số điện thoại: </label>
+                              <input type="text" class="form-control" value="<%= account.userinformation[0].phone%>" id="userinformation[phone]" name="userinformation[phone]">
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="account-social-links">
+                      <div class="card-body pb-2">
+                          <div class="form-group">
+                              <label class="form-label">Twitter</label>
+                              <input type="text" class="form-control" value="<%= account.link[0].twitter%>" placeholder="Nhập liên kết đến tài khoản Twitter của bạn" id="link[twitter]" name="link[twitter]">
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Facebook</label>
+                              <input type="text" class="form-control" value="<%= account.link[0].facebook%>" placeholder="Nhập liên kết đến tài khoản Facebook của bạn"id="link[facebook]" name="link[facebook]">
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Instagram</label>
+                              <input type="text" class="form-control" value="<%= account.link[0].instagram%>" placeholder="Nhập liên kết đến tài khoản Instagram của bạn"id="link[instagram]" name="link[instagram]">
+                          </div>
+
+                          <div class="form-group">
+                              <label class="form-label">Chợ tốt: </label>
+                              <input type="text" class="form-control" value="<%= account.link[0].chotot%>" placeholder="Nhập liên kết đến tài khoản Chợ tốt của bạn"id="link[chotot]" name="link[chotot]">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="text-right mt-3">
+      <button  type="submit" class="btn btn-primary">Lưu thay đổi</button>&nbsp;
+      <button type="button" class="btn btn-default" onclick="location.href='index.html';">Hủy</button>
+  </div>
+ </form>
+</div>

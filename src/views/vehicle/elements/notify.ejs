@@ -1,0 +1,24 @@
+<div class="alert alert-<%= type %> animated bounceInRight" id="myAlert">
+    <div class="icon pull-left">
+      <i class="fa fa-info fa-2x"></i>
+    </div>
+    <div class="copy">
+      <h4>Information</h4>
+<% if (Array.isArray(message)) { %>
+<% message.forEach(msg => { %>
+      <p><%= msg %></p>
+<% }); %>
+<% } else { %>
+<p><%= message %></p>
+  <% } %>
+    </div>
+    <a class="close">
+      Xóa
+    </a>
+  </div>
+
+  <script>
+	setTimeout(function() {
+	  document.getElementById('myAlert').style.display = 'none';
+	}, 5000);
+  </script>
