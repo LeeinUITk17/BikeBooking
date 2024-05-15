@@ -30,6 +30,7 @@
               <th class="product-price">Tên</th>
               <th class="product-quantity">Hình</th>
               <th class="product-total">Trạng thái</th>
+              <th class="product-total">Trạng thái Thuê</th>
               <th class="product-remove">Xóa</th>
             </tr>
           </thead>
@@ -45,7 +46,12 @@
                     <td style="color: <%= (item && item.status) === 'active' ? 'green' : 'red' %>">
                       <strong><%= (item && item.status) === 'active' ? 'Đang cho thuê' : 'Chưa được duyệt' %></strong>
                     </td>
-                    <td><a href="javascript:handleDelete('/vehicle/delete/<%=item._id%>')" class="btn btn-black btn-sm" style="opacity: 0.3;" >X</a></td>
+                    <td style="color: <%= (item && item.hireState) === 'rentOut' ? 'Orange' : 'Blue' %>">
+                      <strong><%= (item && item.hireState) === 'rentOut' ? 'Chưa được thuê' : 'Đã được thuê' %></strong>
+                    </td>
+                  <% if (item.hireState==='rentOut') { %>
+                    <td><a href="javascript:handleDelete('/vehicle/delete/<%=item._id%>')" class="btn btn-black btn-sm" style="opacity: 0.3;">X</a></td>
+                  <% } %>
                 </tr>
             <% }); %>
         <% } else { %>

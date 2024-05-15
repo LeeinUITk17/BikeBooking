@@ -5,13 +5,13 @@ module.exports= async(req,res,next)=>{
         adminservice.getproduct(),
         adminservice.getuser(),
         adminservice.getproductActive(),
-        adminservice.getproductInactive(),
-    ]).then(([listfeedback,numProduct,numUser,productactive,productinactive])=>{
+        adminservice.getproductOnhire(),
+    ]).then(([listfeedback,numProduct,numUser,productactive,productonhire])=>{
         res.locals.listfeedback = listfeedback;
         res.locals.numProduct = numProduct;
         res.locals.numUser = numUser;
         res.locals.productactive = productactive;
-        res.locals.productinactive = productinactive;
+        res.locals.productonhire = productonhire;
         next();
     }).catch((err)=>{
         next(err);

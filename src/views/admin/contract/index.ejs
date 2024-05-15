@@ -42,27 +42,61 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><input type="checkbox" name="selectedItems"></td>
-            <td>Contract_ID</td>
-            <td>Lessor_Name</td>
-            <td>Renter_Name</td>
-            <td>Date</td>
-            <td class="project-state">
-              <a href="#">
-                <span class="badge badge-success">Paid</span>
-              </a>
-            </td>
-            <td class="project-actions text-right text-center">
-              <a class="btn btn-info btn-sm viewButton" href="#" data-toggle="modal" data-target="#myModal">
-                <i class="fas fa-eye"></i>
-                View
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="6">No data available</td>
-          </tr>
+          <% data.forEach((item) => { %>
+            <tr data-id="<%= item._id %>"
+              data-saler-name="<%= item.saler.userinformation[0].name %>"
+              data-customer-name="<%= item.customer.userinformation[0].name %>"
+              data-created-at="<%= item.createdAt.toISOString().split('T')[0] %>"
+              data-saler-address="<%= item.saler.address[0].street %> <%= item.saler.address[0].ward %> <%= item.saler.address[0].district %> <%= item.saler.address[0].city   %>"
+              data-saler-phone="<%= item.saler.userinformation[0].phone %>"
+              data-saler-email="<%= item.saler.userinformation[0].email %>"
+              data-customer-address="<%= item.customer.address[0].street %> <%= item.customer.address[0].ward %> <%= item.customer.address[0].district %> <%= item.customer.address[0].city   %>"
+              data-customer-phone="<%= item.customer.userinformation[0].phone %>"
+              data-customer-email="<%= item.customer.userinformation[0].email %>"
+              data-vehicle-brand="<%= item.product.productinformation[0].brand %>"
+              data-vehicle-name="<%= item.product.name %>"
+              data-vehicle-year="<%= item.product.productinformation[0].year %>"
+              data-vehicle-odo="<%= item.product.productinformation[0].odo %>"
+              data-vehicle-license="<%= item.product.productinformation[0].license %>"
+              data-vehicle-frame="<%= item.product.productinformation[0].frame %>"
+              data-vehicle-engine="<%= item.product.productinformation[0].machine %>"
+              data-vehicle-condition="<%= item.product.productinformation[0].state %>"
+              data-rent-price="<%= item.price %>"
+              data-rent-location="<%= item.customer.address[0].street %> <%= item.customer.address[0].ward %> <%= item.customer.address[0].district %> <%= item.customer.address[0].city   %>"
+              data-rent-start="<%= item.createdAt.toISOString().split('T')[0] %>"
+              data-rent-end="<%= item.expiresAt.toISOString().split('T')[0] %>"
+              data-rent-total="<%= item.charging-item.fee %>"
+              data-contract-fee="<%= item.fee %>"
+              data-total-amount="<%= item.charging %>">
+              <!-- Checkbox for selecting items -->
+              <td><input type="checkbox" name="selectedItems"></td>
+              
+              <!-- Item ID -->
+              <td><%= item._id %></td>
+              
+              <!-- Seller's name -->
+              <td><%= item.saler.userinformation[0].name %></td>
+              
+              <!-- Customer's name -->
+              <td><%= item.customer.userinformation[0].name %></td>
+              
+              <!-- Creation date in YYYY-MM-DD format -->
+              <td><%= item.createdAt.toISOString().split('T')[0] %></td>
+              
+              <!-- Payment status badge -->
+              <td class="project-state">
+                  <span class="badge <%= item.status === 'active' ? 'badge-success' : 'badge-warning' %>"><%= item.status === 'active' ? 'trong thời gian thuê' : 'đã kết thúc hợp đồng' %></span>
+              </td>
+              
+              <!-- Action button for viewing details -->
+              <td class="project-actions text-right text-center">
+                <a class="btn btn-info btn-sm viewButton" href="#" data-toggle="modal" data-target="#myModal">
+                  <i class="fas fa-eye"></i> View
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+          
         </tbody>
         <div class="input-group-prepend">
           <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -99,55 +133,50 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-12">
-            <p><strong>Số hợp đồng:</strong> #1</p>
-            <p><strong>Ngày tạo hợp đồng:</strong> 1/1/2024 - 12:00</p>
+            <p><strong>Số hợp đồng:</strong> <span id="modal-contract-id"></span></p>
+            <p><strong>Ngày tạo hợp đồng:</strong> <span id="modal-contract-createdAt"></span></p>
           </div>
         </div>
-        
         <div class="row">
           <div class="col-sm-6">
             <h5>Bên cho thuê:</h5>
             <hr>
-            <p><strong>Tên:</strong> Nguyễn Thị B</p>
-            <p><strong>Địa chỉ:</strong> 2222 Design Studio, Đông Hòa, Dĩ An, Bình Dương</p>
-            <p><strong>Số điện thoại:</strong> 0915.679.346</p>
-            <p><strong>Email:</strong> nguyenthib@gmail.com</p>
+            <p><strong>Tên:</strong> <span id="modal-saler-name"></span></p>
+            <p><strong>Địa chỉ:</strong> <span id="modal-saler-address"></span></p>
+            <p><strong>Số điện thoại:</strong> <span id="modal-saler-phone"></span></p>
+            <p><strong>Email:</strong> <span id="modal-saler-email"></span></p>
           </div>
-
           <div class="col-sm-6">
             <h5>Bên thuê:</h5>
             <hr>
-            <p><strong>Tên:</strong> Nguyễn Văn A</p>
-            <p><strong>Địa chỉ:</strong> 162, đường số 18, Linh Trung, Thủ Đức, Tp.HCM</p>
-            <p><strong>Số điện thoại:</strong> 0915.679.346</p>
-            <p><strong>Email:</strong> nguyenvana@gmail.com</p>
+            <p><strong>Tên:</strong> <span id="modal-customer-name"></span></p>
+            <p><strong>Địa chỉ:</strong> <span id="modal-customer-address"></span></p>
+            <p><strong>Số điện thoại:</strong> <span id="modal-customer-phone"></span></p>
+            <p><strong>Email:</strong> <span id="modal-customer-email"></span></p>
           </div>
         </div><hr>
-        
         <div class="row">
           <div class="col-sm-12"><h5>Thông tin phương tiện:</h5></div>
           <hr>
-          <div class="col-sm-6"><p><strong>Loại xe:</strong> Xe máy</p></div>
-          <div class="col-sm-6"><p><strong>Hãng xe:</strong> Honda</p></div>
-          <div class="col-sm-6"><p><strong>Tên xe:</strong> Wave RSX</p></div>
-          <div class="col-sm-6"><p><strong>Năm sản xuất:</strong> 2022</p></div>
-          <div class="col-sm-6"><p><strong>Odo hiện tại:</strong> 10.00m km</p></div>
-          <div class="col-sm-6"><p><strong>Biển số:</strong> 71-H1 012.45</p></div>            
-          <div class="col-sm-6"><p><strong>Số khung:</strong> 123456789ABCDEFGH</p></div>
-          <div class="col-sm-6"><p><strong>Số máy:</strong> 123456789ABCDEFGH</p></div>
-          <div class="col-sm-6"><p><strong>Tình trạng xe:</strong> 50%</p></div>
-          <div class="col-sm-6"><p><strong>Giá thuê / ngày:</strong> 100.000</p></div>
-          <div class="col-sm-6"><p><strong>Vị trí cho thuê:</strong> 150, Linh Trung, Thủ Đức, Tp.HCM</p></div>
+          <div class="col-sm-6"><p><strong>Hãng xe:</strong> <span id="modal-vehicle-brand"></span></p></div>
+          <div class="col-sm-6"><p><strong>Tên xe:</strong> <span id="modal-vehicle-name"></span></p></div>
+          <div class="col-sm-6"><p><strong>Năm sản xuất:</strong> <span id="modal-vehicle-year"></span></p></div>
+          <div class="col-sm-6"><p><strong>Odo hiện tại:</strong> <span id="modal-vehicle-odo"></span></p></div>
+          <div class="col-sm-6"><p><strong>Biển số:</strong> <span id="modal-vehicle-license"></span></p></div>            
+          <div class="col-sm-6"><p><strong>Số khung:</strong> <span id="modal-vehicle-frame"></span></p></div>
+          <div class="col-sm-6"><p><strong>Số máy:</strong> <span id="modal-vehicle-engine"></span></p></div>
+          <div class="col-sm-6"><p><strong>Tình trạng xe:</strong> <span id="modal-vehicle-condition"></span></p></div>
+          <div class="col-sm-6"><p><strong>Giá thuê / ngày:</strong> <span id="modal-rent-price"></span></p></div>
+          <div class="col-sm-6"><p><strong>Vị trí cho thuê:</strong> <span id="modal-rent-location"></span></p></div>
         </div><hr>
-        
         <div class="row">
           <div class="col-sm-12"><h5>Ngày thuê:</h5></div>
           <hr>
-          <div class="col-sm-6"><p><strong>Từ:</strong> 1/1/2025</p></div>
-          <div class="col-sm-6"><p><strong>Đến:</strong> 1/2/2025</p></div>
-          <div class="col-sm-6"><p><strong>Giá:</strong> 3.000.000</p></div>
-          <div class="col-sm-6"><p><strong>Phí hợp đồng:</strong> 300.000</p></div>
-          <div class="col-sm-6"><p><strong>Tổng cộng:</strong> 3.300.000</p></div>
+          <div class="col-sm-6"><p><strong>Từ:</strong> <span id="modal-rent-start"></span></p></div>
+          <div class="col-sm-6"><p><strong>Đến:</strong> <span id="modal-rent-end"></span></p></div>
+          <div class="col-sm-6"><p><strong>Giá:</strong> <span id="modal-rent-total"></span></p></div>
+          <div class="col-sm-6"><p><strong>Phí hợp đồng:</strong> <span id="modal-contract-fee"></span></p></div>
+          <div class="col-sm-6"><p><strong>Tổng cộng:</strong> <span id="modal-total-amount"></span></p></div>
         </div>
       </div>
       <!-- Modal footer -->
@@ -171,6 +200,42 @@
     printWindow.print();
   }
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.viewButton').forEach(button => {
+      button.addEventListener('click', function(event) {
+        const row = event.target.closest('tr');
+        document.getElementById('modal-contract-id').innerText = row.getAttribute('data-id');
+        document.getElementById('modal-contract-createdAt').innerText = row.getAttribute('data-created-at');
+        document.getElementById('modal-saler-name').innerText = row.getAttribute('data-saler-name');
+        document.getElementById('modal-saler-address').innerText = row.getAttribute('data-saler-address');
+        document.getElementById('modal-saler-phone').innerText = row.getAttribute('data-saler-phone');
+        document.getElementById('modal-saler-email').innerText = row.getAttribute('data-saler-email');
+        document.getElementById('modal-customer-name').innerText = row.getAttribute('data-customer-name');
+        document.getElementById('modal-customer-address').innerText = row.getAttribute('data-customer-address');
+        document.getElementById('modal-customer-phone').innerText = row.getAttribute('data-customer-phone');
+        document.getElementById('modal-customer-email').innerText = row.getAttribute('data-customer-email');
+        document.getElementById('modal-vehicle-brand').innerText = row.getAttribute('data-vehicle-brand');
+        document.getElementById('modal-vehicle-name').innerText = row.getAttribute('data-vehicle-name');
+        document.getElementById('modal-vehicle-year').innerText = row.getAttribute('data-vehicle-year');
+        document.getElementById('modal-vehicle-odo').innerText = row.getAttribute('data-vehicle-odo');
+        document.getElementById('modal-vehicle-license').innerText = row.getAttribute('data-vehicle-license');
+        document.getElementById('modal-vehicle-frame').innerText = row.getAttribute('data-vehicle-frame');
+        document.getElementById('modal-vehicle-engine').innerText = row.getAttribute('data-vehicle-engine');
+        document.getElementById('modal-vehicle-condition').innerText = row.getAttribute('data-vehicle-condition');
+        document.getElementById('modal-rent-price').innerText = row.getAttribute('data-rent-price');
+        document.getElementById('modal-rent-location').innerText = row.getAttribute('data-rent-location');
+        document.getElementById('modal-rent-start').innerText = row.getAttribute('data-rent-start');
+        document.getElementById('modal-rent-end').innerText = row.getAttribute('data-rent-end');
+        document.getElementById('modal-rent-total').innerText = row.getAttribute('data-rent-total');
+        document.getElementById('modal-contract-fee').innerText = row.getAttribute('data-contract-fee');
+        document.getElementById('modal-total-amount').innerText = row.getAttribute('data-total-amount');
+      });
+    });
+  });
+</script>
+
 
     </div>
   </div>

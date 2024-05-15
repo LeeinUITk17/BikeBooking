@@ -2,6 +2,7 @@ const mongoose=require('mongoose');
 const contractmodel=require('../../model/booking/contract.model');
 
 const addcontract=async(body)=>{
+    body.fee=body.charging*0.1;
     const contract=await contractmodel.create(body);
     return contract;
 }
@@ -20,6 +21,9 @@ const updatecontract=async(id,body)=>{
         {$set: body},
     );
 }
+const getcontractbysalerID=async(ID)=>{
+    return await contractmodel.find({salerID:ID}).exec();
+}
 const getStatusCounts = async () => {
     const items = await contractmodel.find({});
     const statusCounts = {
@@ -36,4 +40,5 @@ const getStatusCounts = async () => {
         detelecontract,
         updatecontract,
         getStatusCounts,
+        getcontractbysalerID,
   }

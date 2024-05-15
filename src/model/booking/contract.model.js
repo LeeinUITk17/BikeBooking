@@ -28,6 +28,10 @@ const newSchema=new Schema({
         type:Date,
         default:Date.now,
     },
+    fee:{
+        type:Number,
+        default:0,
+    },
     expiresAt:{
         type:Date,
         default:Date.now,

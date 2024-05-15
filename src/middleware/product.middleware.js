@@ -4,7 +4,7 @@ module.exports= async(req,res,next)=>{
         productservice.getproducts(),
     ]).then(([listProducts,])=>{
         res.locals.listProducts = listProducts;
-        // console.log(listProducts);
+         //console.log(listProducts.length);
         next();
     }).catch((err)=>{
         next(err);

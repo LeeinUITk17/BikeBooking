@@ -14,10 +14,10 @@ class productservice{
         return await usermodel.find().select('_id');
     }
     async getproductActive(){
-        return await productmodel.find({status:'active'}).select('_id');
+        return await productmodel.find({status:'active', hireState:'rentOut'}).select('_id');
     }
-    async getproductInactive(){
-        return await productmodel.find({status:'inactive'}).select('_id');
+    async getproductOnhire(){
+        return await productmodel.find({hireState:'onHire'}).select('_id');
     }
 }
 

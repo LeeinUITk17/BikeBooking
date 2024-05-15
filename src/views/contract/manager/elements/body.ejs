@@ -36,38 +36,31 @@
               </thead>
 
               <tbody>
-
+                <% if (data && Array.isArray(data)) { %>
+                <% data.forEach((item) => { %>
                 <tr>
-                    <td><a href="contractdetail.html" style="text-decoration: none; color: blue;">2</a></td>
-                    <td>Tay ga</td>
+                    <td><a href="contractdetail.html" style="text-decoration: none; color: blue;"><%= item._id%></a></td>
+                    <td><%= item.product.productinformation[0].brand%></td>
                     <td class="product-name">
-                        <h2 class="h5 text-black">Click</h2>
+                        <h2 class="h5 text-black"><%= item.product.name%></h2>
                       </td>
                   <td class="product-thumbnail">
-                    <img src="/product/images/product-6.png" alt="Image" class="img-fluid">
+                    <img src="<%= item.product.image%>" alt="Image" class="img-fluid">
                   </td>
-                  <td>1/2/2023</td>
-                  <td>10/2/2023</td>
-                  <td>500.000</td>
-                  <td style="color: rgb(77, 194, 62);">Đã thanh toán</td>
-                  <td><a href="/contract/detail"><button class="btn btn-secondary me-2">Details</button></a></td>
-                </tr>
-
-                <tr>
-                    <td><a href="contractdetail.html" style="text-decoration: none; color: blue;">3</a></td>
-                    <td>Tay côn</td>
-                    <td class="product-name">
-                        <h2 class="h5 text-black">R15</h2>
-                      </td>
-                  <td class="product-thumbnail">
-                    <img src="/product/images/product-4.png" alt="Image" class="img-fluid">
+                  <td><%= item.createdAt.toISOString().split('T')[0]%></td>
+                  <td><%= item.expiresAt.toISOString().split('T')[0]%></td>
+                  <td><%= item.charging%></td>
+                  <td style="color: <%= (item.status) === 'inactive' ? 'Orange' : 'Blue' %>">
+                    <strong><%= (item.status) === 'inactive' ? 'Đã hoàn thành hợp đồng' : 'Đang trong thời gian thuê' %></strong>
                   </td>
-                  <td>4/5/2022</td>
-                  <td>3/5/2022</td>
-                  <td>300.000</td>
-                  <td style="color: rgb(77, 194, 62);">Đã thanh toán</td>
-                  <td><a href="/contract/detail"><button class="btn btn-secondary me-2">Details</button></a></td>
+                  <td><a href="/contract/detail/<%= item._id%>"><button class="btn btn-secondary me-2">Details</button></a></td>
                 </tr>
+                <% }); %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="6">No data available</td>
+                  </tr>
+                <% } %>
               </tbody>
             </table>
           </div>

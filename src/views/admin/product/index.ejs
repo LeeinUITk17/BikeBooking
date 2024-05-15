@@ -63,7 +63,8 @@
               <th style="width: 8%">Rental</th>
               <th style="width: 8%">Image</th>
               <th style="width: 8%" class="text-center">Status</th>
-              <th style="width: 8%" class="text-center">Category</th>
+              <th style="width: 8%" class="text-center">Hire state</th>
+              <th style="width: 8%" class="text-center">Category</th> 
             </tr>
           </thead>
         
@@ -83,6 +84,9 @@
                       <a href="/changeStatus/<%= item.id %>/<%= item.status %>" onclick="handleUpdateStatus('<%= item.id %>', '<%= item.status %>','product'); return false;">
                         <span class="badge <%= item.status === 'active' ? 'badge-success' : 'badge-danger' %>"><%= item.status %></span>
                       </a>
+                    </td>
+                    <td class="project-state" >          
+                        <span class="badge <%= item.hireState === 'rentOut' ? 'badge-warning' : 'badge-danger' %>"><%= item.hireState %></span>
                     </td>
                     <td class="project-state" id="category-<%= item.id %>">
                       <span class="badge badge-success"><%= item.category %></span>
