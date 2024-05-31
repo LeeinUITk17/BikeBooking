@@ -3,6 +3,9 @@ const router = express.Router();
 const role = require('../../middleware/role');
 const middleware=require('../../middleware/admin.middleware');
 const checkContract=require('../../middleware/checkingcontract.helper');
+// const {
+//     loginrequire,
+// }=require('../../middleware/loginrequire.middleware');
 const {
     verifyToken,
 } = require('../../helper/jwt.helper');
@@ -29,7 +32,7 @@ router.use((req, res, next) => {
    // res.locals.rooms = Object.keys(req.app.locals.io.sockets.adapter.rooms);
     next();
 });
-
+// router.use(loginrequire);
 router.use(role);
 
 router.use((req,res,next)=>{

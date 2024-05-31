@@ -30,7 +30,7 @@
 							style="width: 40px; height: 40px; border-radius: 50%;">
                             <div>
                                 <b><span><%= saler.userinformation[0].name%></span></b> <br>
-                                <span><%= data.createdAt.toISOString().split('T')[0]%></span>
+                                <span><%= data.createdAt.toISOString().split('T')[0].split('-').reverse().join('-') %></span>
                             </div>
 					</div>
 					<div class="figures d-flex mt-3 mb-3">
@@ -146,8 +146,11 @@
 								<input type="hidden" name="productID" value="<%= data._id%>">
 								<input type="hidden" name="userID" value="<%= user._id%>">
 								<input type="hidden" name="salerID" value="<%= saler._id%>">
-								<input type="hidden" name="price" value="<%= data.price%>">
-								<input type="hidden" name="charging" value="<%= data.price*7%>">
+								<input type="hidden" name="price" id="priceorigin" value="<%= data.price%>">
+								<input type="hidden" name="charging" id="chargingcontract" >
+								<input type="hidden" name="createdAt" id="createdAt">
+								<input type="hidden" name="expiresAt" id="expiresAt">
+
 								<div class="modal" id="myModal">
 									<div class="modal-dialog modal-lg">
 									<div class="modal-content">
@@ -204,11 +207,17 @@
 										<div class="row">
 											<div class="col-sm-12"><h5>Ngày thuê:</h5></div>
 											<hr>
-											<div class="col-sm-6" id="start-date-input"><strong>Từ: </strong></div>
-											<div class="col-sm-6" id="end-date-input"><strong>Đến:  </strong></div>
-											<div class="col-sm-6"><p><strong>Giá:</strong> <%= data.price.toLocaleString('vi-VN')%> ₫/ngày</p></div>
-											<div class="col-sm-6"><p><strong>Phí hợp đồng:</strong> <%= (data.price * 0.1).toLocaleString('vi-VN')%> ₫</p></div>
-											<div class="col-sm-6"><p><strong>Tổng cộng:</strong> <%= data.price%></p></div>
+											<div class="col-sm-6">
+												<strong>Từ: </strong>
+												<input type="Date" id="start-date-input" >
+											</div>
+											<div class="col-sm-6">
+												<strong>Đến:  </strong>
+												<input type="Date" id="end-date-input" >
+											</div>
+											<div class="col-sm-6"><p><strong>Giá:</strong> <span id="hire-price"><%= data.price.toLocaleString('vi-VN')%></span> ₫/ngày</p></div>
+											<div class="col-sm-6"><p><strong>Phí hợp đồng:</strong> <span id="contract-fee"></span> ₫</p></div>
+											<div class="col-sm-6"><p><strong>Tổng cộng:</strong> <span id="total-price"></span></p></div>
 										</div>
 										</div>
 															<!-- Modal footer -->
@@ -222,32 +231,6 @@
 														</div>
 							</div>
 							</form>
-					</div>
-					<hr>
-
-					<div class="mt-4">
-						<h2>Đánh giá từ người dùng</h2>
-
-						<div class="star">
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-							<i class="fas fa-star"></i>
-
-							<span> / 150 tr lượt đánh giá</span>
-						</div>
-					</div>
-					<hr>
-
-					<div class="mt-4">
-						<h2>Một số bình luận: </h2>
-
-						<div class="comments">
-							<p>Tuyệt vời</p>
-							<p>Rất tuyệt vời</p>
-							<p>Chắc là tuyệt vời</p>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -284,7 +267,7 @@ const randomProducts = shuffledProducts.slice(0, 3);
     <a class="product-item" href="/shop/detail/<%= item._id%>/<%= item.salerID%>%>">
         <img src="<%= item.image %>" class="img-fluid product-thumbnail">
         <h3 class="product-title"><%= item.name %></h3>
-        <strong class="product-price"><%= item.price %>₫/ 1 ngày</strong>
+        <strong class="product-price"><%= item.price.toLocaleString('vi-VN') %>₫/ 1 ngày</strong>
         <span class="icon-cross">
             <img src="/product/images/cross.svg" class="img-fluid">
         </span>
@@ -299,3 +282,45 @@ const randomProducts = shuffledProducts.slice(0, 3);
 		</div>
 	</div>
 	<!-- End Product Related -->
+	<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<script>
+		$( function() {
+			$( "#start-date-input" ).datepicker({
+				onClose: function(selectedDate) {
+					$("#end-date-input").datepicker("option", "minDate", selectedDate);
+				}
+			});
+			$( "#end-date-input" ).datepicker({
+				onClose: function(selectedDate) {
+					$("#start-date-input").datepicker("option", "maxDate", selectedDate);
+				}
+			});
+		});
+		</script>
+		 -->
+		 <script>
+			function updateTotalPrice() {
+				var startDate = new Date(document.getElementById('start-date-input').value);
+				var endDate = new Date(document.getElementById('end-date-input').value);
+				var diffInTime = endDate.getTime() - startDate.getTime();
+				var diffInDays = diffInTime / (1000 * 3600 * 24);
+				// console.log(diffInDays);
+				// console.log(startDate.getTime());
+				// console.log(endDate.getTime());
+				document.getElementById('createdAt').value=startDate;
+				document.getElementById('expiresAt').value=endDate;
+				var price=parseInt(document.getElementById('priceorigin').value);
+				//console.log(price);
+				var totalPrice = price * diffInDays;
+				var total=totalPrice+(totalPrice*0.1)
+				document.getElementById('contract-fee').innerText = (totalPrice*0.1).toLocaleString('vi-VN');
+				document.getElementById('total-price').innerText = total.toLocaleString('vi-VN');
+              
+				document.getElementById('chargingcontract').value=total;
+			}
+		
+			document.getElementById('start-date-input').addEventListener('change', updateTotalPrice);
+			document.getElementById('end-date-input').addEventListener('change', updateTotalPrice);
+		</script>
+

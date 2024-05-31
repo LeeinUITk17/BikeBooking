@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Basic styles for the chat interface */
+        .card {
+            max-width: 80%;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .card-header, .card-footer {
+            padding: 10px;
+            background-color: #fff;
+            color: #fff;
+            border-bottom: 1px solid #ccc;
+        }
+        .card-body {
+            padding: 10px;
+            background-color: #f9f9f9;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .direct-chat-messages {
+            height: 500px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+        .input-group {
+            display: flex;
+        }
+        .input-group input {
+            flex: 1;
+            margin-right: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 100px !important;  
+        }
+        .input-group-append {
+            display: flex;
+        }
+        .received-message {
+            text-align: left;
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: whitesmoke;
+            border-radius: 5px;
+            display: block;
+            
+        }
+        .sent-message {
+            text-align: right;
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: #fff;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .received-message span {
+            background-color: #000;
+            color: whitesmoke;
+            padding: 5px;
+            border-radius: 10px;
+            display: inline;
+        }
+
+        .sent-message span {
+            background-color: #314d43;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card direct-chat direct-chat-primary mt-3">
+    <div class="card-body">
+        <div class="direct-chat-messages">
+            <div>
+            
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <form action="#" method="post">
+            <div class="input-group">
+                <input id="room" autocomplete="off" type="hidden" name="room" placeholder="Enter room code ..." class="form-control" value="<%= user._id %>" readonly>
+                <input id="m" autocomplete="off" type="text" name="message" placeholder="Nhập tin nhắn ..." class="form-control">
+                <span class="input-group-append">
+                    <button type="submit" class="btn btn-primary me-2"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('connect', () => {
+        const userId = '<%= user._id %>';
+        socket.emit('user joined', userId);
+        console.log('Connected to server');
+    });
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const room = document.getElementById('room').value;
+        const message = document.getElementById('m').value + ' : <%= user.userinformation[0].name %>';
+
+        if (!room || !message) {
+            console.log('room or message is undefined');
+            return false;
+        }
+
+        socket.emit('join room', room);
+        socket.emit('chat message', { room, message, userId: '<%= user._id %>' });
+
+        document.getElementById('m').value = '';
+        return false;
+    });
+
+    socket.on('chat message', function(data) {
+    // Create a new div for the message
+        const item = document.createElement('div');
+        const span = document.createElement('span');
+
+        if (data.message.includes('<%= user.userinformation[0].name %>')) {
+            item.classList.add('sent-message');
+        } else {
+            item.classList.add('received-message');
+        }
+
+        span.textContent = `${data.message}`;
+        item.appendChild(span);
+
+        // Append the new message div to the 'direct-chat-messages' div
+        const chatMessagesDiv = document.querySelector('.direct-chat-messages');
+        chatMessagesDiv.appendChild(item);
+    });
+</script>

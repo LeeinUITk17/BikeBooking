@@ -4,7 +4,10 @@ const ensureadmin =async (req, res, next) => {
          return res.redirect('/login'); 
     }
     if (req.user.role !== 'admin') {
-        return res.status(403).send('You do not have permission to access this page.');
+        const message='you do not have permission to access this page';
+        const url='/home'
+        req.app.set('layout','errorPage');
+       return res.render('errorPage',{message,url});
     }
     next();
 }

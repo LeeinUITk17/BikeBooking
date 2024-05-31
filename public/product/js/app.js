@@ -101,55 +101,7 @@ document.querySelector('#next-year').onclick = () => {
     ++curr_year.value
     generateCalendar(curr_month.value, curr_year.value)
 }
-let selectionStart = null;
-let selectionEnd = null;
-let clickCount = 0;
 
-document.querySelector('.calendar-days').addEventListener('click', function (event) {
-    let clickedDate = new Date(curr_year.value, curr_month.value, event.target.textContent);
-    let currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-
-    // Chỉ thêm chấm đỏ nếu ngày được click không phải là ngày trong quá khứ
-    if (clickedDate >= currentDate) {
-        clickCount++;
-        // Tạo chấm đỏ cho ngày được click
-        let dot = document.createElement('span');
-        dot.className = 'dot';
-        event.target.appendChild(dot);
-    }
-
-    if (clickCount === 3) {
-        // Xóa tất cả các chấm đỏ
-        document.querySelectorAll('.dot').forEach(function (dot) {
-            dot.remove();
-        });
-
-        // Reset ngày bắt đầu, ngày kết thúc và số lần click
-        selectionStart = null;
-        selectionEnd = null;
-        clickCount = 0;
-    } else {
-        // Kiểm tra xem ngày bắt đầu đã được đặt chưa
-        if (selectionStart === null) {
-            selectionStart = event.target;
-        } else {
-            selectionEnd = event.target;
-
-            // Tạo chấm đỏ cho tất cả các ngày trong vùng chọn
-            let start = Array.from(document.querySelectorAll('.calendar-days div')).indexOf(selectionStart);
-            let end = Array.from(document.querySelectorAll('.calendar-days div')).indexOf(selectionEnd);
-            if (start > end) {
-                [start, end] = [end, start];
-            } 
-            for (let i = start; i <= end; i++) {
-                let dot = document.createElement('span');
-                dot.className = 'dot';
-                document.querySelectorAll('.calendar-days div')[i].appendChild(dot);
-            }
-        }
-    }
-});
 
 
 // Get the modal
@@ -162,41 +114,18 @@ var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function () {
-    modal.style.display = "block";
-    let startDate = selectionStart ? selectionStart.textContent : '';
-    let endDate = selectionEnd ? selectionEnd.textContent : '';
 
-    // Điền ngày bắt đầu và ngày kết thúc vào form
-    document.querySelector('#start-date-input').value = startDate;
-    document.querySelector('#end-date-input').value = endDate;
-}
-
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function () {
-    modal.style.display = "block";
-    let startDate = selectionStart ? selectionStart.textContent : '';
-    let endDate = selectionEnd ? selectionEnd.textContent : '';
-
-    // Điền ngày bắt đầu và ngày kết thúc vào form
-    document.querySelector('#start-date-input p').textContent = startDate + " " + month_names[curr_month.value] + " " + curr_year.value;
-    document.querySelector('#end-date-input p').textContent = endDate + " " + month_names[curr_month.value] + " " + curr_year.value;
-}
 
 span.onclick = function () {
     modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
+
+btn.onclick = function () {
+    modal.style.display = "block";
+}
+
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";

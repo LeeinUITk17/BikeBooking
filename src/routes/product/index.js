@@ -6,7 +6,9 @@ const middleware = require('../../middleware/product.middleware');
 const {
     verifyToken,
 } = require('../../helper/jwt.helper');
-
+const {
+    loginrequire
+}=require('../../middleware/loginrequire.middleware');
 // Token verification middleware
 router.use((req, res, next) => {
     const token = req.cookies.jwt;
@@ -35,17 +37,16 @@ router.use((req, res, next) => {
     }
 });
 
-// Flash messages setup
-router.use('/vehicle', (req, res, next) => {
-    req.app.set('layout', 'vehicle');
-    // Uncomment if flash messages are to be used
-    // req.app.use(flash(app, { viewName: "vehicle/elements/notify" }));
+// // Flash messages setup
+router.use('/login', (req, res, next) => {
+    req.app.set('layout', 'login');
     next();
-}, require('./vehicle'));
+}, require('./login'));
+
+router.use(loginrequire);
 
 // Setting layout and handling routes
 const routes = [
-    { path: '/login', layout: 'login', handler: require('./login') },
     { path: '/home', layout: 'home', handler: require('./home') },
     { path: '/about', layout: 'about', handler: require('./about') },
     { path: '/contact', layout: 'contact', handler: require('./contact') },
@@ -54,7 +55,8 @@ const routes = [
     { path: '/contract', layout: 'contract', handler: require('./contract') },
     { path: '/least', layout: 'least', handler: require('./least') },
     { path: '/blog', layout: 'blog', handler: require('./blog') },
-    {path:'/chat',layout: 'chat', handler: require('./chat')}
+    { path: '/vehicle', layout: 'vehicle', handler: require('./vehicle') },
+    { path:'/chat',layout: 'chat', handler: require('./chat')}
 ];
 
 routes.forEach(route => {

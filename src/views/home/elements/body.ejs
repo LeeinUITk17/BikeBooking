@@ -55,7 +55,7 @@
                 <a class="product-item" href="/shop/detail/<%= item._id%>/<%= item.salerID%>%>">
                     <img src="<%= item.image %>" class="img-fluid product-thumbnail" style="height: 290px; width: 290px;">
                     <h3 class="product-title"><%= item.name %></h3>
-                    <strong class="product-price"><%= item.price %>₫/ 1 ngày</strong>
+                    <strong class="product-price"><%= item.price.toLocaleString('vi-VN')  %>₫/ 1 ngày</strong>
                     <span class="icon-cross">
                         <img src="/product/images/cross.svg" class="img-fluid">
                     </span>
@@ -245,7 +245,7 @@
             <% listnews.slice(0, 3).forEach((item) => { %>
             <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
                 <div class="post-entry">
-                    <a href="/blog/blogdetail/<%= item._id%>" class="post-thumbnail"><img src="<%= item.avatar%>" alt="Image"
+                    <a href="/blog/blogdetail/<%= item._id%>" class="post-thumbnail"><img src="<%= item.avatar%>" alt="Image" 
                             class="img-fluid"></a>
                     <div class="post-content-entry">
                         <h3><a href="/blog/blogdetail/<%= item._id%>"><%= item.name%></a></h3>
@@ -262,14 +262,15 @@
 </div>
 <!-- End Blog Section -->
 <a href="/chat">
-    <button class="btn btn-secondary me-2" 
-style="
-padding: 16px 20px;
-border: none;
-cursor: pointer;
-opacity: 0.8;
-position: fixed;
-bottom: 23px;
-right: 28px;
-width: 10%;" >Chat</button>
+    <button class="btn btn-primary me-2" 
+    style="
+    width: 50px;
+    height: 50px;
+    padding: 0 !important;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    " ><i class="fas fa-comments"></i></button>
 </a>
