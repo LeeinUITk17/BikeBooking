@@ -19,7 +19,7 @@ class loginController{
           //  console.table(req.body);
             
            const user= await registerService(req.body);
-           return res.render('Login/updateimage',{id: user._id});
+           return res.render('login/updateimage',{id: user._id});
         } catch (err) {
             return res.render('login/formregister');
         }
