@@ -27,6 +27,75 @@
                     <label for="exampleInputPassword2" class="form-label">Nhập lại mật khẩu: </label>
                     <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Nhập lại mật khẩu">
                   </div>
+                    <hr class="border-light m-0">
+                    <div class="card-body pb-2">
+                        <h6 class="mb-4" style="font-size: 20px;"><strong>Thông tin cá nhân: </strong></h6>
+
+                        <div class="form-group">
+                            <label for="birthdate">Ngày sinh:</label>
+                            <input type="Date" id="userinformation[birthday]" name="userinformation[birthday]" >
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Số CCCD: </label>
+                            <input type="text" class="form-control" placeholder="Nhập cccd"
+                                id="userinformation[cccd]" name="userinformation[cccd]">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Ngày cấp: </label>
+                            <input type="Date" id="userinformation[date]" name="userinformation[date]" >
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Nơi cấp: </label>
+                            <input type="text" class="form-control" placeholder="Nhập nơi cấp CCCD"
+                                id="userinformation[place]" name="userinformation[place]">
+                        </div>
+                    </div>
+
+                    <hr class="border-light m-0">
+                    <div class="card-body pb-2">
+                        <h6 class="mb-4" style="font-size: 20px;"><strong>Địa chỉ thường trú: </strong></h6>
+
+                        <div class="form-group">
+                            <label class="form-label">Tỉnh/ Thành Phố: </label>
+                            <input type="text" class="form-control" 
+                                placeholder="Nhập tỉnh/ thành phố theo CCCD" id="address[city]"
+                                name="address[city]">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Quận/ Huyện: </label>
+                            <input type="text" class="form-control"
+                                placeholder="Nhập quận/huyện theo CCCD" id="address[district]"
+                                name="address[district]">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phường/ Xã: </label>
+                            <input type="text" class="form-control" 
+                                placeholder="Nhập xã/ phường theo CCCD" id="address[ward]" name="address[ward]">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Địa chỉ cụ thể: </label>
+                            <input type="text" class="form-control" 
+                                placeholder="Nhập số nhà/ tòa, tên đường" id="address[street]"
+                                name="address[street]">
+                        </div>
+                    </div>
+
+                    <hr class="border-light m-0">
+                    <div class="card-body pb-2">
+                        <h6 class="mb-4" style="font-size: 20px;"><strong>Thông tin liên lạc: </strong></h6>
+                        <div class="form-group">
+                            <label class="form-label">Số điện thoại: </label>
+                            <input type="text" class="form-control" 
+                                id="userinformation[phone]" name="userinformation[phone]">
+                        </div>
+                    </div>
+             
                   <button class="btn btn-primary w-100 fs-4 mb-4 rounded-2" type="submit">Register</button>
                   <div class="d-flex align-items-center justify-content-center">
                     <p class="fs-4 mb-0 fw-bold">Đã có tài khoản tại EzBooking?</p>
@@ -40,3 +109,39 @@
       </div>
     </div>
   </div>
+  <script>
+    const previewImage = (input, name) => {
+    console.log('Preview image function called');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            document.getElementById(`${name}Preview`).src = e.target.result;
+        }
+
+        reader.readAsDataURL(input.files[0]); 
+    }
+};
+
+const previewArrayimg = (input, name) => {
+    console.log('Preview array image function called');
+    if (input.files && input.files.length > 0) {
+        let count = 0; // Counter to track the number of images rendered
+        for (let i = 0; i < input.files.length; i++) {
+            if (count >= 3) break; // Stop the loop if three images are already rendered
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const image = document.createElement('img');
+                image.src = e.target.result;
+                image.classList.add('preview-image');
+				image.style.width = '100%'; // Set the width to 50px
+                image.style.height = 'auto'; // Automatically adjust the height based on the aspect ratio
+                document.getElementById(`${name}${count + 1}`).innerHTML = ''; // Clear previous content
+                document.getElementById(`${name}${count + 1}`).appendChild(image); // Append image to the corresponding container
+                count++; // Increment the counter
+            }
+            reader.readAsDataURL(input.files[i]);
+        }
+    }
+};
+  </script>

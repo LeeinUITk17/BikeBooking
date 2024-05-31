@@ -4,23 +4,10 @@ const profileController = require('../../../controllers/product/profile.controll
 
 const {catchAsync}=require('../../../apps/utils/catchAsync');
 const {cloudinaryHelper}=require('../../../helper/cloudinary.helper');
-const multer = require('multer');
-const randomstring = require('randomstring');
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads');
-    },
-    filename: function (req, file, cb) {
-        const uniqueFileName = randomstring.generate(10) + file.originalname;
-        cb(null, uniqueFileName);
-    },
-});
-
-const upload = multer({ storage: storage });
 
 router.get('/', catchAsync(profileController.getAll));
-router.post('/update/:id', 
-upload.fields([
+router.post('/update', 
+cloudinaryHelper.fields([
   { name: 'imagecccd', maxCount: 2 }, 
   { name: 'certificate', maxCount: 2 },
 ]),
@@ -30,7 +17,7 @@ upload.fields([
     return res.status(500).send('Error uploading file');
   }
   next();
-}, catchAsync(profileController.updateprofile));
-router.post('/upload/:id', cloudinaryHelper.single('avatar'),catchAsync( profileController.cloudinaryImage));
+},catchAsync(profileController.updateprofile));
+router.post('/upload', cloudinaryHelper.single('avatar'),catchAsync( profileController.cloudinaryImage));
 module.exports = router;
 

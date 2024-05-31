@@ -1,36 +1,36 @@
-	<!-- Start Hero Section -->
-    <div class="hero">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-lg-5">
-                    <div class="intro-excerpt">
-                        <h1>Contact</h1>
-                        <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
-                        <p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#" class="btn btn-white-outline">Explore</a></p>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="hero-img-wrap">
-                      <img src="/product/images/product-1.png" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Start Hero Section -->
+<div class="hero">
+  <div class="container">
+      <div class="row justify-content-between">
+          <div class="col-lg-5">
+              <div class="intro-excerpt">
+                  <h1><%= listsetting[0].hero[3].title %></h1>
+                  <p class="mb-4"><%= listsetting[0].hero[3].content%></p>
+                  <p>
+                      <a href="/shop" class="btn btn-secondary me-2">Thuê ngay</a>
+                      <a href="/least" class="btn btn-white-outline">Cho thuê</a>
+                  </p>
+              </div>
+          </div>
+          <div class="col-lg-7">
+              <div class="hero-img-wrap">
+                  <img src="<%= listsetting[0].heroimage%>" class="img-fluid">
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 <!-- End Hero Section -->
+
 
 
 <!-- Start Contact Form -->
 <div class="untree_co-section">
 <div class="container">
 
-<div class="block">
+<div class="block"> 
   <div class="row justify-content-center">
-
-
     <div class="col-md-8 col-lg-8 pb-4">
-
-
       <div class="row mb-5">
         <div class="col-lg-4">
           <div  class="service no-shadow align-items-center link horizontal d-flex active" data-aos="fade-left" data-aos-delay="0">
@@ -71,7 +71,6 @@
           </div> <!-- /.service -->
         </div>
       </div>
-
       <form action="/contact" method="post">
         <div class="row">
           <div class="col-6">
@@ -85,7 +84,10 @@
           <label class="text-black" for="email">Your email</label>
           <input type="email" class="form-control" id="email" placeholder="enter your email" name="Email">
         </div>
-
+        <div class="form-group">
+          <label class="text-black" for="email">Your Subject</label>
+          <input type="Subject" class="form-control" id="Subject" placeholder="enter your Subject" name="Subject">
+        </div>
         <div class="form-group mb-5">
           <label class="text-black" for="message">Message</label>
           <textarea name="Message" class="form-control" id="message" cols="30" rows="5" placeholder="enter your message"></textarea>
@@ -104,3 +106,15 @@
 
 
 </div>
+<a href="/chat">
+  <button class="btn btn-secondary me-2" 
+style="
+padding: 16px 20px;
+border: none;
+cursor: pointer;
+opacity: 0.8;
+position: fixed;
+bottom: 23px;
+right: 28px;
+width: 10%;" >Chat</button>
+</a>

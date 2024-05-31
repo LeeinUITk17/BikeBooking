@@ -1,24 +1,30 @@
 <script src="/product/js/bootstrap.bundle.min.js"></script>
-	<script src="/product/js/tiny-slider.js"></script>
-	<script src="/product/js/custom.js"></script>
-	<script src="/product/js/app.js"></script>
-	<script>
-		var map = L.map('map').setView([0, 0], 1);
-		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-		}).addTo(map);
-		var marker = L.marker([51.5, -0.09]).addTo(map);
-		var circle = L.circle([51.508, -0.11], {
-			color: 'red',
-			fillColor: '#f03',
-			fillOpacity: 0.5,
-			radius: 500
-		}).addTo(map);
-	</script>
-	<script>
-		function changeImage(clickedImage) {
-			var mainImage = document.getElementById("mainImage");
-			mainImage.src = clickedImage.src;
-		}
-	</script>
+<script src="/product/js/tiny-slider.js"></script>
+<script src="/product/js/custom.js"></script>
+<script src="/product/js/app.js"></script>
+<script>
+	var address = document.querySelector('.address').textContent;
+
+	fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address}`)
+		.then(response => response.json())
+		.then(data => {
+			if (data.length > 0) {
+				var lat = data[0].lat;
+				var lon = data[0].lon;
+
+				var map = L.map('map').setView([lat, lon], 13);
+				L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					maxZoom: 19,
+					attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+				}).addTo(map);
+
+				var marker = L.marker([lat, lon]).addTo(map);
+			}
+		});
+</script>
+<script>
+	function changeImage(clickedImage) {
+		var mainImage = document.getElementById("mainImage");
+		mainImage.src = clickedImage.src;
+	}
+</script>

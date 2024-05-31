@@ -48,7 +48,14 @@ const handleDelete = (link) => {
 	  }
 	});
   };
-
+  const SweetAlert=(link)=>{
+    Swal.fire({
+        icon: "error",
+        title: "Hold on! (⁠ꏿ⁠﹏⁠ꏿ⁠;⁠) ",
+        text: "Giấy tờ của bạn chưa được xác thực!",
+        footer: `<a href="${link}">Click vào đây để cập nhật thông tin?</a>`
+    })
+}
 (function() {
 	'use strict';
 

@@ -1,41 +1,55 @@
-const {Schema}=require("mongoose");
+const { Schema } = require('mongoose');
 const mongoose=require("mongoose");
 
 const COLLECTION_NAME="setting";
 
-const list=new Schema({
-    facebook:String,
-    twitter:String,
-    instagram:String,
-    youtube:String,
+const heroObject=new Schema({
+    title:String,
+    content:String,
 });
+const testimonial=new Schema({
+    name:String,
+    detail:String,
+    comment:String,
+});
+const title=new Schema({
+    content:String,
+});
+const listImage=new Schema({
+    Image:String,
+  })
 
 const newSchema=new Schema({
-   script:{
-         type:String,
-         required:true,
-    },
-   email:{
+     hero:{
+        type:[heroObject],
+     },
+     heroimage:{
         type:String,
-        required:true,
-    },
-    phone:{
+     },
+     whychoose:{
+        type:[heroObject],
+     },
+     whychooseimage:{
         type:String,
-        required:true,
-    },
-    Social:{
-        type:[list],
-        default:[],
-    },
-    logo:{
-        type:String,
-        required:true,
-    },
-    icon:{
-        type:String,
-        required:true,
-    },
-
+     },
+     helpObject:{
+        type:[heroObject],
+     },
+     helpDetails:{
+        type:[title],
+     },
+     helpImage:{
+        type:[listImage],
+     },
+     testimonial:{
+        type:[testimonial],
+     },
+     testimonialtitle:{
+       type:String,
+     },
+     testimonialImage:{
+        type:[listImage]
+     }
 },
 {
     timestamps:true,

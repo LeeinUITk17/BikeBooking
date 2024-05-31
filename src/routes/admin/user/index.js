@@ -8,7 +8,7 @@ const {cloudinaryHelper}=require('../../../helper/cloudinary.helper');
 
 router.get("/form", catchAsync(userController.getForm));
 router.post(
-  "/form",
+  "/form/:id",
   catchAsync(userController.addOrUpdateItem)
 );
 router.get("/form/:id", catchAsync(userController.getForm));

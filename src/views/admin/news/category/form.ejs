@@ -1,0 +1,71 @@
+<%- locals.flash %>
+<section class="content">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Form 1: General Information -->
+      <form method="POST" action="/admin/category/form" enctype="multipart/form-data">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">General</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input name="name" type="text" id="name" class="form-control" >
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select name='status' id="status" class="form-control custom-select">
+                <option selected disabled="">Select one</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input name="description" placeholder="Description...." type="text" id="description" class="form-control" >
+            </div>
+            <div class="form-group">
+              <label for="ordering">Ordering</label>
+              <input name="ordering" type="number" id="ordering" class="form-control" >
+            </div>
+            <div class="form-group">
+              <label for="special">Special</label>
+              <select name="special" id="special" class="form-control custom-select">
+                  <option value="true">true</option>
+                  <option value="false">false</option>
+              </select>
+          </div>
+          <div>
+            <div class="form-group">
+                <label for="HeroImage">Upload Logo Category</label>
+                <input type="file" id="HeroImage" name="avatar" class="form-control-file" onchange="previewImage(event)">
+            </div>
+            
+            <div id="imagePreview" style="margin-top: 10px;">
+            </div>
+            
+            <script>
+            function previewImage(event) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var output = document.getElementById('imagePreview');
+                    output.innerHTML = '<img src="' + reader.result + '" alt="Hero Image" style="max-width: 100%; height: auto;"/>';
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+            </script>
+        </div>
+            <button type="submit" class="btn btn-primary float-right">Submit General Info</button>
+            <a href="/admin/category/all" > <button type="button" class="btn btn-primary float-left">Back</button></a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

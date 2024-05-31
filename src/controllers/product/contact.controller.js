@@ -32,7 +32,7 @@ class contactController{
         console.log(req.body + req.user._id);
         //return;
         try {
-            const { Name, Email, Message } = req.body;
+            const { Name, Email, Message,Subject } = req.body;
             const replyContent = mailreply();        
             const mailOptions = {
                 from: process.env.GOOGLE_MAIL_USER,
@@ -41,7 +41,7 @@ class contactController{
                 html: `<p>Dear ${Name},</p><p>${replyContent}</p>`, 
             };
             await this.transporter.sendMail(mailOptions);
-            await addcontact({ Name, Email, Message, userID: req.user._id });
+            await addcontact({ Name, Email, Message,Subject, userID: req.user._id });
             res.redirect('/home');
         } catch (error) {
             console.error('Error sending email:', error);

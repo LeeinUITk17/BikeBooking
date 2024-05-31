@@ -28,6 +28,17 @@ const updateuser=async(id,body)=>{
         {$set: body},
     );
 }
+const updateuserAdmin = async (id, body) => {
+  try {
+    return await usermodel.findByIdAndUpdate(
+      id,
+      { $set: { status: body.status, role: body.role } },
+      { new: true },
+    );
+  } catch (error) {
+    console.error(error);
+  }
+}
 const getStatusCounts = async () => {
     const items = await usermodel.find({});
     const statusCounts = {
@@ -44,4 +55,5 @@ const getStatusCounts = async () => {
         deteleuser,
         updateuser,
         getStatusCounts,
+        updateuserAdmin,
   }

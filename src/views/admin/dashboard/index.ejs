@@ -39,8 +39,8 @@
                 <div class="info-box mb-3">
                     <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-users"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Tài khoản đã đăng ký</span>
-                        <span class="info-box-number"><%= numUser.length%></span>
+                        <span class="info-box-text">Tài khoản đã đăng ký: <%= numUser.length%></span>
+                        <span id="userCount" class="info-box-number"></span>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <div class="card-header ui-sortable-handle">
                     <h3 class="card-title">Inbox</h3>
                     <div class="card-tools">
-                        <span title="3 New Messages" class="badge badge-primary">3</span>
+                        <span title="3 New Messages" class="badge badge-primary"><%= listfeedback.filter(item=>item.status==='inactive').length%></span>
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </button>
@@ -68,15 +68,22 @@
                     <div class="table-responsive mailbox-messages" style="max-height: 310px;"> <!-- Change overflow-y: scroll; to overflow-y: auto; -->
                         <table class="table table-hover table-striped">
                             <tbody>
-                                <% listfeedback.slice(0, 4).forEach((item) => { %>
+                                <% let filteredFeedback = listfeedback.filter(item=>item.status==='inactive'); %>
+                                <% if (filteredFeedback.length > 0) { %>
+                                    <% filteredFeedback.slice(0, 4).forEach((item) => { %>
+                                        <tr>
+                                            <td><a href=""><span class="badge <%= item.status === 'active' ? 'badge-success' : 'badge-danger' %>"><%= item.status ==='active'?'seen':'unread'%></span></a></td>
+                                            <td class="mailbox-name"><a href="/admin/contact"><%= item.Name%></a></td>
+                                            <td class="mailbox-subject"><b><%= item.Email%></b></td>
+                                            <td class="mailbox-attachment"></td>
+                                            <td class="mailbox-date"><%= item.createdAt.toISOString().split('T')[0]%></td>
+                                        </tr>
+                                    <% }); %>
+                                <% } else { %>
                                     <tr>
-                                        <td><a href=""><span class="badge <%= item.status === 'active' ? 'badge-success' : 'badge-danger' %>"><%= item.status ==='active'?'seen':'unread'%></span></a></td>
-                                        <td class="mailbox-name"><a href="/admin"><%= item.Name%></a></td>
-                                        <td class="mailbox-subject"><b><%= item.Email%></b></td>
-                                        <td class="mailbox-attachment"></td>
-                                        <td class="mailbox-date"><%= item.createdAt.toISOString().split('T')[0]%></td>
+                                        <td colspan="5">No data available.</td>
                                     </tr>
-                                <% }); %>
+                                <% } %>
                             </tbody>
                         </table>
                     </div>
@@ -120,7 +127,7 @@
                 <div class="card-header ui-sortable-handle">
                     <h3 class="card-title">Direct Chat</h3>
                     <div class="card-tools">
-                        <span title="3 New Messages" class="badge badge-primary">3</span>
+                        <span title="3 New Messages" class="badge badge-primary">ADMIN</span>
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </button>
@@ -134,161 +141,19 @@
                 </div>
                 <div class="card-body">
                     <div class="direct-chat-messages">
-
-                        <div class="direct-chat-msg">
-                            <div class="direct-chat-infos clearfix">
-                                <span class="direct-chat-name float-left">Alexander Pierce</span>
-                                <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
-                            </div>
-
-                            <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
-
-                            <div class="direct-chat-text">
-                                Is this template really for free? That's unbelievable!
-                            </div>
-
-                        </div>
-
-
-                        <div class="direct-chat-msg right">
-                            <div class="direct-chat-infos clearfix">
-                                <span class="direct-chat-name float-right">Sarah Bullock</span>
-                                <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
-                            </div>
-
-                            <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
-
-                            <div class="direct-chat-text">
-                                You better believe it!
-                            </div>
-
-                        </div>
-
-
-                        <div class="direct-chat-msg">
-                            <div class="direct-chat-infos clearfix">
-                                <span class="direct-chat-name float-left">Alexander Pierce</span>
-                                <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
-                            </div>
-
-                            <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
-
-                            <div class="direct-chat-text">
-                                Working with AdminLTE on a great new app! Wanna join?
-                            </div>
-
-                        </div>
-
-
-                        <div class="direct-chat-msg right">
-                            <div class="direct-chat-infos clearfix">
-                                <span class="direct-chat-name float-right">Sarah Bullock</span>
-                                <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
-                            </div>
-
-                            <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
-
-                            <div class="direct-chat-text">
-                                I would love to.
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="direct-chat-contacts">
-                        <ul class="contacts-list">
-                            <li>
-                                <a href="#">
-                                    <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Avatar">
-                                    <div class="contacts-list-info">
-                                        <span class="contacts-list-name">
-                                            Count Dracula
-                                            <small class="contacts-list-date float-right">2/28/2015</small>
-                                        </span>
-                                        <span class="contacts-list-msg">How have you been? I was...</span>
-                                    </div>
-
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <img class="contacts-list-img" src="dist/img/user7-128x128.jpg" alt="User Avatar">
-                                    <div class="contacts-list-info">
-                                        <span class="contacts-list-name">
-                                            Sarah Doe
-                                            <small class="contacts-list-date float-right">2/23/2015</small>
-                                        </span>
-                                        <span class="contacts-list-msg">I will be waiting for...</span>
-                                    </div>
-
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <img class="contacts-list-img" src="dist/img/user3-128x128.jpg" alt="User Avatar">
-                                    <div class="contacts-list-info">
-                                        <span class="contacts-list-name">
-                                            Nadia Jolie
-                                            <small class="contacts-list-date float-right">2/20/2015</small>
-                                        </span>
-                                        <span class="contacts-list-msg">I'll call you back at...</span>
-                                    </div>
-
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <img class="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="User Avatar">
-                                    <div class="contacts-list-info">
-                                        <span class="contacts-list-name">
-                                            Nora S. Vans
-                                            <small class="contacts-list-date float-right">2/10/2015</small>
-                                        </span>
-                                        <span class="contacts-list-msg">Where is your new...</span>
-                                    </div>
-
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <img class="contacts-list-img" src="dist/img/user6-128x128.jpg" alt="User Avatar">
-                                    <div class="contacts-list-info">
-                                        <span class="contacts-list-name">
-                                            John K.
-                                            <small class="contacts-list-date float-right">1/27/2015</small>
-                                        </span>
-                                        <span class="contacts-list-msg">Can I take a look at...</span>
-                                    </div>
-
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <img class="contacts-list-img" src="dist/img/user8-128x128.jpg" alt="User Avatar">
-                                    <div class="contacts-list-info">
-                                        <span class="contacts-list-name">
-                                            Kenneth M.
-                                            <small class="contacts-list-date float-right">1/4/2015</small>
-                                        </span>
-                                        <span class="contacts-list-msg">Never mind I found...</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
+                        <ul class="contacts-list" id="messages">
+                    </ul>
                     </div>
                 </div>
-
                 <div class="card-footer">
                     <form action="#" method="post">
                         <div class="input-group">
-                            <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                            <select id="room" name="room" class="form-control custom-select">
+                                <option selected disabled="">Select one</option>
+                            </select>
+                            <input id="m" autocomplete="off" type="text" name="message" placeholder="Type Message ..." class="form-control">
                             <span class="input-group-append">
-                                <button type="button" class="btn btn-primary">Send</button>
+                                <button type="submit" class="btn btn-primary">Send</button>
                             </span>
                         </div>
                     </form>
@@ -297,7 +162,6 @@
         </div>
     </div>
 </div>
-
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
@@ -431,3 +295,43 @@
 
     //End map
 </script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+  
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+  
+    $('form').submit(function(e) {
+      e.preventDefault(); 
+      const room = $('#room').val();
+      const message = $('#m').val();
+  
+      if (!room || !message) {
+        console.log('room or message is undefined');
+        return false;
+      }
+  
+      socket.emit('join room', room);
+      socket.emit('chat message', { room, message }); 
+      $('#m').val('');
+      return false;
+    });
+  
+    socket.on('chat message', function(data) {
+      $('#messages').append($('<li>').text(data.message + ' ' + data.room)); 
+    });
+    
+   socket.on('updateUserCount', function(userCount) {
+    $('#userCount').text('Current user:' + userCount);
+});
+socket.on('userList', function(users) {
+  const userListElement = $('#room');
+  userListElement.empty(); 
+  users.forEach(user => {
+    userListElement.append($('<option>').val(user.userId).text(user.userId));
+  });
+});
+
+  </script>

@@ -1,23 +1,30 @@
 <%
     let arrMenu = [
-        {parent: false, name: 'Dashboard', icon: 'ion-ios-keypad-outline', link: `admin`},
-        {parent: false, name: 'Contact', icon: 'ion-ios-keypad-outline', link: `admin/contact`},
-        {parent: false, name: 'User manager', icon: 'ion-ios-keypad-outline', link: `admin/user/all`},
-        {parent: false, name: 'Contract manager', icon: 'ion-ios-keypad-outline', link: `admin/contract`},
+        {parent: false, name: 'Dashboard', icon: 'fas fa-list', link: `admin`},
+        {parent: false, name: 'Contact', icon: 'fa fa-address-book', link: `admin/contact`},
+        {parent: false, name: 'User manager', icon: 'fa fa-user', link: `admin/user/all`},
+        {parent: false, name: 'Contract manager', icon: 'fas fa-file-contract', link: `admin/contract`},
         {parent: true, child: [
                                 { name: ' News', icon: 'ion-clipboard', link: `admin/news/all`},
                                 { name: ' Category', icon: 'ion-clipboard', link: `admin/category/all`},
-                                { name: ' Setting', icon: 'ion-clipboard', link: `admin/setting`},
-                                
-                               
                               ],
-        name: 'News', icon: 'fas fa-list', link: `admin/news`},
+        name: 'News', icon: 'fas fa-list', link: `#`},
         {parent: true, child: [
                                 { name: 'Product', icon: 'ion-clipboard', link: `admin/product/all`},
                                 { name: 'Product.category', icon: 'ion-clipboard', link: `admin/product/category/all`},
                                
                               ],
         name: 'Product', icon: 'fas fa-list', link: `#`},
+
+        <!-- Mở chỗ này nè -->
+        {parent: true, child: [
+          { name: 'Home', icon: 'fa fa-home', link: `admin/setting/home`},
+          { name: 'About', icon: 'fa fa-info', link: `admin/setting/about`},
+          { name: 'Contact', icon: 'fa fa-address-book', link: `admin/setting/contact`},
+          { name: 'Rental', icon: 'fa fa-motorcycle', link: `admin/setting/rental`},
+          { name: 'Blog', icon: 'fa fa-newspaper', link: `admin/setting/blog`},
+        ],
+        name: 'Setting', icon: 'fas fa-cog', link: `#`},
     ];
     
 

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Basic styles for the chat interface */
+        .card {
+            max-width: 600px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card-header, .card-footer {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border-bottom: 1px solid #ccc;
+        }
+        .card-body {
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .direct-chat-messages {
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+        .input-group {
+            display: flex;
+        }
+        .input-group input {
+            flex: 1;
+        }
+        .input-group-append {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card direct-chat direct-chat-primary mt-3">
+    <div class="card-header ui-sortable-handle">
+        <h3 class="card-title">Direct Chat</h3>
+        <div class="card-tools">
+            <span title="3 New Messages" class="badge badge-primary">3</span>
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
+                <i class="fas fa-comments"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="direct-chat-messages">
+            <ul class="contacts-list" id="messages">
+            </ul>
+        </div>
+    </div>
+    <div class="card-footer">
+        <form action="#" method="post">
+            <div class="input-group">
+                <input id="room" autocomplete="off" type="text" name="room" placeholder="Enter room code ..." class="form-control">
+                <input id="m" autocomplete="off" type="text" name="message" placeholder="Type Message ..." class="form-control">
+                <span class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('connect', () => {
+        console.log('Connected to server');
+    });
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault(); // prevents page reloading
+        const room = document.getElementById('room').value;
+        const message = document.getElementById('m').value +' by <%= user.userinformation[0].name%>';
+
+        if (!room || !message) {
+            console.log('room or message is undefined');
+            return false;
+        }
+
+        socket.emit('join room', room);
+        socket.emit('chat message', { room, message }); // Emit a single object with room and message properties
+        document.getElementById('m').value = '';
+        return false;
+    });
+
+    socket.on('chat message', function(data) {
+        const item = document.createElement('li');
+        item.textContent = `${data.message} (Room: ${data.room})`;
+        document.getElementById('messages').appendChild(item);
+    });
+</script>
+
+</body>
+</html>

@@ -22,6 +22,7 @@ router.use((req, res, next) => {
 // Set user information to locals
 router.use((req, res, next) => {
     res.locals.user = req.user || null;
+    //console.log(req.user);
     next();
 });
 
@@ -51,7 +52,9 @@ const routes = [
     { path: '/profile', layout: 'profile', handler: require('./profile') },
     { path: '/shop', layout: 'shop', handler: require('./shop') },
     { path: '/contract', layout: 'contract', handler: require('./contract') },
-    { path: '/least', layout: 'least', handler: require('./least') }
+    { path: '/least', layout: 'least', handler: require('./least') },
+    { path: '/blog', layout: 'blog', handler: require('./blog') },
+    {path:'/chat',layout: 'chat', handler: require('./chat')}
 ];
 
 routes.forEach(route => {

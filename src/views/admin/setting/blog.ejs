@@ -1,0 +1,42 @@
+<section class="content">
+    <style>
+      .image-container img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    </style>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Form 1: Hero Section -->
+      <form action="/admin/setting/updatehero/blog" autocapitalize="true" method="post">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Hero Section</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="card-body">
+  
+              <div class="form-group">
+                  <label for="HeroTitle">Hero Title</label>
+                  <input name="hero[title]" id="HeroTitle" class="form-control" rows="4" value="<%= data.hero[2].title%>" ></input>
+              </div>
+
+              <div class="form-group">
+                  <label for="HeroContent">Hero Content</label>
+                  <textarea name="hero[content]" id="HeroContent" class="form-control" rows="4" ><%= data.hero[2].content%></textarea>
+              </div>
+  
+            </div>
+            <button type="submit" class="btn btn-primary float-right">Update</button>
+          </div>
+      </form>
+  </div>
+  </div>
+  </section>

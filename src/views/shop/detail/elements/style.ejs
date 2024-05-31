@@ -5,7 +5,7 @@
     }
 
     .imagemain {
-        height: 600px;
+        height: 700px;
         overflow: hidden;
     }
 
@@ -22,7 +22,7 @@
 
     .imagelist .img-thumbnail {
         width: 100%;
-        height: 25%;
+        height: 175px;
         cursor: pointer;
         object-fit: cover;
     }
@@ -66,35 +66,39 @@
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         font-weight: 600;
+
     }
 
     .calendar-week-day div {
         display: grid;
         place-items: center;
         color: #151426;
+
     }
 
     .calendar-days {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         gap: 2px;
+        place-items: center;
         color: #151426;
+        align-items: center;
     }
 
     .calendar-days div {
         width: 50px;
         height: 50px;
         display: flex;
-        align-items: center;
-        justify-content: center;
         padding: 5px;
+        justify-content: center;
+        align-items: center;
         position: relative;
         cursor: pointer;
-        animation: to-top 1s forwards;
     }
 
     .calendar-days div span {
         position: absolute;
+
     }
 
     .calendar-days div:hover {
@@ -107,10 +111,6 @@
         background-color: orange;
         color: white;
         border-radius: 50%;
-    }
-
-    .calendar-days div.curr-date span {
-        display: none;
     }
 
     .month-picker {
@@ -220,60 +220,141 @@
         pointer-events: none;
     }
 
-    @media (max-width: 1400px) {
-    .calendar {
-        padding: 15px;
+
+    .figures-layout {
+        display: flex;
+        flex-direction: column;
     }
 
-    .calendar-header {
-        font-size: 20px;
-    }
-
-    .calendar-week-day,
-    .calendar-days {
-        grid-template-columns: repeat(7, 1fr);
-    }
-
-    .calendar-days div {
-        width: 40px;
-        height: 40px;
-    }
-
-    .year-change {
-        height: 30px;
-        width: 30px;
-    }
-
-    .month-list {
-        grid-template-columns: repeat(2, auto);
-    }
-}
-@media (max-width: 1200px) {
-    .calendar {
-        padding: 10px;
-    }
-
-    .calendar-header {
+    .figures i {
         font-size: 18px;
     }
 
-    .calendar-week-day,
-    .calendar-days {
-        grid-template-columns: repeat(7, 1fr);
+    .figures span {
+        font-size: 18px;
     }
 
-    .calendar-days div {
-        width: 35px;
-        height: 35px;
+    .more-detail {
+        font-size: 18px;
     }
 
-    .year-change {
-        height: 25px;
-        width: 25px;
+    .start {
+        font-size: 18px;
     }
 
-    .month-list {
-        grid-template-columns: repeat(2, auto);
+    .comments {
+        font-size: 18px;
     }
-}
+
+    @media (max-width: 1400px) {
+        .calendar {
+            padding: 15px;
+        }
+
+        .calendar-header {
+            font-size: 20px;
+        }
+
+        .calendar-week-day,
+        .calendar-days {
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .calendar-days div {
+            width: 40px;
+            height: 40px;
+        }
+
+        .year-change {
+            height: 30px;
+            width: 30px;
+        }
+
+        .month-list {
+            grid-template-columns: repeat(2, auto);
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .calendar {
+            padding: 10px;
+        }
+
+        .calendar-header {
+            font-size: 18px;
+        }
+
+        .calendar-week-day,
+        .calendar-days {
+            grid-template-columns: repeat(7, 1fr);
+            font-size: 12px;
+        }
+
+        .calendar-days div {
+            width: 35px;
+            height: 35px;
+        }
+
+        .year-change {
+            height: 25px;
+            width: 25px;
+        }
+
+        .month-list {
+            grid-template-columns: repeat(2, auto);
+        }
+
+        .figures {
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .imagemain {
+            height: 500px;
+        }
+
+        .imagelist .img-thumbnail {
+            height: 125px;
+        }
+
+        .calendar-header {
+            font-size: 25px;
+        }
+
+        .calendar-week-day,
+        .calendar-days {
+            grid-template-columns: repeat(7, 1fr);
+            font-size: 18px;
+        }
+
+        .calendar-days div {
+            width: 50px;
+            height: 50px;
+        }
+
+        .year-change {
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    @media (max-width: 500px){
+        .calendar-days div {
+            font-size: 12px;
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+    .dot {
+        height: 5px;
+        width: 5px;
+        background-color: red;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        bottom: 2px;
+        left: calc(50% - 2.5px);
+    }
 </style>

@@ -1,0 +1,509 @@
+<section class="content">
+    <style>
+      .image-container img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    </style>
+  
+    <div class="row">
+     <!-- <form action="/setting/addsettings" method="post"> -->
+      <div class="col-md-6">
+        <!-- Form 1: Hero Section -->
+        <form action="/admin/setting/addsettings/hero" method="post" autocapitalize="true" enctype="multipart/form-data">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Hero Section</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="card-body">
+    
+                <div class="form-group">
+                    <label for="HeroTitle">Hero Title</label>
+                    <input name="hero[title]" id="HeroTitle" class="form-control" rows="4" value="<%= data.hero[0].title%>">
+                </div>
+
+                <div class="form-group">
+                    <label for="HeroContent">Hero Content</label>
+                    <textarea name="hero[content]" id="HeroContent" class="form-control" rows="4"><%= data.hero[0].content%></textarea>
+                </div>
+
+                <div>
+                    <div class="form-group">
+                        <label for="HeroImage">Upload Hero Image</label>
+                        <input type="file" id="HeroImage" name="heroimage" class="form-control-file" onchange="previewImage(event)">
+                    </div>
+                    
+                    <div id="imagePreview" style="margin-top: 10px;">
+                    </div>
+                    
+                    <script>
+                    function previewImage(event) {
+                        var reader = new FileReader();
+                        reader.onload = function() {
+                            var output = document.getElementById('imagePreview');
+                            output.innerHTML = '<img src="' + reader.result + '" alt="Hero Image" style="max-width: 100%; height: auto;"/>';
+                        }
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                    </script>
+                </div>
+    
+              </div>
+              <button type="submit" class="btn btn-primary float-right">Update</button>
+            </div>
+  </form>
+        <!-- Form 2: Product Section -->
+        <!-- Form 3: Why Choose Section -->
+        <form action="/admin/setting/addsettings/whychoose" method="post" autocapitalize="true" enctype="multipart/form-data">
+            <div class="card card-primary">
+              <div class="card-header" style="background-color: chocolate">
+                <h3 class="card-title">Why Choose Section</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="card-body">
+    
+                <div class="form-group">
+                    <label for="WhyChooseTitle">Why Choose Title</label>
+                    <input name="whychoose[0][title]" id="WhyChooseTitle" class="form-control" rows="4" value="<%= data.whychoose[0].title%>">
+                </div>
+
+                <div class="form-group">
+                    <label for="WhyChooseContent">Why Choose Content</label>
+                    <textarea name="whychoose[0][content]" id="WhyChooseContent" class="form-control" rows="4"><%= data.whychoose[0].content%></textarea>
+                </div><hr>
+
+                <div class="form-group">
+                    <label for="WhyChoose1">Why Choose 1</label>
+                    <input name="whychoose[1][title]" id="WhyChoose1" class="form-control" rows="4" value="<%= data.whychoose[1].title%>" >
+
+                    <label for="WhyChoose1Content" style="margin-top: 10px;">Why Choose 1 Content</label>
+                    <textarea name="whychoose[1][content]" id="WhyChoose1Content" class="form-control" rows="4"><%= data.whychoose[1].content%></textarea>
+                </div><hr>
+
+                <div class="form-group">
+                    <label for="WhyChoose2">Why Choose 2</label>
+                    <input name="whychoose[2][title]" id="WhyChoose2" class="form-control" rows="4" value="<%= data.whychoose[2].title%>" >
+
+                    <label for="WhyChoose2Content" style="margin-top: 10px;">Why Choose 2 Content</label>
+                    <textarea name="whychoose[2][content]" id="WhyChoose2Content" class="form-control" rows="4"><%= data.whychoose[2].content%></textarea>    
+                </div><hr>
+
+                <div class="form-group">
+                    <label for="WhyChoose3">Why Choose 3</label>
+                    <input name="whychoose[3][title]" id="WhyChoose3" class="form-control" rows="4" value="<%= data.whychoose[3].title%>" >
+
+                    <label for="WhyChoose3Content" style="margin-top: 10px;">Why Choose 3 Content</label>
+                    <textarea name="whychoose[3][content]" id="WhyChoose3Content" class="form-control" rows="4"><%= data.whychoose[3].content%></textarea>
+                </div><hr>
+                    
+                    <div class="form-group">
+                        <label for="WhyChooseImage">Upload Why Choose Image</label>
+                        <input type="file" id="WhyChooseImage" name="whychooseimage" class="form-control-file" onchange="previewImage4(event)">
+                    </div>
+                    
+                    <div id="imagePreview4" style="margin-top: 10px;">
+                    </div>
+                    
+                    <script>
+                    function previewImage4(event) {
+                        var reader = new FileReader();
+                        reader.onload = function() {
+                            var output = document.getElementById('imagePreview4');
+                            output.innerHTML = '<img src="' + reader.result + '" alt="Hero Image" style="max-width: 100%; height: auto;"/>';
+                        }
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                    </script>
+                </div>
+                <button type="submit" class="btn btn-primary float-right">Update</button>
+            </div>
+</form>
+        <!-- Form 4: Why Help Section -->
+        <form action="/admin/setting/addsettings/wehelp" method="post" autocapitalize="true" enctype="multipart/form-data">
+            <div class="card card-primary">
+              <div class="card-header" style="background-color: blueviolet;">
+                <h3 class="card-title">We Help Section</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="card-body">
+    
+                <div class="form-group">
+                    <label for="WeHelpTitle">We Help Title</label>
+                    <input name="helpObject[title]" id="WeHelpTitle" class="form-control" rows="4" value="<%= data.helpObject[0].title%>" >
+                </div>
+
+                <div class="form-group">
+                    <label for="WeHelpContent">We Help Content</label>
+                    <textarea name="helpObject[content]" id="WeHelpContent" class="form-control" rows="4"><%= data.helpObject[0].content%></textarea>
+                </div><hr>
+
+                <div class="form-group">
+                    <label style="font-size: large;">We Help Detail</label><br>
+
+                    <label for="WeHelp1">We Help 1</label>
+                    <input name="helpDetails[0][content]" id="WeHelp1" class="form-control" rows="4" value="<%= data.helpDetails[0].content%>" >
+
+                    <label for="WeHelp2" style="margin-top: 10px;">We Help 2</label>
+                    <input name="helpDetails[1][content]" id="WeHelp2" class="form-control" rows="4" value="<%= data.helpDetails[1].content%>">
+
+                    <label for="WeHelp3" style="margin-top: 10px;">We Help 3</label>
+                    <input name="helpDetails[2][content]" id="WeHelp3" class="form-control" rows="4" value="<%= data.helpDetails[2].content%>">
+                </div><hr>
+
+                <div class="form-group">
+                    <label style="font-size: large;">We Help Image</label><br>
+
+                    <label for="WheHelpImage1">Upload We Help Image 1</label>
+                    <input type="file" id="WheHelpImage1" name="helpImage" class="form-control-file" onchange="previewImage5(event)">
+                    <div id="imagePreview5" style="margin-top: 10px;"></div>
+                    <script>
+                        function previewImage5(event) {
+                            var reader = new FileReader();
+                            reader.onload = function() {
+                                var output = document.getElementById('imagePreview5');
+                                output.innerHTML = '<img src="' + reader.result + '" alt="Hero Image" style="max-width: 100%; height: auto;"/>';
+                            }
+                            reader.readAsDataURL(event.target.files[0]);
+                        }
+                    </script>
+
+                    <label for="WheHelpImage2" style="margin-top: 10px;">Upload We Help Image 2</label>
+                    <input type="file" id="WheHelpImage2" name="helpImage" class="form-control-file" onchange="previewImage6(event)">
+                    <div id="imagePreview6" style="margin-top: 10px;"></div>
+                    <script>
+                        function previewImage6(event) {
+                            var reader = new FileReader();
+                            reader.onload = function() {
+                                var output = document.getElementById('imagePreview6');
+                                output.innerHTML = '<img src="' + reader.result + '" alt="Hero Image" style="max-width: 100%; height: auto;"/>';
+                            }
+                            reader.readAsDataURL(event.target.files[0]);
+                        }
+                    </script>
+
+                    <label for="WheHelpImage3" style="margin-top: 10px;">Upload We Help Image 3</label>
+                    <input type="file" id="WheHelpImage3" name="helpImage" class="form-control-file" onchange="previewImage7(event)">
+                    <div id="imagePreview7" style="margin-top: 10px;"></div>
+                    <script>
+                        function previewImage7(event) {
+                            var reader = new FileReader();
+                            reader.onload = function() {
+                                var output = document.getElementById('imagePreview7');
+                                output.innerHTML = '<img src="' + reader.result + '" alt="Hero Image" style="max-width: 100%; height: auto;"/>';
+                            }
+                            reader.readAsDataURL(event.target.files[0]);
+                        }
+                    </script>
+                </div>    
+              </div>
+              <button type="submit" class="btn btn-primary float-right">Update</button>
+            </div>
+        </form>
+        <!-- Form 5: Popular Product Section -->
+
+        <!-- Form 6: Testimonial Section -->
+        <form action="/admin/setting/addsettings/testimonial" method="post" autocapitalize="true" enctype="multipart/form-data">
+            <div class="card card-primary">
+              <div class="card-header" style="background-color: #eeb360">
+                <h3 class="card-title">Testimonial Section</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                    <label for="TestimonialTitle">Testimonial Title</label>
+                    <input name="testimonialtitle" id="TestimonialTitle" class="form-control" rows="4" value="<%= data.testimonialtitle%>" >
+                </div><hr>
+
+                  <div class="form-group">
+                      <div class="Testimonial1">
+                          <label style="font-size: larger; margin-bottom: 20px;">Testimonial 1</label><br>
+  
+                          <label for="Testimonial1Name">Name</label>
+                          <input name="testimonial[0][name]" id="Testimonial1Name" class="form-control" rows="4" value="<%= data.testimonial[0].name%>" >
+  
+                          <label for="Testimonial1Detail" style="margin-top: 10px;">Detail</label>
+                          <input name="testimonial[0][detail]" id="Testimonial1Detail" class="form-control" rows="4" value="<%= data.testimonial[0].detail%>">
+
+                          <label for="Testimonial1Comment" style="margin-top: 10px;">Comment</label>
+                          <input name="testimonial[0][comment]" id="Testimonial1Comment" class="form-control" rows="4" value="<%= data.testimonial[0].comment%>">
+  
+                          <label for="Testimonial1Image" style="margin-top: 10px;">Upload Image</label>
+                          <input type="file" id="Testimonial1Image" name="testimonialImage" class="form-control-file" onchange="previewImage11(event)">
+                          <div id="imagePreview11" style="margin-top: 10px;"></div>
+  
+                          <script>
+                              function previewImage11(event) {
+                                  var reader = new FileReader();
+                                  reader.onload = function() {
+                                      var output = document.getElementById('imagePreview11');
+                                      output.innerHTML = '<img src="' + reader.result + '" alt="Product 1 Image" style="max-width: 100%; height: auto;"/>';
+                                  }
+                                  reader.readAsDataURL(event.target.files[0]);
+                              }
+                          </script>
+                      </div>
+                  </div><hr>
+  
+                  <div class="form-group">
+                        <div class="Testimonial2">
+                            <label style="font-size: larger; margin-bottom: 20px;">Testimonial 2</label><br>
+    
+                            <label for="Testimonial2Name">Name</label>
+                            <input name="testimonial[1][name]" id="Testimonial2Name" class="form-control" rows="4" value="<%= data.testimonial[1].name%>">
+    
+                            <label for="Testimonial2Detail" style="margin-top: 10px;">Detail</label>
+                            <input name="testimonial[1][detail]" id="Testimonial2Detail" class="form-control" rows="4" value="<%= data.testimonial[1].detail%>">
+
+                            <label for="Testimonial2Comment" style="margin-top: 10px;">Comment</label>
+                            <input name="testimonial[1][comment]" id="Testimonial2Comment" class="form-control" rows="4" value="<%= data.testimonial[1].comment%>">
+    
+                            <label for="Testimonial2Image" style="margin-top: 10px;">Upload Image</label>
+                            <input type="file" id="Testimonial2Image" name="testimonialImage" class="form-control-file" onchange="previewImage12(event)">
+                            <div id="imagePreview12" style="margin-top: 10px;"></div>
+    
+                            <script>
+                                function previewImage12(event) {
+                                    var reader = new FileReader();
+                                    reader.onload = function() {
+                                        var output = document.getElementById('imagePreview12');
+                                        output.innerHTML = '<img src="' + reader.result + '" alt="Product 1 Image" style="max-width: 100%; height: auto;"/>';
+                                    }
+                                    reader.readAsDataURL(event.target.files[0]);
+                                }
+                            </script>
+                        </div>
+                  </div><hr>
+
+                  <div class="form-group">
+                        <div class="Testimonial3">
+                            <label style="font-size: larger; margin-bottom: 20px;">Testimonial 3</label><br>
+    
+                            <label for="Testimonial3Name">Name</label>
+                            <input name="testimonial[2][name]" id="Testimonial3Name" class="form-control" rows="4" value="<%= data.testimonial[2].name%>">
+    
+                            <label for="Testimonial3Detail" style="margin-top: 10px;">Detail</label>
+                            <input name="testimonial[2][detail]" id="Testimonial3Detail" class="form-control" rows="4" value="<%= data.testimonial[2].detail%>">
+
+                            <label for="Testimonial3Comment" style="margin-top: 10px;">Comment</label>
+                            <input name="testimonial[2][comment]" id="Testimonial3Comment" class="form-control" rows="4" value="<%= data.testimonial[2].comment%>">
+    
+                            <label for="Testimonial3Image" style="margin-top: 10px;">Upload Image</label>
+                            <input type="file" id="Testimonial3Image" name="testimonialImage" class="form-control-file" onchange="previewImage13(event)">
+                            <div id="imagePreview13" style="margin-top: 10px;"></div>
+    
+                            <script>
+                                function previewImage13(event) {
+                                    var reader = new FileReader();
+                                    reader.onload = function() {
+                                        var output = document.getElementById('imagePreview13');
+                                        output.innerHTML = '<img src="' + reader.result + '" alt="Product 1 Image" style="max-width: 100%; height: auto;"/>';
+                                    }
+                                    reader.readAsDataURL(event.target.files[0]);
+                                }
+                            </script>
+                        </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="Testimonial4">
+                        <label style="font-size: larger; margin-bottom: 20px;">Testimonial 4</label><br>
+  
+                        <label for="Testimonial4Name">Name</label>
+                        <input name="testimonial[3][name]" id="Testimonial4Name" class="form-control" rows="4" value="<%= data.testimonial[3].name%>">
+  
+                        <label for="Testimonial4Detail" style="margin-top: 10px;">Detail</label>
+                        <input name="testimonial[3][detail]" id="Testimonial4Detail" class="form-control" rows="4"  value="<%= data.testimonial[3].detail%>">
+
+                        <label for="Testimonial4Comment" style="margin-top: 10px;">Comment</label>
+                        <input name="testimonial[3][comment]" id="Testimonial4Comment" class="form-control" rows="4"  value="<%= data.testimonial[3].comment%>">
+  
+                        <label for="Testimonial4Image" style="margin-top: 10px;">Upload Image</label>
+                        <input type="file" id="Testimonial4Image" name="testimonialImage" class="form-control-file" onchange="previewImage17(event)">
+                        <div id="imagePreview17" style="margin-top: 10px;"></div>
+  
+                        <script>
+                            function previewImage17(event) {
+                                var reader = new FileReader();
+                                reader.onload = function() {
+                                    var output = document.getElementById('imagePreview17');
+                                    output.innerHTML = '<img src="' + reader.result + '" alt="Product 1 Image" style="max-width: 100%; height: auto;"/>';
+                                }
+                                reader.readAsDataURL(event.target.files[0]);
+                            }
+                        </script>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="Testimonial5">
+                        <label style="font-size: larger; margin-bottom: 20px;">Testimonial 5</label><br>
+  
+                        <label for="Testimonial5Name">Name</label>
+                        <input name="testimonial[4][name]" id="Testimonial5Name" class="form-control" rows="4"  value="<%= data.testimonial[4].name%>">
+  
+                        <label for="Testimonial5Detail" style="margin-top: 10px;">Detail</label>
+                        <input name="testimonial[4][detail]" id="Testimonial5Detail" class="form-control" rows="4" value="<%= data.testimonial[4].detail%>">
+
+                        <label for="Testimonial5Comment" style="margin-top: 10px;">Comment</label>
+                        <input name="testimonial[4][comment]" id="Testimonial5Comment" class="form-control" rows="4" value="<%= data.testimonial[4].comment%>">
+  
+                        <label for="Testimonial5Image" style="margin-top: 10px;">Upload Image</label>
+                        <input type="file" id="Testimonial5Image" name="testimonialImage" class="form-control-file" onchange="previewImage18(event)">
+                        <div id="imagePreview18" style="margin-top: 10px;"></div>
+  
+                        <script>
+                            function previewImage18(event) {
+                                var reader = new FileReader();
+                                reader.onload = function() {
+                                    var output = document.getElementById('imagePreview18');
+                                    output.innerHTML = '<img src="' + reader.result + '" alt="Product 1 Image" style="max-width: 100%; height: auto;"/>';
+                                }
+                                reader.readAsDataURL(event.target.files[0]);
+                            }
+                        </script>
+                    </div>
+                  </div>
+
+              </div>
+              <button type="submit" class="btn btn-primary float-right">Update</button>
+            </div>
+        </form>
+        <!-- Form 7: Blog Section -->
+      </div>
+     <!-- </form> -->
+  
+      <div class="col-md-6">
+        <!-- Form 8: Hero Image Upload -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Hero Image Upload</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <label>Hero Image</label>
+              <div class="image-container">
+                <img src="<%= data.heroimage%>" class="img-fluid">
+              </div>
+            </div>
+          </div>
+
+        <!-- Form 9: Product Image Upload -->
+        <!-- Form 10: Why Choose Image Upload -->
+            <div class="card card-primary">
+              <div class="card-header" style="background-color: chocolate;">
+                <h3 class="card-title">Why Choose Image Upload</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+  
+              <div class="card-body">
+                  <label>Why Choose Image</label>
+                  <div class="image-container">
+                      <img src="<%= data.whychooseimage%>" class="img-fluid">
+                  </div>
+              </div>
+            </div>
+
+        <!-- Form 11: We Help Image Upload -->
+                <div class="card card-primary">
+                  <div class="card-header" style="background-color: blueviolet;">
+                    <h3 class="card-title">We Help Image Upload</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
+                  </div>
+      
+                  <div class="card-body">
+                      <label>We Help Image 1</label>
+                      <div class="image-container">
+                          <img src="<%= data.helpImage[0].Image%>" class="img-fluid">
+                      </div><hr>
+
+                      <label>We Help Image 2</label>
+                      <div class="image-container">
+                          <img src="<%= data.helpImage[1].Image%>" class="img-fluid">
+                      </div><hr>
+
+                      <label>We Help Image 3</label>
+                      <div class="image-container">
+                          <img src="<%= data.helpImage[2].Image%>" class="img-fluid">
+                      </div>
+                  </div>
+                </div>
+
+        <!-- Form 12: Popular Product Image Upload -->
+
+        <!-- Form 13: Testimonial Image Upload -->
+                    <div class="card card-primary">
+                      <div class="card-header" style="background-color: #eeb360">
+                        <h3 class="card-title">Testimonial Image Upload</h3>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                          </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <label>Testimonial Image 1</label>
+                        <div class="image-container">
+                            <img src="<%= data.testimonialImage[0].Image%>" class="img-fluid">
+                        </div><hr>
+  
+                        <label>Testimonial Image 2</label>
+                        <div class="image-container">
+                            <img src="<%= data.testimonialImage[1].Image%>" class="img-fluid">
+                        </div><hr>
+  
+                        <label>Testimonial Image 3</label>
+                        <div class="image-container">
+                            <img src="<%= data.testimonialImage[2].Image%>" class="img-fluid">
+                        </div><hr>
+
+                        <label>Testimonial Image 4</label>
+                        <div class="image-container">
+                            <img src="<%= data.testimonialImage[3].Image%>" class="img-fluid">
+                        </div><hr>
+
+                        <label>Testimonial Image 5</label>
+                        <div class="image-container">
+                            <img src="<%= data.testimonialImage[4].Image%>" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+
+        <!-- Form 14: Blog Image Upload -->
+      </div>
+    </div>
+  </section>

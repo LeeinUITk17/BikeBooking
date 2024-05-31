@@ -3,12 +3,12 @@
         <div class="row justify-content-between">
             <div class="col-lg-5">
                 <div class="intro-excerpt">
-                    <h1>Lịch sử hợp đồng<span clsas="d-block"></span></h1>
+                    <h1><%= listsetting[0].hero[4].content%></h1>
                 </div>
             </div>
             <div class="col-lg-7">
                 <div class="hero-img-wrap">
-                    <img src="/product/images/motorlogo.png" class="img-fluid">
+                    <img src="<%= listsetting[0].heroimage%>" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -16,10 +16,17 @@
 </div>
 <!-- End Hero Section -->
 
+<div  style="padding-top: 5em;" class="row">
+  <div class="col-12">
+      <div class="title-all text-center">
+          <h1>Hợp đồng cho thuê xe</h1>
+      </div>
+  </div>
+</div>
 <div class="untree_co-section before-footer-section">
     <div class="container">
       <div class="row mb-5">
-        <form class="col-md-12" method="post">
+        <form class="col-md-12" >
           <div class="site-blocks-table">
             <table class="table">
               <thead>
@@ -36,35 +43,92 @@
               </thead>
 
               <tbody>
-                <% if (data && Array.isArray(data)) { %>
-                <% data.forEach((item) => { %>
-                <tr>
-                    <td><a href="contractdetail.html" style="text-decoration: none; color: blue;"><%= item._id%></a></td>
-                    <td><%= item.product.productinformation[0].brand%></td>
-                    <td class="product-name">
-                        <h2 class="h5 text-black"><%= item.product.name%></h2>
+                <% if (data && Array.isArray(data) && data.length > 0) { %>
+                  <% data.forEach((item) => { %>
+                    <tr>
+                      <td><a href="/contract/<%= item._id%>" style="text-decoration: none; color: blue;" target="_blank"><%= item._id%></a></td>
+                        <td><%= item.product.productinformation[0].brand%></td>
+                        <td class="product-name">
+                            <h2 class="h5 text-black"><%= item.product.name%></h2>
+                          </td>
+                      <td class="product-thumbnail">
+                        <img src="<%= item.product.image%>" alt="Image" class="img-fluid">
                       </td>
-                  <td class="product-thumbnail">
-                    <img src="<%= item.product.image%>" alt="Image" class="img-fluid">
-                  </td>
-                  <td><%= item.createdAt.toISOString().split('T')[0]%></td>
-                  <td><%= item.expiresAt.toISOString().split('T')[0]%></td>
-                  <td><%= item.charging%></td>
-                  <td style="color: <%= (item.status) === 'inactive' ? 'Orange' : 'Blue' %>">
-                    <strong><%= (item.status) === 'inactive' ? 'Đã hoàn thành hợp đồng' : 'Đang trong thời gian thuê' %></strong>
-                  </td>
-                  <td><a href="/contract/detail/<%= item._id%>"><button class="btn btn-secondary me-2">Details</button></a></td>
-                </tr>
-                <% }); %>
-                <% } else { %>
+                      <td><%= item.createdAt.toISOString().split('T')[0]%></td>
+                      <td><%= item.expiresAt.toISOString().split('T')[0]%></td>
+                      <td><%= item.charging%></td>
+                      <td >
+                        <strong><%= (item.status) === 'inactive' ? 'Đã hoàn thành hợp đồng' : 'Đang trong thời gian thuê' %></strong>
+                      </td>
+                    </tr>
+                  <% }); %>
+              <% } else { %>
                   <tr>
-                    <td colspan="6">No data available</td>
+                      <td colspan="6">Hiện tại bạn chưa có dữ liệu về hợp đồng cho thuê xe nào  (⁠ノ⁠ಠ⁠益⁠ಠ⁠)⁠ノ !</td>
                   </tr>
-                <% } %>
+              <% } %>
               </tbody>
             </table>
           </div>
         </form>
       </div>
      </div>
+</div>
+<div class="row">
+  <div class="col-12">
+      <div class="title-all text-center">
+          <h1>Hợp đồng thuê xe</h1>
+      </div>
+  </div>
+</div>
+<div class="untree_co-section before-footer-section">
+  <div class="container">
+    <div class="row mb-5">
+      <form class="col-md-12" >
+        <div class="site-blocks-table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="product-thumbnail">Mã</th>
+                <th class="product-name">Loại</th>
+                <th class="product-price">Tên</th>
+                <th class="product-quantity">Hình</th>
+                <th class="product-total">Từ</th>
+                <th class="product-total">Đến</th>
+                <th class="product-remove">Tổng</th>
+                <th class="product-total">Trạng thái</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% if (nondata && Array.isArray(nondata) && nondata.length > 0) { %>
+                <% nondata.forEach((item) => { %>
+                  <tr>
+                    <td><a href="/contract/<%= item._id%>" style="text-decoration: none; color: blue;" target="_blank"><%= item._id%></a></td>
+                      <td><%= item.product.productinformation[0].brand%></td>
+                      <td class="product-name">
+                          <h2 class="h5 text-black"><%= item.product.name%></h2>
+                        </td>
+                    <td class="product-thumbnail">
+                      <img src="<%= item.product.image%>" alt="Image" class="img-fluid">
+                    </td>
+                    <td><%= item.createdAt.toISOString().split('T')[0]%></td>
+                    <td><%= item.expiresAt.toISOString().split('T')[0]%></td>
+                    <td><%= item.charging%></td>
+                    <td >
+                      <strong><%= (item.status) === 'inactive' ? 'Đã hoàn thành hợp đồng' : 'Đang trong thời gian thuê' %></strong>
+                    </td>
+                  </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="6">Hiện tại bạn chưa có dữ liệu về hợp đồng thuê xe nào  (⁠ノ⁠ಠ⁠益⁠ಠ⁠)⁠ノ !</td>
+                </tr>
+            <% } %>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+   </div>
 </div>

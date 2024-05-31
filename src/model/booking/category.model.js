@@ -8,6 +8,9 @@ const newSchema=new Schema({
         type:String,
         required:true,
     },
+    slug:{
+        type:String,
+    },
     status:{
         type:String,
         default:"inactive",
@@ -21,13 +24,13 @@ const newSchema=new Schema({
     avatar:{
         type:String,
     },
+    special:{
+        type:Boolean,
+        default:false,
+    },
     description:{
         type:String,
-    },
-    createdAt:{
-        type:Date,
-        default:Date.now,
-    },
+    }
     },
     {
         timestamps:true,

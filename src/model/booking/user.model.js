@@ -111,11 +111,11 @@ const newSchema=new Schema({
     },
     imagecccd:{
         type:[Listimage],
-        default:()=>([{}]),
+       default:[],
     },
     certificate:{
         type:[Listimage],
-        default:()=>([{}]),
+       default:[],
     },
     link:{
         type:[social],

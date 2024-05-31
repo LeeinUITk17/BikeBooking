@@ -21,7 +21,7 @@
     }
 
     .figures span {
-        font-size: 16px;
+        font-size: 0.875em;
     }
 
     .product-section .product-item .btn {
@@ -41,24 +41,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    @media (max-width: 800px) {
-        #search-focus {
-            display: none;
-        }
-
-        .button-text {
-            display: none;
-        }
-
-        .advance-search>*:not(.filter) {
-            display: none;
-        }
-
-        .advance-search>.filter {
-            cursor: pointer;
-        }
     }
 
     .advance-search {
@@ -131,5 +113,66 @@
     .pagination .page-link:hover {
         background-color: #e9ecef;
         border-color: #dee2e6;
+    }
+    .figures-layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media (max-width: 1200px) {
+        .figures {
+            flex-direction: column;
+        }
+    }
+    @media (max-width: 992px) {
+        .button-text {
+            display: none;
+        }
+
+        .advance-search>*:not(.filter) {
+            display: none;
+        }
+
+        .advance-search>.filter {
+            cursor: pointer;
+        }
+        .figures {
+            flex-direction: row;
+        }
+
+        .product-section .product-item h3 {
+            font-size: 1.5em;
+        }
+
+        .product-section .product-item strong {
+            font-size: 1.25em !important;
+        }
+
+        .figures i {
+            font-size: 1.25em;
+        }
+
+        .figures span {
+            font-size: 1.25em;
+        }
+    }
+    @media (max-width: 500px){
+        .product-section .product-item h3 {
+            font-size: 20px;
+        }
+
+        .product-section .product-item strong {
+            font-size: 16px !important;
+        }
+        .figures i {
+            font-size: 14px;
+        }
+
+        .figures span {
+            font-size: 14px;
+        }
+    }
+    .search-bar {
+        width: 50%;
     }
 </style>

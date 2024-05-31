@@ -1,7 +1,7 @@
 const contactmodel=require('../model/booking/contact.model');
 const productmodel=require('../model/booking/product.model');
 const usermodel=require('../model/booking/user.model');
-
+const settingmodel=require('../model/booking/setting.model');
 
 class productservice{
     async  getcontact(){
@@ -18,6 +18,9 @@ class productservice{
     }
     async getproductOnhire(){
         return await productmodel.find({hireState:'onHire'}).select('_id');
+    }
+    async getsettingid(){
+        return await settingmodel.find();
     }
 }
 

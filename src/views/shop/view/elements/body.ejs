@@ -2,26 +2,36 @@
 <div class="mt-3 mb-5">
     <div class="container">
         <div class="row flex justify-content-end">
-            <div class="search-bar col-5 position-relative mr-3" data-mdb-ripple-init="">
+            <div class="search-bar position-relative mr-3">
                 <!-- Adjust this value based on your design -->
-                <input id="search-focus" type="search" id="form1" class="form-control" placeholder="Tìm kiếm" />
-                <button type="button" class="btn btn-primary position-absolute top-0 end-0" style="border-radius: 10px; height: 50px;">
+                <form action="/shop" method="get" role="search"  >
+                <input type="text"  class="form-control" placeholder="Tìm kiếm" name="keywords">
+                <button type="submit" class="btn btn-primary position-absolute top-0 end-0" style="border-radius: 10px; height: 50px;">
                     <i class="fas fa-search"></i>
                 </button>
+            </form>
             </div>
             <div class="sortby col-auto">
-                <!-- Adjust this value based on your design -->
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                <%if(state!='all') {%>
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false" style="height: 50px;">
                     <span class="button-text">Sắp xếp </span>
                     <i class="fa-solid fa-arrow-down-short-wide"></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Giá</a></li>
-                    <li><a class="dropdown-item" href="#">Hãng xe</a></li>
-                    <li><a class="dropdown-item" href="#">Loại xe</a></li>
+                    <li><a class="dropdown-item sort-option" href="#" data-sort="price" data-order="asc">Giá: Thấp đến Cao</a></li>
+                    <li><a class="dropdown-item sort-option" href="#" data-sort="price" data-order="desc">Giá: Cao đến Thấp</a></li>
+                    <li><a class="dropdown-item sort-option" href="#" data-sort="productinformation.0.brand" data-order="asc">Hãng xe: A-Z</a></li>
+                    <li><a class="dropdown-item sort-option" href="#" data-sort="category" data-order="asc">Loại xe: A-Z</a></li>
                 </ul>
+                    <%}%>
+                <% if(state==='all') {%>
+                      <a href="/shop"><span class="btn btn-secondary me-2">Mode Sort</span></a>
+                    <%} else {%>
+                        <a href="/shop/all"><span class="btn btn-secondary me-2">View All</span></a>
+                        <%}%>
             </div>
+            
         </div>
     </div>
 </div>
@@ -39,7 +49,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <div class="advance-search text-primary">
                     <div class="filter d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-filter m-2"></i>
@@ -119,7 +129,7 @@
                     </fieldset>
                     <hr>
                     <fieldset class="price">
-                        <legend class="mb-2"><b>Khoàng Giá</b></legend>
+                        <legend class="mb-2"><b>Khoảng Giá</b></legend>
                         <div class="slidecontainer">
                             <input type="range" min="10" max="1000" value="10" class="slider" id="myRange" step="10">
                         </div>
@@ -132,15 +142,16 @@
                 </div>
             </div>
 
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <div class="product-section before-footer-section">
                     <div class="row">
                         <!-- Start Column -->
                         <% let itemsPerPage=9; %>
                             <% let startIdx=(currentPage - 1) * itemsPerPage; %>
                                 <% let endIdx=startIdx + itemsPerPage; %>
-                                    <% listProducts.slice(startIdx, endIdx).forEach((item)=> { %>
-                                        <div class="col-12 col-md-4 col-lg-4 mb-5">
+                                <% if (data.length > 0) { %>
+                                    <% data.slice(startIdx, endIdx).forEach((item)=> { %>
+                                        <div class="col-12 col-lg-4 col-lg-4 mb-5">
                                             <a class="product-item"
                                                 href="/shop/detail/<%= item._id%>/<%= item.salerID%>">
                                                 <img src="<%= item.image%>" class="img-fluid product-thumbnail">
@@ -157,41 +168,53 @@
                                                     <i class="fas fa-star"></i>
                                                     <i class="fas fa-star"></i>
                                                 </div>
-                                                <div class="figures d-flex justify-content-center mt-3 mb-3 gap-3">
-                                                    <div class="px-2">
-                                                        <i class="fa fa-solid fa-motorcycle text-primary mr-1"></i>
-                                                        <span>
-                                                            <%= item.productinformation[0].year%>
-                                                        </span>
+                                                <div class="figures d-flex mt-3 mb-3 justify-content-between">
+                                                    <div class="px-1 figures-layout">
+                                                        <div>
+                                                            <i class="fa fa-solid fa-motorcycle text-primary mr-1"></i>
+                                                            <span>
+                                                                <%= item.productinformation[0].year%>
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <i class="fa fa-cogs text-primary mr-1"></i>
+                                                            <span>
+                                                                <%= item.category%>
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                    <div class="px-2">
-                                                        <i class="fa fa-cogs text-primary mr-1"></i>
-                                                        <span>
-                                                            <%= item.category%>
-                                                        </span>
-                                                    </div>
-                                                    <div class="px-2">
-                                                        <i class="fa fa-road text-primary mr-1"></i>
-                                                        <span>
-                                                            <%= item.productinformation[0].odo%>km
-                                                        </span>
+                                                    <div class="px-1 mb-3 figures-layout">
+                                                        <div>
+                                                            <i class="fa fa-road text-primary mr-1"></i>
+                                                            <span>
+                                                                <%= item.productinformation[0].odo%>km
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <i class="fa-solid fa-location-dot text-primary mr-1"></i>
+                                                            <span>
+                                                                <%= item.address[0].city%>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="px-2 mb-3"
-                                                    style="align-items: center; display: flex; justify-content: center;">
-                                                    <i class="fa-solid fa-location-dot text-primary mr-1"></i>
-                                                    <span>
-                                                        <%= item.address[0].city%>
-                                                    </span>
-                                                </div>
+                                                
                                                 <div class="text-center">
                                                     <strong class="product-price btn btn-primary px-3">
-                                                        <%= item.price%>₫/ 1 ngày
+                                                        <%= item.price.toLocaleString('vi-VN')%>₫/ 1 ngày
                                                     </strong>
+                                                    <% if(item.hireState === 'onHire') { %>
+                                                        <label class="product-price btn btn-primary px-3">On Hired</label>
+                                                      <% } %>                                      
                                                 </div>
                                             </a>
                                         </div>
                                         <% }); %>
+                                        <% } else { %>
+                                            <div class="col-12 col-lg-4 col-lg-4 mb-5">
+                                                <p>No data available.</p>
+                                            </div>
+                                        <% } %>
                                             <!-- End Column -->
                     </div>
                 </div>
@@ -221,3 +244,19 @@
     </div>
 </div>
 <!-- End Pagination -->
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    const sortOptions = document.querySelectorAll('.sort-option');
+    sortOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sortField = this.getAttribute('data-sort');
+            const sortOrder = this.getAttribute('data-order');
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('sort', sortField);
+            urlParams.set('order', sortOrder);
+            window.location.search = urlParams.toString();
+        });
+    });
+});
+</script>

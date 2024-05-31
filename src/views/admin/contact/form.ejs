@@ -1,0 +1,116 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Compose</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Compose</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Folders</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item active">
+                                <a href="/admin/contact" class="nav-link">
+                                    <i class="fas fa-inbox"></i> Inbox
+                                    <span class="badge bg-primary float-right">12</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/admin/contact/sent" class="nav-link">
+                                    <i class="far fa-envelope"></i> Sent
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Labels</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="far fa-circle text-danger"></i> Important</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="far fa-circle text-warning"></i>
+                                    Promotions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="far fa-circle text-primary"></i> All</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-9">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h1 class="card-title">Compose New Message</h1>
+                    </div>
+
+                   <form action="/admin/contact/sent/<%=data._id%>" method="post">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="To:" name="email" value="<%= data.Email%>">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Subject:" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="compose-textarea" class="form-control" style="height: 300px;" name="message"></textarea>
+                        </div>
+                        <div class="card-footer">
+                            <div class="float-right">
+                                <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i>
+                                    Send</button>
+                            </div>
+                           <a href="/admin/contact">
+                            <button type="reset" class="btn btn-default"><i class="fas fa-times"></i>
+                                Discard</button>
+                           </a>
+                        </div>
+                    </div>
+                   </form>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<script>
+    document.getElementById('compose-textarea').addEventListener('focus', function() {
+        this.setSelectionRange(0, 0);
+    });
+</script>

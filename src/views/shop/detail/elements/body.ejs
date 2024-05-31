@@ -1,4 +1,4 @@
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 	<!-- Start Product Detail -->
 	<div class="container pt-4">
 		<div class="mb-4">
@@ -12,6 +12,7 @@
                     <img src="<%= data.image%>" alt="test" class="img-thumbnail" id="mainImage">
 				</div>
 				<div class="imagelist col-12 col-md-2">
+					<img src="<%= data.image%>" alt="test" class="img-thumbnail" onclick="changeImage(this)">
                     <% if(data && data.List && data.List.length > 0) { %>
                         <% for(let i = 0; i < data.List.length; i++) { %>
                                  <img src="<%= data.List[i].Image %>" alt="test" class="img-thumbnail" onclick="changeImage(this)">
@@ -23,7 +24,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-lg-8 mt-3">
 					<div class="d-flex gap-2 align-items-center">
                         <img src="<%= saler.avatar%>" class="mt-1" alt="avatar"
 							style="width: 40px; height: 40px; border-radius: 50%;">
@@ -32,34 +33,38 @@
                                 <span><%= data.createdAt.toISOString().split('T')[0]%></span>
                             </div>
 					</div>
-					<div class="flex text-primary">
-						<div class="d-flex mt-3 mb-3 gap-5">
-							<div class="px-2">
-								<i class="fa fa-solid fa-credit-card text-primary mr-1"></i>
-								<span>Mua từ năm <%= data.productinformation[0].year%></span>
+					<div class="figures d-flex mt-3 mb-3">
+						<div class="px-1 figures-layout" style="margin-left: 20px; margin-right: 40px;">
+							<div>
+								<i class="fa fa-solid fa-motorcycle text-primary mr-1"></i>
+								<span> Mua từ năm
+									<%= data.productinformation[0].year%>
+								</span>
 							</div>
-
-							<div class="px-2">
-								<i class="fa fa-motorcycle text-primary mr-1"></i>
-								<span>Dòng xe <%= data.category%></span>
-							</div>
-
-							<div class="px-2">
-								<i class="fa fa-road text-primary mr-1"></i>
-								<span>Đã đi được <%= data.productinformation[0].odo%></span>
+							<div>
+								<i class="fa fa-cogs text-primary mr-1"></i>
+								<span>Dòng xe <%= data.category.toLowerCase()%></span>
 							</div>
 						</div>
-
-						<div class="px-2 mb-3">
-							<i class="fa-solid fa-location-dot text-primary mr-1"></i>
-							<span><%= data.address[0].street%>,<%= data.address[0].ward%>,<%= data.address[0].district%>,<%= data.address[0].city%></span>
+						<div class="px-1 mb-3 figures-layout" style="margin-left: 20px;">
+							<div>
+								<i class="fa fa-road text-primary mr-1"></i>
+								<span> Đã đi được
+									<%= data.productinformation[0].odo.toLocaleString('vi-VN')%> km
+								</span>
+							</div>
+							<div>
+								<i class="fa-solid fa-location-dot text-primary mr-1"></i>
+								<span class="address"><%= data.address[0].street%>,<%= data.address[0].ward%>,<%= data.address[0].district%>,<%= data.address[0].city%></span>
+							</div>
 						</div>
 					</div>
 					<hr>
 
-					<div>
+					<div >
 						<h2>Chi tiết sản phẩm</h2>
-						<div>
+						
+						<div class="more-detail" style="margin-left: 20px;">
 							<div class="px-2">
 								<i class="fa fa-solid fa-brush text-primary mr-1"></i>
 								<span><%= data.description%></span>
@@ -82,10 +87,10 @@
 					<div id="map"></div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-lg-4 mt-3">
 					<div class="calendar" style="background-color: #f3f8fe;">
 						<div class="flex flex-row items-center gap-1 b" style="color: orange;">
-							<h4><%= data.price%>₫/ 1 ngày</h4>
+							<h4><%= data.price.toLocaleString('vi-VN')%>₫/ 1 ngày</h4>
 						</div>
 						<hr>
 
@@ -94,24 +99,26 @@
 								<span class="month-picker" id="month-picker">February</span>
 								<div class="year-picker">
 									<span class="year-change" id="prev-year">
-										<pre><</pre>
+										<span class="prev" data-controls="prev"><span
+											class="fa fa-chevron-left"></span></span>
 									</span>
 									<span id="year">2021</span>
 									<span class="year-change" id="next-year">
-										<pre>></pre>
+										<span class="next" data-controls="next"><span
+											class="fa fa-chevron-right"></span></span>
 									</span>
 								</div>
 							</div>
 
 							<div class="mt-3">
 								<div class="calendar-week-day">
-									<div>Sun</div>
-									<div>Mon</div>
-									<div>Tue</div>
-									<div>Wed</div>
-									<div>Thu</div>
-									<div>Fri</div>
-									<div>Sat</div>
+									<div>Su</div>
+									<div>Mo</div>
+									<div>Tu</div>
+									<div>We</div>
+									<div>Th</div>
+									<div>Fr</div>
+									<div>Sa</div>
 								</div>
 
 								<div class="calendar-days"></div>
@@ -123,7 +130,15 @@
 						<hr>
 						
 						<div class="p-4">
-							<div id="myBtn" class="btn btn-block">Đặt xe ngay</div>
+							<% if (data.hireState === 'onHire') { %>
+								<div class="btn btn-secondary me-2">Xe đang được thuê</div>
+							  <% } else if (!user || user.status === 'inactive') { %>
+								<a href="javascript:SweetAlert('/profile')">
+								  <div class="btn btn-secondary me-2">Đặt xe ngay</div>
+								</a>
+							  <% } else { %>
+								<div id="myBtn" class="btn btn-block">Đặt xe ngay</div>
+							  <% } %>
 						  </div>
 						<div>
 							<!-- The Modal -->
@@ -189,10 +204,10 @@
 										<div class="row">
 											<div class="col-sm-12"><h5>Ngày thuê:</h5></div>
 											<hr>
-											<div class="col-sm-6"><p><strong>Từ:</strong> 1/1/2025</p></div>
-											<div class="col-sm-6"><p><strong>Đến:</strong> 1/2/2025</p></div>
-											<div class="col-sm-6"><p><strong>Giá:</strong> <%= data.price%></p></div>
-											<div class="col-sm-6"><p><strong>Phí hợp đồng:</strong> <%= data.price%></p></div>
+											<div class="col-sm-6" id="start-date-input"><strong>Từ: </strong></div>
+											<div class="col-sm-6" id="end-date-input"><strong>Đến:  </strong></div>
+											<div class="col-sm-6"><p><strong>Giá:</strong> <%= data.price.toLocaleString('vi-VN')%> ₫/ngày</p></div>
+											<div class="col-sm-6"><p><strong>Phí hợp đồng:</strong> <%= (data.price * 0.1).toLocaleString('vi-VN')%> ₫</p></div>
 											<div class="col-sm-6"><p><strong>Tổng cộng:</strong> <%= data.price%></p></div>
 										</div>
 										</div>
@@ -202,35 +217,7 @@
 															  </div>
 	
 	
-													<script>
-														// Get the modal
-														var modal = document.getElementById("myModal");
-														
-														// Get the button that opens the modal
-														var btn = document.getElementById("myBtn");
-														
-														// Get the <span> element that closes the modal
-														var span = document.getElementsByClassName("close")[0];
-														
-														// When the user clicks the button, open the modal 
-														btn.onclick = function() {
-														modal.style.display = "block";
-														}
-														
-														// When the user clicks on <span> (x), close the modal
-														span.onclick = function() {
-														modal.style.display = "none";
-														}
-														
-														// When the user clicks anywhere outside of the modal, close it
-														window.onclick = function(event) {
-														if (event.target == modal) {
-															modal.style.display = "none";
-														}
-														}
-														const gdate = new Date();
-														 document.getElementById("gdate").innerHTML = gdate;
-														</script>
+													
 														</div>
 														</div>
 							</div>
@@ -256,7 +243,7 @@
 					<div class="mt-4">
 						<h2>Một số bình luận: </h2>
 
-						<div>
+						<div class="comments">
 							<p>Tuyệt vời</p>
 							<p>Rất tuyệt vời</p>
 							<p>Chắc là tuyệt vời</p>
@@ -299,7 +286,7 @@ const randomProducts = shuffledProducts.slice(0, 3);
         <h3 class="product-title"><%= item.name %></h3>
         <strong class="product-price"><%= item.price %>₫/ 1 ngày</strong>
         <span class="icon-cross">
-            <img src="images/cross.svg" class="img-fluid">
+            <img src="/product/images/cross.svg" class="img-fluid">
         </span>
     </a>
 </div>
@@ -312,5 +299,3 @@ const randomProducts = shuffledProducts.slice(0, 3);
 		</div>
 	</div>
 	<!-- End Product Related -->
-	
-	

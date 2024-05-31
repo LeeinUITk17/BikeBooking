@@ -27,7 +27,7 @@ class productController {
 
     if (status) {
       data = await getproduct(status, keyword);
-      console.log(data);
+    //  console.log(data);
     } else {
       data = await getproduct();
     }

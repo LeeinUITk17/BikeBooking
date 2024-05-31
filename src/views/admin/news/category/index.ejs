@@ -1,0 +1,124 @@
+<section class="content">
+    <%- locals.flash %>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tools">
+          <a href="/admin/category/form">
+            <button link type="button" class="btn btn-block btn-primary">Add new</button>
+          </a>
+  
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <form action="" method="get">
+            <div class="input-group">
+              <input type="search" class="form-control form-control-lg" name="keywords" placeholder="Type your keywords here" value="<%= keyword %>">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-lg btn-default">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        </div>
+      <div class="card-header">
+        
+        <div class="status-list col-sm-6 pl0">
+          <% statusfilter.forEach((item) => { %>
+            <a class="<%= item.class %>" href="<%= item.link %>">
+              <%= item.name %> (<%= item.count %>)
+            </a>
+          <% }); %>                            
+        </div>
+        
+        <div class="card-tools">
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+            title="Collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="remove"
+            title="Remove"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-striped projects">
+          <thead>
+            <tr>
+              <th style="width: 10%" ><input type="checkbox" id="selectAllCheckbox">Select all</th>
+               <th style="width: 5%" >ID</th>
+               <th style="width: 10%">Name</th>
+               <th style="width: 10%">Ordering</th>
+               <th style="width: 10%">Logo</th>
+               <th style="width: 10%" class="text-center">Status</th>
+               <th style="width: 10%" class="text-center">Special</th>
+             </tr>
+          </thead>
+        
+            <tbody>
+              <% if (data && Array.isArray(data)) { %>
+                <% data.forEach((item, index) => { %>
+                  <tr>
+                    <td><input type="checkbox" name="selectedItems" value="<%= item.id %>"></td>
+                    <td><%= index + 1 %></td>
+                    <td><%= item.name %></td>
+                    <td><%= item.ordering %></td>
+                    <td>
+                      <img src="<%= item.avatar %>" alt="Avatar"  class="rounded-circle" style="width: 50px;">
+                    </td> 
+                    <td class="project-state" id="status-<%= item.id %>">
+                      <a href="/changeStatus/<%= item.id %>/<%= item.status %>" onclick="handleUpdateStatus('<%= item.id %>', '<%= item.status %>','category'); return false;">
+                        <span class="badge <%= item.status === 'active' ? 'badge-success' : 'badge-danger' %>"><%= item.status %></span>
+                      </a>
+                    </td>
+                    <td class="project-state" id="status-<%= item.id %>">
+                      <span class="badge <%= item.special ? 'badge-success' : 'badge-danger' %>">
+                        <%= item.special ? 'True' : 'False' %>
+                      </span>
+                    </td>
+                    <td class="project-actions text-right text-center">
+                      <a class="btn btn-info btn-sm" href="/admin/category/form/<%= item.id %>">
+                        <i class="fas fa-pencil-alt"> </i>
+                        Edit
+                      </a>
+                      <a class="btn btn-danger btn-delete btn-sm" href="javascript:handleDelete('/admin/category/delete/<%= item.id %>')">
+                        <i class="fas fa-trash"> </i>
+                        Delete
+                      </a>
+                    </td>
+                  </tr>
+                <% }); %>
+              <% } else { %>
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              <% } %>
+            </tbody>
+            
+            <div class="input-group-prepend">
+              <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Action
+              </button>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item"><a href="/admin/category/changeStatusTool" data-action="set_to_active">Set to Active</a></li>
+                <li class="dropdown-item"><a href="/admin/category/changeStatusTool" data-action="set_to_inactive">Set to Inactive</a></li>
+                <li class="dropdown-item"><a href="/admin/category/changeStatusTool" data-action="set_to_delete">Set to Delete</a></li>
+              </ul>
+            </div>
+            
+          
+        </table>
+      </div>
+    </div>
+  </section>

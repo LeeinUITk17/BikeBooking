@@ -140,7 +140,7 @@ const previewImage = (input) => {
 document.addEventListener('DOMContentLoaded', function () {
   let editor;
 
-  ClassicEditor
+  ClassicEditorz
       .create(document.querySelector('#editor'))
       .then(newEditor => {
           editor = newEditor;

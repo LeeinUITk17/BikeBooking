@@ -7,7 +7,7 @@ const addproduct = async (body) => {
 }
 const getproduct = (status, keyword) => {
   let query = {};
-  console.log(keyword);
+  //console.log(keyword);
   if (status === 'all') {
     query = {};
   } else if (status) {
@@ -16,7 +16,8 @@ const getproduct = (status, keyword) => {
   if (keyword) {
     query.$or = [
       { name: new RegExp(keyword, 'i') },
-      { description: new RegExp(keyword, 'i') }
+      { description: new RegExp(keyword, 'i') },
+      { 'productinformation.brand': new RegExp(keyword, 'i') },
     ];
   }
   return productmodel.find(query); // remove the await here
@@ -35,6 +36,17 @@ const updateproduct = async (id, body) => {
     { _id: new mongoose.Types.ObjectId(id) },
     { $set: body },
   );
+}
+const updateState = async (id, state) => {
+  try {
+  return await productmodel.findByIdAndUpdate(
+    id,
+    { $set: { hireState: state } },
+    { new: true },
+  );
+} catch (error) {
+  console.error(error);
+}
 }
 const getStatusCounts = async () => {
   const items = await productmodel.find({});
@@ -55,4 +67,5 @@ module.exports = {
   updateproduct,
   getStatusCounts,
   getproductbysalerID,
+  updateState,
 }

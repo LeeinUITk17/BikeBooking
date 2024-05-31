@@ -1,0 +1,199 @@
+<div class="container mt-4">
+    <form id="contentForm" action="/blog/blognew" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="authorID" value="<%= user._id%>">
+        <input type="hidden" name="author" value="<%= user.userinformation[0].name%>">
+        <div class="row">
+            <div class="col-xl-12">       
+                <div class="card">
+                    <div class="card-body">
+                        <ol class="activity-checkout mb-0 px-4 mt-3">
+                            <li class="checkout-item">
+                                <div class="avatar checkout-icon p-1">
+                                    <div class="avatar-title rounded-circle bg-primary">
+                                        <i class="fa fa-image text-white font-size-20"></i>
+                                    </div>
+                                </div>
+    
+                                <div class="feed-item-list">
+                                    <div>
+                                        <h5 class="font-size-16 mb-1">Thông tin bài viết</h5>
+                                        <p class="text-muted text-truncate mb-4">Tiều đề và nội dung chính của bài viết</p>
+                                        <div class="row" style="margin-top: 20px;">
+                                            <div class="col-lg-12">
+                                                <div class="mb-4 mb-lg-0">
+                                                    <label class="form-label">Thể loại bài viết là gì?</label>
+                                                    <select class="form-control form-select" title="LoaiBai"
+                                                        id="LoạiBai" name="category" required>
+                                                        <% listcategory.forEach((item) => { %>
+                                                        <option value="<%= item.slug%>"><%= item.slug%></option>
+                                                        <% }); %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="form-label">Ảnh nổi bật của bài viết</label>
+                                            <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                                <div data-bs-toggle="collapse" style="height: 100%; width: 100%;">
+                                                    <input type="file" id="fileUploadimage" name="avatar"  style="display: none;" data-allow-reorder="false" data-max-file-size="10MB" data-max-files="1" onchange="previewArrayimg(this, 'preview')" required>
+                                                    <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                        <span class="card-radio py-3 text-center text-truncate" onclick="event.stopPropagation(); document.getElementById('fileUploadimage').click();">
+                                                            <i class="fa fa-image d-block h2 mb-3"></i>
+                                                            Thêm hình ảnh
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6" style="height: 120px; width: 180px;">
+                                                <div data-bs-toggle="collapse" style="height: 100%; width: 100%;" >
+                                                    <label class="card-radio-label" style="height: 100%; width: 100%;">
+                                                        <div id="preview1" alt="Avatar Preview" style="background-image: url('/product/images/bycicle.png'); background-size: cover; background-position: center; width: 100%; height: 100%;"></div>       
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                        <script>
+                                            var currentPreview = 1;
+                                            
+                                            function previewArrayimg(input) {
+                                                if (input.files) {
+                                                    var filesAmount = input.files.length;
+                                                    for (let i = 0; i < filesAmount; i++) {
+                                                        var reader = new FileReader();
+                                                        reader.onload = function(event) {
+                                                            document.getElementById(`preview${currentPreview}`).style.backgroundImage = `url(${event.target.result})`;
+                                                            currentPreview++;
+                                                        }
+                                                        reader.readAsDataURL(input.files[i]);
+                                                    }
+                                                }
+                                            }
+                                            </script>
+                                    </div>
+    
+                                    
+                                
+                                </div>
+                            </li>
+                            <li class="checkout-item">
+                                <div class="avatar checkout-icon p-1">
+                                    <div class="avatar-title rounded-circle bg-primary">
+                                        <i class="fa fa-heading text-white font-size-20"></i>
+                                    </div>
+                                </div>
+    
+                                <div class="feed-item-list">
+                                    <div>
+                                        <h5 class="font-size-16 mb-1">Tiêu đề bài viết</h5>
+                                        <p class="text-muted text-truncate mb-4">Người dùng sẽ thấy tiêu đề đầu tiên</p>
+    
+                                        <div class="mb-3">
+                                           
+                                                <div>
+                                                    <div class="row" style="margin-top: 20px;">
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="Title">Tiêu đề bài viết</label>
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Nhập tiêu đề" required name="name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                            </li>
+    
+                            <li class="checkout-item">
+                                <div class="avatar checkout-icon p-1">
+                                    <div class="avatar-title rounded-circle bg-primary">
+                                        <i class="fa fa-align-justify text-white font-size-20"></i>
+                                    </div>
+                                </div>
+    
+                                <div class="feed-item-list">
+                                    <div>
+                                        <h5 class="font-size-16 mb-1">Nội dung bài viết</h5>
+                                        <p class="text-muted text-truncate mb-4">Bạn nên viết ở định dạng HTML kết hợp CSS</p>
+    
+                                        <div class="mb-3">
+                                           
+                                            <div>
+                                                <div class="row" style="margin-top: 20px;">
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" >Nội dung bài viết</label>
+                                                            <textarea id="editor" class="form-control" rows="10" placeholder="Bạn nên viết ở định dạng HTML CSS" name="content" ></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        
+                                    </div>
+                                        <label class="form-label " style="font-style: italic; color: #ff6347;">Bài viết của bạn sẽ được duyệt trong 3 ngày trước khi được đăng lên.</label>
+    
+                                    </div>
+                                </div>
+                            </li>
+                            
+    
+                            
+                        </ol>
+                    </div>
+                </div>
+    
+                <div class="row my-4">
+                    <div class="col">
+                        <div class="text-end mt-2 mt-sm-0">
+                                
+                                <button class="btn bx bx-receipt me-1" style="font-family: Inter, sans-serif !important; background-color: #3b5d50;">  
+                                    <div class="fa fa-file-lines"></div>  Đăng bài viết</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+    </div>
+</div>
+<script>
+    let editorInstance;
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            editorInstance = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    $(document).ready(function() {
+        $('#contentForm').on('submit', function(event) {
+            // Check if editorInstance is defined
+            if (editorInstance) {
+                // Transfer CKEditor content to the textarea
+                const editorData = editorInstance.getData();
+                $('#editor').val(editorData);
+            } else {
+                console.error('Editor instance is not ready yet');
+                event.preventDefault(); // Prevent form submission
+            }
+
+            // If the textarea is hidden, make it visible only for the validation process
+            if ($('#editor').is(':hidden')) {
+                $('#editor').show();
+                // Trigger form validation
+                if (!this.checkValidity()) {
+                    // If the form is not valid, prevent its submission
+                    event.preventDefault();
+                }
+                $('#editor').hide();
+            }
+
+            // Allow the form to be submitted
+            return true;
+        });
+    });
+</script>

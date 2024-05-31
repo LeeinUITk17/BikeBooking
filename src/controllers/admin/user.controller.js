@@ -5,6 +5,7 @@ const {
     deteleuser,
     updateuser,
     getStatusCounts,
+    updateuserAdmin,
 } =require('../../services/admin/user.service');
 const mainName = 'user';
   const linkprefix = `/admin/${mainName}/`;
@@ -85,17 +86,14 @@ class usercontroller{
       }
     
       addOrUpdateItem = async (req, res) => {
-        const { id } = req.body;
-        console.log(req.body);
+        const { id } = req.params;
+        //console.log(id);
        // return;
         try {
           if (id) {
-            await updateuser(id, req.body);
+            await updateuserAdmin(id, req.body);
             req.flash("success", "Update item thành công", false);
-          } else {
-            await adduser(req.body);
-            req.flash("success", "Add item thành công", false);
-          }
+          } 
           res.redirect(`${linkprefix}all`);
         } catch (error) {
           console.error('Error processing form:', error);
