@@ -1,1 +1,48 @@
-<%- locals.flash %>
+    
+        <section class="content">
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-3">
+        
+        <div class="card card-primary card-outline">
+        <div class="card-body box-profile">
+        <div class="text-center">
+        <img class="profile-user-img img-fluid img-circle" src="<%= data.avatar%>" alt="User profile picture">
+        </div>
+        <h3 class="profile-username text-center"><%= data.name%></h3>
+        <p class="text-muted text-center"><%= data.category%></p>
+        <ul class="list-group list-group-unbordered mb-3">
+        <li class="list-group-item">
+        <b>CreatedAt</b> <a class="float-right"><%= data.createdAt.toISOString().split('T')[0]%></a>
+        </li>
+        </ul>
+        <a href="/admin/news/all" class="btn btn-primary btn-block"><b>Back to Manage</b></a>
+        </div>
+        
+        </div>
+        
+        </div>
+        
+        <div class="col-md-9">
+        <div class="card">
+        <div class="card-body">
+        <div class="tab-content">
+     
+            <%- locals.flash %>
+            <div class="card card-outline card-info">            
+                <div class="card-body">
+                <p><%- data.content%></p>
+                </div>
+                </div>
+        
+        </div>
+        
+        </div>
+        </div>
+        
+        </div>
+        
+        </div>
+        
+        </div>
+        </section>
