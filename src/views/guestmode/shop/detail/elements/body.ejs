@@ -1,0 +1,196 @@
+
+	<!-- Start Product Detail -->
+	<div class="container pt-4">
+		<div class="mb-4">
+			<h1><%= data.name%></h1>
+			<span><%= data.productinformation[0].brand%></span>
+		</div>
+
+		<div class="container mb-4">
+			<div class="row">
+				<div class="imagemain col-12 col-md-10">
+                    <img src="<%= data.image%>" alt="test" class="img-thumbnail" id="mainImage">
+				</div>
+				<div class="imagelist col-12 col-md-2">
+					<img src="<%= data.image%>" alt="test" class="img-thumbnail" onclick="changeImage(this)">
+                    <% if(data && data.List && data.List.length > 0) { %>
+                        <% for(let i = 0; i < data.List.length; i++) { %>
+                                 <img src="<%= data.List[i].Image %>" alt="test" class="img-thumbnail" onclick="changeImage(this)">
+                            <% } %>
+                   <% } %>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mt-3">
+					<div class="d-flex gap-2 align-items-center">
+                        <img src="<%= saler.avatar%>" class="mt-1" alt="avatar"
+							style="width: 40px; height: 40px; border-radius: 50%;">
+                            <div>
+                                <b><span><%= saler.userinformation[0].name%></span></b> <br>
+                                <span><%= data.createdAt.toISOString().split('T')[0].split('-').reverse().join('-') %></span>
+                            </div>
+					</div>
+					<div class="figures d-flex mt-3 mb-3">
+						<div class="px-1 figures-layout" style="margin-left: 20px; margin-right: 40px;">
+							<div>
+								<i class="fa fa-solid fa-motorcycle text-primary mr-1"></i>
+								<span> Mua từ năm
+									<%= data.productinformation[0].year%>
+								</span>
+							</div>
+							<div>
+								<i class="fa fa-cogs text-primary mr-1"></i>
+								<span>Dòng xe <%= data.category.toLowerCase()%></span>
+							</div>
+						</div>
+						<div class="px-1 mb-3 figures-layout" style="margin-left: 20px;">
+							<div>
+								<i class="fa fa-road text-primary mr-1"></i>
+								<span> Đã đi được
+									<%= data.productinformation[0].odo.toLocaleString('vi-VN')%> km
+								</span>
+							</div>
+							<div>
+								<i class="fa-solid fa-location-dot text-primary mr-1"></i>
+								<span class="address"><%= data.address[0].street%>,<%= data.address[0].ward%>,<%= data.address[0].district%>,<%= data.address[0].city%></span>
+							</div>
+						</div>
+					</div>
+					<hr>
+
+					<div >
+						<h2>Chi tiết sản phẩm</h2>
+						
+						<div class="more-detail" style="margin-left: 20px;">
+							<div class="px-2">
+								<i class="fa fa-solid fa-brush text-primary mr-1"></i>
+								<span><%= data.description%></span>
+							</div>
+
+							<div class="px-2">
+								<i class="fa fa-shield-virus text-primary mr-1"></i>
+								<span>Có vài vết móp</span>
+							</div>
+
+							<div class="px-2">
+								<i class="fa fa-cogs text-primary mr-1"></i>
+								<span>Vận hành tốt</span>
+							</div>
+
+						</div>
+					</div>
+					<hr>
+
+					<div id="map"></div>
+				</div>
+
+				<div class="col-lg-4 mt-3">
+					<div class="calendar" style="background-color: #f3f8fe;">
+						<div class="flex flex-row items-center gap-1 b" style="color: orange;">
+							<h4><%= data.price.toLocaleString('vi-VN')%>₫/ 1 ngày</h4>
+						</div>
+						<hr>
+
+						<div class="calendar-frame">
+							<div class="calendar-header">
+								<span class="month-picker" id="month-picker">February</span>
+								<div class="year-picker">
+									<span class="year-change" id="prev-year">
+										<span class="prev" data-controls="prev"><span
+											class="fa fa-chevron-left"></span></span>
+									</span>
+									<span id="year">2021</span>
+									<span class="year-change" id="next-year">
+										<span class="next" data-controls="next"><span
+											class="fa fa-chevron-right"></span></span>
+									</span>
+								</div>
+							</div>
+
+							<div class="mt-3">
+								<div class="calendar-week-day">
+									<div>Su</div>
+									<div>Mo</div>
+									<div>Tu</div>
+									<div>We</div>
+									<div>Th</div>
+									<div>Fr</div>
+									<div>Sa</div>
+								</div>
+
+								<div class="calendar-days"></div>
+							</div>
+
+							<div class="month-list"></div>
+						</div>
+
+						<hr>
+						
+						<div class="p-4">
+							<% if (data.hireState === 'onHire') { %>
+								<div class="btn btn-secondary me-2">Xe đang được thuê</div>
+							  <% } else if (!user || user.status === 'inactive') { %>
+								<a href="javascript:SweetAlert('/profile')">
+								  <div class="btn btn-secondary me-2">Đặt xe ngay</div>
+								</a>
+							  <% } else { %>
+								<a href="javascript:guestAlert('/login')"><div id="myBtn" class="btn btn-block">Đặt xe ngay</div></a>
+							  <% } %>
+						  </div>
+						<div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Product Detail -->
+	
+
+	<!-- Start Product Related -->
+	<div class="product-section">
+		<div class="container">
+			<div class="row" style="display: flex; align-items: center; justify-content: center;">
+				<h2 class="mb-4 section-title" style="text-align: center;">Các sản phẩm liên quan</h2>
+				<!-- Start Column 2 -->
+				<% 
+// Function to shuffle an array
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Shuffle the listProducts array
+const shuffledProducts = shuffle([...listProducts]);
+
+// Slice the first 3 items from the shuffled array
+const randomProducts = shuffledProducts.slice(0, 3);
+%>
+
+<% randomProducts.forEach((item) => { %>
+<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+    <a class="product-item" href="/guest/shop/detail/<%= item._id%>/<%= item.salerID%>%>">
+        <img src="<%= item.image %>" class="img-fluid product-thumbnail">
+        <h3 class="product-title"><%= item.name %></h3>
+        <strong class="product-price"><%= item.price.toLocaleString('vi-VN') %>₫/ 1 ngày</strong>
+        <span class="icon-cross">
+            <img src="/product/images/cross.svg" class="img-fluid">
+        </span>
+    </a>
+</div>
+<% }); %>
+
+				<!-- End Column 2 -->
+
+
+			</div>
+		</div>
+	</div>
+
+

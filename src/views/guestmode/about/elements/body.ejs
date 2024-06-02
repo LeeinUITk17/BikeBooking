@@ -1,0 +1,212 @@
+<!-- Start Hero Section -->
+<div class="hero">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-5">
+                <div class="intro-excerpt">
+                    <h1><%= listsetting[0].hero[1].title%></h1>
+                    <p class="mb-4"><%= listsetting[0].hero[1].content%></p>
+                    <p><a href="/guest/shop" class="btn btn-secondary me-2">Shop Now</a><a href="/guest/home"
+                            class="btn btn-white-outline">Explore</a></p>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="hero-img-wrap">
+                    <img src="<%=listsetting[0].heroimage%>" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Hero Section -->
+
+<!-- Start Why Choose Us Section -->
+<div class="why-choose-section">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-6">
+                <h2 class="section-title">Tại sao lại nên chọn chúng tôi</h2>
+                <p>Hiện tại mô hình dịch vụ kinh doanh cho thuê xe máy không thực sự phổ biển ở Việt Nam, nắm bắt cơ
+                    hội đó chúng tôi đã lên kế hoạch cho dịch vụ này.
+                    Thử nghĩ xem, khi đi chơi đông người bạn muốn muốn tự mình lái một con xe máy hơn hay phải chen
+                    lấn chật chội trên một con xe ô tô?</p>
+                <div class="row my-5">
+                    <% listsetting[0].whychoose.forEach((item) => { %>
+                    <div class="col-6 col-md-6">
+                        <div class="feature">
+                            <div class="icon">
+                                <img src="/product/images/truck.svg" alt="Image" class="imf-fluid">
+                            </div>
+                            <h3><%= item.title%></h3>
+                            <p><%= item.content%></p>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="img-wrap">
+                    <img src="<%= listsetting[0].whychooseimage%>" alt="Image" class="img-fluid">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Why Choose Us Section -->
+
+<!-- Start Team Section -->
+<div class="untree_co-section">
+    <div class="container">
+
+        <div class="row mb-5">
+            <div class="col-lg-5 mx-auto text-center">
+                <h2 class="section-title">Đội ngũ thiết kế website</h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+
+            <!-- Start Column 1 -->
+            <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
+                <img src="/product/images/Nghia.png" class="img-fluid mb-5">
+                <h4><a href="#"><span class="">Dương Phan Hiếu Nghĩa</span></a></h4>
+                <span class="d-block position mb-4">21521179</span>
+                <p style="font-size: 16px;">Nghĩa hacker mũ trắng, lòng trong sáng,
+                    <br>Giữ vững an ninh, mạng thế gian.
+                    <br>Từng dòng code viết, vì lẽ phải,
+                    <br>Bảo vệ muôn nơi, chẳng ngại gian.
+                </p>
+                <p class="mb-0"><a href="https://github.com/NghiaVNM" class="more dark">Tìm hiểu thêm<span class="icon-arrow_forward"></span></a>
+                </p>
+            </div>
+            <!-- End Column 1 -->
+
+            <!-- Start Column 2 -->
+            <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
+                <img src="/product/images/Dat.png" class="img-fluid mb-5">
+
+                <h4><a href="#"><span class="">Trần Tiến Đạt</span></a></h4>
+                <span class="d-block position mb-4">2151951</span>
+                <p style="font-size: 16px;">Đạt chàng hacker, mũ đen bay,
+                    <br>Bóng tối lặng thầm, chớp thoáng lay.
+                    <br>Phá giải bảo mật, tìm sơ hở,
+                    <br>Mạng mờ ảo biến, thoát trong ngày.
+                </p>
+                <p class="mb-0"><a href="https://github.com/SilasUIT" class="more dark">Tìm hiểu thêm<span class="icon-arrow_forward"></span></a>
+                </p>
+
+            </div>
+            <!-- End Column 2 -->
+
+            <!-- Start Column 3 -->
+            <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
+                <img src="/product/images/Tai.png" class="img-fluid mb-5">
+                <h4><a href="#"><span class="">Lê Thanh Tài</span></a></h4>
+                <span class="d-block position mb-4">22521276</span>
+                <p style="font-size: 16px;">Tài học IT, định hướng xa,
+                    <br>Nhật Bản tiên phong, tỏa sáng là.
+                    <br>Chăm chỉ ngày đêm, lòng quyết chí,
+                    <br>Vươn tầm thế giới, giấc mơ nhà.</p>
+                <p class="mb-0"><a href="https://github.com/LeeinUITk17" class="more dark">Tìm hiểu thêm<span class="icon-arrow_forward"></span></a></p>
+            </div>
+            <!-- End Column 3 -->
+        </div>
+
+        <div class="row justify-content-center mt-3">
+        
+            <!-- Start Column 4 -->
+            <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
+                <img src="/product/images/Hung.png" class="img-fluid mb-5">
+                <h4><a href="#"><span class="">Đặng Quốc Hưng</span></a></h4>
+                <span class="d-block position mb-4">21520882</span>
+                <p style="font-size: 16px;">Hưng chàng coder, trí tinh anh,
+                    <br>Code dòng chảy mượt, khắp màn hình.
+                    <br>Đêm ngày lập trình không mỏi mệt,
+                    <br>Sáng tạo tương lai, bước tiến nhanh.</p>
+                <p class="mb-0"><a href="https://github.com/hungbd31" class="more dark">Tìm hiểu thêm<span class="icon-arrow_forward"></span></a>
+                </p>
+            </div>
+            <!-- End Column 4 -->
+        
+            <!-- Start Column 5 -->
+            <div class="col-12 col-md-6 col-lg-3 mb-5 mb-md-0">
+                <img src="/product/images/Hien.png" class="img-fluid mb-5">
+                <h4><a href="#"><span class="">Vũ Vinh Hiển</span></a></h4>
+                <span class="d-block position mb-4">20520498</span>
+                <p style="font-size: 16px;">Hiển vững bước, tinh thần không gục.
+                    <br>Trái tim rộn ràng, ước mơ vươn.
+                    <br>Nắng sưởi ấm, lòng mãi bền bỉ.
+                    <br>Hành trình dẫu xa, Hiển vẫn cười.</p>
+                <p class="mb-0"><a href="https://github.com/Ne1h" class="more dark">Tìm hiểu thêm <span class="icon-arrow_forward"></span></a></p>
+            </div>
+            <!-- End Column 5 -->
+        
+        </div>
+    </div>
+</div>
+<!-- End Team Section -->
+
+<!-- Start Testimonial Slider -->
+<div class="testimonial-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mx-auto text-center">
+                <h2 class="section-title"><%= listsetting[0].testimonialtitle%></h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="testimonial-slider-wrap text-center">
+
+                    <div id="testimonial-nav">
+                        <span style="padding-top: 20px;" class="prev" data-controls="prev"><span class="fa fa-chevron-left"></span></span>
+                        <span style="padding-top: 20px;" class="next" data-controls="next"><span class="fa fa-chevron-right"></span></span>
+                    </div>
+
+                    <div class="testimonial-slider">
+                        <% listsetting[0].testimonial.forEach((item,index=0) => { %>
+                        <div class="item">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8 mx-auto">
+
+                                    <div class="testimonial-block text-center">
+                                        <blockquote class="mb-5">
+                                            <p><%= item.comment%></p>
+                                        </blockquote>
+
+                                        <div class="author-info">
+                                            <div class="author-pic">
+                                                <img src="<%= listsetting[0].testimonialImage[index].Image%>" alt="<%= item.name%>"
+                                                    class="img-fluid">
+                                            </div>
+                                            <h3 class="font-weight-bold"><%= item.name%></h3>
+                                            <span class="position d-block mb-3"><%= item.detail%></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END item -->   
+                        <% }); %>                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Testimonial Slider -->
+<a href="javascript:guestAlert('/login')">
+    <button class="btn btn-primary me-2" 
+    style="
+    width: 50px;
+    height: 50px;
+    padding: 0 !important;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    " ><i class="fas fa-comments"></i></button>
+</a>

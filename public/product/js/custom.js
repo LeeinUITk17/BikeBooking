@@ -55,7 +55,24 @@ const handleDelete = (link) => {
         text: "Giấy tờ của bạn chưa được xác thực!",
         footer: `<a href="${link}">Click vào đây để cập nhật thông tin?</a>`
     })
-}
+};
+const guestAlert=(link)=>{
+	Swal.fire({
+		title: "Bạn cần đăng nhập để thực hiện chức năng này! (⁠ノ⁠ಠ⁠益⁠ಠ⁠)⁠ノ",
+		width: 600,
+		padding: "3em",
+		color: "#716add",
+		background: "#fff url(https://sweetalert2.github.io/images/trees.png)",
+		confirmButtonColor: "#716add",
+		confirmButtonText:`<a href="${link}">Login</a>`,
+		backdrop: `
+		  rgba(0,0,123,0.4)
+		  url("https://sweetalert2.github.io/images/nyan-cat.gif")
+		  right center
+		  no-repeat
+		`
+	  });
+};
 (function() {
 	'use strict';
 

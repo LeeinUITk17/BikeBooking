@@ -39,7 +39,6 @@ app.use(
     viewName: "admin/elements/notify",
   })
 );
-
 app.use("/", require("./src/routes"));
 
 app.use(function (req, res, next) {

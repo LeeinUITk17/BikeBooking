@@ -7,8 +7,8 @@
                     <h1><%= listsetting[0].hero[0].title%> <span clsas="d-block">với Ezbooking</span></h1>
                     <p class="mb-4"><%= listsetting[0].hero[0].content%></p>
                     <p>
-                        <a href="/shop" class="btn btn-secondary me-2">Thuê ngay</a>
-                        <a href="/least" class="btn btn-white-outline">Cho thuê</a>
+                        <a href="/guest/shop" class="btn btn-secondary me-2">Thuê ngay</a>
+                        <a href="javascript:guestAlert('/login')" class="btn btn-white-outline">Cho thuê</a>
                     </p>
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
                 <h2 class="mb-4 section-title">Chúng tôi cho thuê nhiều loại xe khác nhau.</h2>
                 <p class="mb-4">Các dòng xe đời cũ và đời mới: Dream, Yamaha, Wave, và hơn thế nữa.</p>
-                <p><a href="/shop" class="btn">Khám phá ngay</a></p>
+                <p><a href="/guest/shop" class="btn">Khám phá ngay</a></p>
             </div>
             <!-- End Column 1 -->
 
@@ -52,7 +52,7 @@
             
             <% randomProducts.forEach((item) => { %>
             <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-                <a class="product-item" href="/shop/detail/<%= item._id%>/<%= item.salerID%>%>">
+                <a class="product-item" href="/guest/shop/detail/<%= item._id%>/<%= item.salerID%>%>">
                     <img src="<%= item.image %>" class="img-fluid product-thumbnail" style="height: 290px; width: 290px;">
                     <h3 class="product-title"><%= item.name %></h3>
                     <strong class="product-price"><%= item.price.toLocaleString('vi-VN')  %>₫/ 1 ngày</strong>
@@ -124,7 +124,7 @@
                     <li><%= item.content%></li>
                     <% }); %>
                 </ul>
-                <p><a href="/about" class="btn btn-white-outline">Xem thêm</a></p>
+                <p><a href="/guest/about" class="btn btn-white-outline">Xem thêm</a></p>
             </div>
         </div>
     </div>
@@ -143,7 +143,7 @@
                     <div class="pt-3">
                         <h3>Honda wave</h3>
                         <p>Xe phù hợp cho leo dốc </p>
-                        <p><a href="/blog">Đọc thêm</a></p>
+                        <p><a href="/guest/blog">Đọc thêm</a></p>
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                     <div class="pt-3">
                         <h3>Dream</h3>
                         <p>Xe phù hợp cho bạn ôn lại kỉ niệm xưa</p>
-                        <p><a href="/blog">Đọc thêm</a></p>
+                        <p><a href="/guest/blog">Đọc thêm</a></p>
                     </div>
                 </div>
             </div>
@@ -169,7 +169,7 @@
                     <div class="pt-3">
                         <h3>Yamaha YZF-R15</h3>
                         <p>Xe phù hợp cho cặp đôi</p>
-                        <p><a href="/blog">Đọc thêm</a></p>
+                        <p><a href="/guest/blog">Đọc thêm</a></p>
                     </div>
                 </div>
             </div>
@@ -237,7 +237,7 @@
                 <h2 class="section-title">Một số bài đăng gần đây</h2>
             </div>
             <div class="col-md-6 text-start text-md-end">
-                <a href="/blog" class="more">Xem toàn bộ bài đăng</a>
+                <a href="/guest/blog" class="more">Xem toàn bộ bài đăng</a>
             </div>
         </div>
 
@@ -245,10 +245,10 @@
             <% listnews.slice(0, 3).forEach((item) => { %>
             <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
                 <div class="post-entry">
-                    <a href="/blog/blogdetail/<%= item._id%>" class="post-thumbnail"><img src="<%= item.avatar%>" alt="Image" 
+                    <a href="/guest/blog/blogdetail/<%= item._id%>" class="post-thumbnail"><img src="<%= item.avatar%>" alt="Image" 
                             class="img-fluid"></a>
                     <div class="post-content-entry">
-                        <h3><a href="/blog/blogdetail/<%= item._id%>"><%= item.name%></a></h3>
+                        <h3><a href="/guest/blog/blogdetail/<%= item._id%>"><%= item.name%></a></h3>
                         <div class="meta">
                             <span><%= item.author%></span> <span>vào lúc
                                 <%= item.createdAt.toISOString().split('T')[0] %></span>
@@ -261,7 +261,7 @@
     </div>
 </div>
 <!-- End Blog Section -->
-<a href="/chat">
+<a href="javascript:guestAlert('/login')">
     <button class="btn btn-primary me-2" 
     style="
     width: 50px;

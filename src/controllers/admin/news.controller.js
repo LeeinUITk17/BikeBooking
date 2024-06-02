@@ -22,7 +22,7 @@ class NewsController {
     status?data=await getItems(status, keyword):data=await getItems();
     data.sort((a, b) => a.ordering - b.ordering);
 
-    return res.render("admin/news", { data, statusfilter: this.getStatusFilter(statusCounts, status), keyword });
+    res.render("admin/news", { data, statusfilter: this.getStatusFilter(statusCounts, status), keyword });
 };
 
 
@@ -30,7 +30,7 @@ class NewsController {
     let { id } = req.params;
     if (id) {
         let data = await getItemById(id);
-       return res.render("admin/news/form", { data });
+        res.render("admin/news/form", { data });
     } 
     return res.redirect(`${linkprefix}all`);
   };

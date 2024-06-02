@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="/product/blogdetail/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Icon Font Css -->
+  <link rel="stylesheet" href="/product/blogdetail/plugins/themify/css/themify-icons.css">
+  <link rel="stylesheet" href="/product/blogdetail/plugins/fontawesome/css/all.css">
+  <link rel="stylesheet" href="/product/blogdetail/plugins/magnific-popup/dist/magnific-popup.css">
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="/product/blogdetail/plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="/product/blogdetail/plugins/slick-carousel/slick/slick-theme.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/product/blogdetail/css/style.css">
+
+</head>
+
+<body>
+<section class="section blog-wrap bg-gray" style="background-color: #ffffff;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8" >
+                <div class="row">
+	<div class="col-lg-12 mb-5 border-1" >
+		<div class="single-blog-item" >
+			<img src="<%= data.avatar%>" 
+            alt="" class="img-fluid rounded" style="width: 100%;">
+
+			<div class="blog-item-content bg-white p-5">
+				<div class="blog-item-meta bg-gray py-1 px-2">
+					<span class="text-muted text-capitalize mr-3"><i class="ti-pencil-alt mr-2"></i><%= author.userinformation[0].name%></span>
+					<span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i> <%= data.createdAt.toISOString().split('T')[0]%></span>
+				</div> 
+
+				<h2 class="mt-3 mb-4"><%= data.name%></h2>
+				<p class="lead mb-4"><%- data.content%></p><hr>
+				<div class="tag-option mt-5 clearfix">       
+
+				    <ul class="float-right list-inline">
+				        <li class="list-inline-item"> Share: </li>
+				        <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+				        <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+				        <li class="list-inline-item"><a href="#" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+				    </ul>
+			    </div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-12 mb-5 border-1" >
+		<div class="comment-area card border-0 p-5">
+			<h4 class="mb-4">Số lượt bình luận: <span><a href="/login">Login để hiện thị thông tin này!</a></span></h4>
+			<ul class="comment-tree list-unstyled">
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-lg-12">
+		<form class="contact-form bg-white rounded p-5 border-1" id="comment-form" >
+			<h4 class="mb-4">Viết bình luận</h4>
+			<textarea class="form-control mb-3" name="comment" id="comment" cols="30" rows="5" placeholder="Nội dung"></textarea>
+			<a href="javascript:guestAlert('/login')"><button class="btn btn-main btn-round-full" type="button">Đăng bình luận</button></a>
+		</form>
+	</div>
+</div>
+            </div>
+            <div class="col-lg-4">
+                <div class="sidebar-wrap">
+
+	<div class="sidebar-widget card border-1 mb-3">
+		<img src="<%= author.avatar%>" alt="author image" class="img-fluid">
+		<div class="card-body p-4 text-center">
+			<h5 class="mb-0 mt-4"><%= author.name%></h5>
+			<p><%= author.role%></p>
+			<p><%= data.category%> <br>Enjoy it!</p>
+
+			<ul class="list-inline author-socials">
+				<li class="list-inline-item mr-3">
+					<a href="#"><i class="fab fa-facebook-f text-muted"></i></a>
+				</li>
+				<li class="list-inline-item mr-3">
+					<a href="#"><i class="fab fa-twitter text-muted"></i></a>
+				</li>
+                <li class="list-inline-item mr-3">
+                    <a href="#"><i class="fab fa-instagram text-muted"></i></a>
+                </li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="sidebar-widget latest-post card border-1 p-4 mb-3">
+		<h5>Các bài đăng liên quan</h5>
+		<% listnews.slice(0, 3).forEach((item) => { %>
+        <div class="media border-bottom py-3">
+            <a href="/blog/blogdetail/<%= item._id%>">
+                <img class="mr-4 rounded" src="<%= item.avatar%>" alt="" style="width: 75px; height: 100px; object-fit: cover;">
+              </a>
+            <div class="media-body">
+                <h6 class="my-2"><a href="/blog/blogdetail/<%= item._id%>"><%= item.name%>.</a></h6>
+                <span class="text-sm text-muted"><%= item.createdAt.toISOString().split('T')[0]%></span>
+            </div>
+        </div>
+		<% }); %>
+	</div>
+</div>
+            </div>   
+        </div>
+    </div>
+</section>
+    </div>
+  </body>
+  </html>

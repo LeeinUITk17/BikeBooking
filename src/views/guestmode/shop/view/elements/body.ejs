@@ -1,0 +1,262 @@
+<!-- Start Basic Search -->
+<div class="mt-3 mb-5">
+    <div class="container">
+        <div class="row flex justify-content-end">
+            <div class="search-bar position-relative mr-3">
+                <!-- Adjust this value based on your design -->
+                <form action="/guest/shop" method="get" role="search"  >
+                <input type="text"  class="form-control" placeholder="Tìm kiếm" name="keywords">
+                <button type="submit" class="btn btn-primary position-absolute top-0 end-0" style="border-radius: 10px; height: 50px;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            </div>
+            <div class="sortby col-auto">
+                <%if(state!='all') {%>
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="height: 50px;">
+                    <span class="button-text">Sắp xếp </span>
+                    <i class="fa-solid fa-arrow-down-short-wide"></i>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item sort-option" href="#" data-sort="price" data-order="asc">Giá: Thấp đến Cao</a></li>
+                    <li><a class="dropdown-item sort-option" href="#" data-sort="price" data-order="desc">Giá: Cao đến Thấp</a></li>
+                    <li><a class="dropdown-item sort-option" href="#" data-sort="productinformation.0.brand" data-order="asc">Hãng xe: A-Z</a></li>
+                    <li><a class="dropdown-item sort-option" href="#" data-sort="category" data-order="asc">Loại xe: A-Z</a></li>
+                </ul>
+                    <%}%>
+                <% if(state==='all') {%>
+                      <a href="/guest/shop"><span class="btn btn-secondary me-2">Mode Sort</span></a>
+                    <%} else {%>
+                        <a href="/guest/shop/all"><span class="btn btn-secondary me-2">View All</span></a>
+                        <%}%>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- End Basic Search -->
+
+<!-- Start Gallery  -->
+<div class="products-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="title-all text-center">
+                    <h1>Danh mục của chúng tôi</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="advance-search text-primary">
+                    <div class="filter d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-filter m-2"></i>
+                        <h2 class="m-2">BỘ LỌC</h2>
+                    </div>
+                    <hr>
+                    <fieldset class="type">
+                        <legend class="mb-2"><b>Loại xe</b></legend>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="xeSo">Xe số</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="xeSo">Xe ga</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="xeSo">Xe côn</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="xeSo">Xe điện</label>
+                        </div>
+                    </fieldset>
+                    <hr>
+                    <fieldset class="brand">
+                        <legend class="mb-2"><b>Hãng xe</b></legend>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="honda">Honda</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="yamaha">Yamaha</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="suzuki">Suzuki</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="ducati">Ducati</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="ducati">Datbike</label>
+                        </div>
+                    </fieldset>
+                    <hr>
+                    <fieldset class="place">
+                        <legend class="mb-2"><b>Nơi cho thuê</b></legend>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="hcm">TP. Hồ Chí Minh</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="dn">TP. Đà Nẵng</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="hn">TP. Hà Nội</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="bt">TP. Bến Tre</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="dl">TP. Đà Lạt</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="xeSo">
+                            <label class="form-check-label" for="dl">Nơi khác</label>
+                        </div>
+                    </fieldset>
+                    <hr>
+                    <fieldset class="price">
+                        <legend class="mb-2"><b>Khoảng Giá</b></legend>
+                        <div class="slidecontainer">
+                            <input type="range" min="10" max="1000" value="10" class="slider" id="myRange" step="10">
+                        </div>
+                        <label id="myPrice" for="price">Từ: 10.000₫</label>
+                    </fieldset>
+                    <hr>
+                    <div class="apply">
+                        <div class="btn btn-primary">ÁP DỤNG</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-10">
+                <div class="product-section before-footer-section">
+                    <div class="row">
+                        <!-- Start Column -->
+                        <% let itemsPerPage=9; %>
+                            <% let startIdx=(currentPage - 1) * itemsPerPage; %>
+                                <% let endIdx=startIdx + itemsPerPage; %>
+                                <% if (data.length > 0) { %>
+                                    <% data.slice(startIdx, endIdx).forEach((item)=> { %>
+                                        <div class="col-12 col-lg-4 col-lg-4 mb-5">
+                                            <a class="product-item"
+                                                href="/guest/shop/detail/<%= item._id%>/<%= item.salerID%>">
+                                                <img src="<%= item.image%>" class="img-fluid product-thumbnail">
+                                                <span>
+                                                    <%= item.productinformation[0].brand%>
+                                                </span>
+                                                <h3 class="product-title">
+                                                    <%= item.name%>
+                                                </h3>
+                                                <div class="star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="figures d-flex mt-3 mb-3 justify-content-between">
+                                                    <div class="px-1 figures-layout">
+                                                        <div>
+                                                            <i class="fa fa-solid fa-motorcycle text-primary mr-1"></i>
+                                                            <span>
+                                                                <%= item.productinformation[0].year%>
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <i class="fa fa-cogs text-primary mr-1"></i>
+                                                            <span>
+                                                                <%= item.category%>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="px-1 mb-3 figures-layout">
+                                                        <div>
+                                                            <i class="fa fa-road text-primary mr-1"></i>
+                                                            <span>
+                                                                <%= item.productinformation[0].odo%>km
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <i class="fa-solid fa-location-dot text-primary mr-1"></i>
+                                                            <span>
+                                                                <%= item.address[0].city%>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="text-center">
+                                                    <strong class="product-price btn btn-primary px-3">
+                                                        <%= item.price.toLocaleString('vi-VN')%>₫/ 1 ngày
+                                                    </strong>
+                                                    <% if(item.hireState === 'onHire') { %>
+                                                        <label class="product-price btn btn-primary px-3">On Hired</label>
+                                                      <% } %>                                      
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <% }); %>
+                                        <% } else { %>
+                                            <div class="col-12 col-lg-4 col-lg-4 mb-5">
+                                                <p>No data available.</p>
+                                            </div>
+                                        <% } %>
+                                            <!-- End Column -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End Gallery  -->
+
+<!-- Start Pagination -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <% for(let i=1; i <=pages; i++) { %>
+                        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                            <a class="page-link" href="?page=<%= i %>">
+                                <%= i %>
+                            </a>
+                        </li>
+                        <% } %>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- End Pagination -->
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    const sortOptions = document.querySelectorAll('.sort-option');
+    sortOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sortField = this.getAttribute('data-sort');
+            const sortOrder = this.getAttribute('data-order');
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('sort', sortField);
+            urlParams.set('order', sortOrder);
+            window.location.search = urlParams.toString();
+        });
+    });
+});
+</script>

@@ -1,13 +1,9 @@
+
 const loginrequire=async(req,res,next)=>{
-    if(!req.user){
-        const message='You need to login to access this page';
-        const url='/login'
-        req.app.set('layout','errorPage');
-       return res.render('errorPage',{message,url});
+    if (!req.user) {
+        return res.redirect('/guest/home');
     }
-    else{
-        next();
-    }
+    next();
 }
 module.exports={
     loginrequire,

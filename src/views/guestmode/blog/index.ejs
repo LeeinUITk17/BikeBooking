@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('./elements/head.ejs')%>
+    <%- include('./elements/style.ejs')%>
+	</head>
+
+	<body>
+
+		<!-- Start Header/Navigation -->
+        <%- include('./elements/header.ejs')%>
+<!-- End Header/Navigation -->
+
+<%- body %>
+
+<a href="javascript:guestAlert('/login')">
+    <button class="btn btn-primary me-2" 
+    style="
+    width: 50px;
+    height: 50px;
+    padding: 0 !important;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    " ><i class="fas fa-comments"></i></button>
+</a>
+		<!-- Start Footer Section -->
+		<%- include('./elements/footer.ejs')%>
+		<!-- End Footer Section -->
+
+
+		<%- include('./elements/script.ejs')%>
+	</body>
+
+</html>

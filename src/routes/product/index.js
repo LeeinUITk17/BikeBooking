@@ -43,7 +43,12 @@ router.use('/login', (req, res, next) => {
     next();
 }, require('./login'));
 
+router.use('/guest', (req, res, next) => {
+    next();
+}, require('../guest'));
+
 router.use(loginrequire);
+
 
 // Setting layout and handling routes
 const routes = [
